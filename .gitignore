@@ -1,0 +1,94 @@
+# ==========================================
+# Dependencies
+# ==========================================
+node_modules/
+
+# ==========================================
+# Build output
+# ==========================================
+dist/
+dist-ssr/
+
+# ==========================================
+# macOS
+# ==========================================
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+.Spotlight-V100
+.Trashes
+Icon?
+
+# ==========================================
+# JetBrains IDEs (WebStorm, IntelliJ, etc.)
+# ==========================================
+.idea/
+*.iml
+*.iws
+*.ipr
+out/
+.idea_modules/
+atlassian-ide-plugin.xml
+com_crashlytics_export_strings.xml
+crashlytics.properties
+crashlytics-build.properties
+fabric.properties
+
+# ==========================================
+# VSCode
+# ==========================================
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+*.code-workspace
+
+# ==========================================
+# Other Editors
+# ==========================================
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+*~
+
+# ==========================================
+# Windows
+# ==========================================
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# ==========================================
+# Linux
+# ==========================================
+*~
+
+# ==========================================
+# Environment
+# ==========================================
+.env
+.env.local
+.env.*.local
+.env.development
+.env.production
+
+# ==========================================
+# Logs
+# ==========================================
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# ==========================================
+# TypeScript
+# ==========================================
+*.tsbuildinfo
+
+# ==========================================
+# Testing
+# ==========================================
+coverage/
