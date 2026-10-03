@@ -9,6 +9,26 @@
   --color-primary-dark: #1d4ed8;
   --color-secondary: #7c3aed;
   --color-accent: #06b6d4;
+  --color-gold: #f59e0b;
+  --color-gold-light: #fef3c7;
+
+  /* Galaxy */
+  --galaxy-bg-from: #0f172a;
+  --galaxy-bg-to: #1e293b;
+  --galaxy-node-bg: rgba(255, 255, 255, 0.1);
+  --galaxy-node-border: rgba(255, 255, 255, 0.2);
+  --galaxy-line-color: rgba(255, 255, 255, 0.15);
+  --galaxy-line-glow: rgba(96, 165, 250, 0.6);
+
+  /* Builder */
+  --builder-accent: #2563eb;
+  --builder-accent-light: #dbeafe;
+
+  /* Analyst */
+  --analyst-accent: #7c3aed;
+  --analyst-accent-light: #ede9fe;
+
+  /* General */
   --color-background: #ffffff;
   --color-surface: #f8fafc;
   --color-text-primary: #0f172a;
@@ -28,16 +48,6 @@
   --transition-fast: 150ms ease;
   --transition-base: 300ms ease;
   --transition-slow: 500ms ease;
-}
-
-/* Dark mode tokens (prepared for future use) */
-[data-theme='dark'] {
-  --color-background: #0f172a;
-  --color-surface: #1e293b;
-  --color-text-primary: #f1f5f9;
-  --color-text-secondary: #cbd5e1;
-  --color-text-muted: #64748b;
-  --color-border: #334155;
 }
 
 /* ==========================================
@@ -93,4 +103,226 @@ img {
 
 .section {
   padding: var(--section-padding);
+}
+
+/* ==========================================
+   Galaxy Background Particles
+   ========================================== */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0) translateX(0);
+    opacity: 0.3;
+  }
+  25% {
+    transform: translateY(-20px) translateX(10px);
+    opacity: 0.8;
+  }
+  50% {
+    transform: translateY(-10px) translateX(-10px);
+    opacity: 0.5;
+  }
+  75% {
+    transform: translateY(-30px) translateX(5px);
+    opacity: 0.7;
+  }
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 5px rgba(245, 158, 11, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(245, 158, 11, 0.6), 0 0 40px rgba(245, 158, 11, 0.2);
+  }
+}
+
+@keyframes dash-flow {
+  to {
+    stroke-dashoffset: -20;
+  }
+}
+
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slide-in-left {
+  from {
+    opacity: 0;
+    transform: translateX(-40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fade-in-up 0.6s ease forwards;
+}
+
+.animate-slide-in-left {
+  animation: slide-in-left 0.6s ease forwards;
+}
+
+/* Stagger delays */
+.delay-100 { animation-delay: 100ms; }
+.delay-200 { animation-delay: 200ms; }
+.delay-300 { animation-delay: 300ms; }
+.delay-400 { animation-delay: 400ms; }
+.delay-500 { animation-delay: 500ms; }
+
+/* ==========================================
+   Galaxy Node Hover Effects
+   ========================================== */
+.galaxy-node {
+  transition: all var(--transition-base);
+  cursor: pointer;
+}
+
+.galaxy-node:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 30px rgba(96, 165, 250, 0.3);
+  border-color: rgba(255, 255, 255, 0.4);
+}
+
+.galaxy-connection-line {
+  stroke: var(--galaxy-line-color);
+  stroke-width: 1.5;
+  stroke-dasharray: 6 4;
+  animation: dash-flow 1.5s linear infinite;
+  transition: stroke var(--transition-base), stroke-width var(--transition-base);
+}
+
+.galaxy-connection-line.active {
+  stroke: var(--galaxy-line-glow);
+  stroke-width: 2.5;
+  filter: drop-shadow(0 0 6px rgba(96, 165, 250, 0.5));
+}
+
+/* ==========================================
+   Achievement Badge
+   ========================================== */
+.achievement-badge {
+  background: var(--color-gold-light);
+  border: 1px solid #fcd34d;
+  color: #92400e;
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+/* ==========================================
+   Bento Grid
+   ========================================== */
+.bento-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+.bento-card {
+  transition: all var(--transition-base);
+  cursor: pointer;
+}
+
+.bento-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+}
+
+.bento-card.featured {
+  grid-column: span 2;
+}
+
+.bento-card.dimmed {
+  opacity: 0.4;
+  transform: scale(0.98);
+}
+
+.bento-card.highlighted {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 2px var(--color-primary), 0 20px 40px rgba(37, 99, 235, 0.15);
+  transform: scale(1.02);
+}
+
+@media (max-width: 768px) {
+  .bento-card.featured {
+    grid-column: span 1;
+  }
+
+  .bento-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ==========================================
+   Timeline
+   ========================================== */
+.timeline-line {
+  position: absolute;
+  left: 20px;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+}
+
+.timeline-marker {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.75rem;
+  z-index: 1;
+  position: relative;
+}
+
+.timeline-marker.achievement {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+/* ==========================================
+   Filter Pills
+   ========================================== */
+.filter-pill {
+  padding: 0.375rem 1rem;
+  border-radius: 9999px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  border: 1.5px solid;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  white-space: nowrap;
+}
+
+.filter-pill:hover {
+  transform: translateY(-1px);
+}
+
+/* ==========================================
+   Scrollbar
+   ========================================== */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-text-muted);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-text-secondary);
 }

@@ -73,6 +73,7 @@ Desktop.ini
 .env.*.local
 .env.development
 .env.production
+cv_raw/
 
 # ==========================================
 # Logs
