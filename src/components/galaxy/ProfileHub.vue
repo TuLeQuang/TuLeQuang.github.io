@@ -1,63 +1,71 @@
-<template>
-  <div 
-    class="glass-card md:absolute md:top-0 md:left-0 md:-translate-x-1/2 md:-translate-y-1/2 md:w-[280px] p-6 text-center border-2 border-white/30 z-20 bg-white/15 shadow-xl hover:shadow-white/10 transition-all duration-300 relative"
-    @mouseenter="$emit('hover', true)"
-    @mouseleave="$emit('hover', false)"
-  >
-    <!-- Background Glow inside the card -->
-    <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-blue-400/20 to-transparent blur-xl -z-10 rounded-2xl pointer-events-none"></div>
+<script setup lang="ts">
+import { useI18n } from 'vue-i18n'
+import { resumeData } from '@/data/resume'
+import { useFocus } from '@/composables/useFocus'
+import { careerYears } from '@/utils/experience'
+import { formatPhone, socialIcons } from '@/utils/styleMaps'
 
-    <div class="w-24 h-24 rounded-full bg-slate-700 mx-auto mb-4 border-4 border-slate-600 overflow-hidden flex items-center justify-center">
-      <span class="text-3xl">👨‍💻</span>
+const { t } = useI18n()
+const { setHovered } = useFocus()
+const { email, phone, socialLinks } = resumeData.personalInfo
+const socials = socialLinks.filter(link => link.url)
+</script>
+
+<template>
+  <div
+    data-galaxy-node="hub"
+    class="relative rounded-2xl border border-primary/25 bg-surface-container-low/90 backdrop-blur-2xl p-space-lg sm:p-space-xl shadow-2xl text-center flex flex-col items-center"
+    @mouseenter="setHovered('hub')"
+    @mouseleave="setHovered(null)"
+  >
+    <!-- Pulsing ambient halo -->
+    <div class="absolute -inset-1 rounded-2xl bg-linear-to-r from-primary-container via-secondary-container to-primary-container opacity-40 blur-xl pointer-events-none" />
+
+    <div class="relative w-20 h-20 rounded-full bg-linear-to-tr from-primary-blue-dark to-secondary-container flex items-center justify-center text-3xl shadow-lg ring-4 ring-surface-container-high mb-space-md">
+      <span aria-hidden="true">👨‍💻</span>
+      <span class="absolute -bottom-1 -right-1 w-6 h-6 rounded-full bg-domain-supplychain flex items-center justify-center text-surface-container-lowest text-[12px] font-bold">✓</span>
     </div>
-    <h1 class="text-2xl font-bold mb-1">{{ name }}</h1>
-    <p class="text-sm text-slate-300 mb-1 font-medium">{{ title }}</p>
-    <p v-if="subtitle" class="text-xs text-blue-300 mb-2 font-medium">→ {{ subtitle }}</p>
-    <p v-if="tagline" class="text-[11px] text-slate-400 mb-3 italic leading-relaxed px-2">{{ tagline }}</p>
-    <div class="flex flex-col items-center gap-1 mb-4 text-xs text-slate-400">
-      <span>📍 {{ location }}</span>
-      <a v-if="email" :href="`mailto:${email}`" class="hover:text-blue-300 transition-colors">✉️ {{ email }}</a>
-      <span v-if="phone">📱 {{ phone }}</span>
+
+    <div class="relative flex flex-wrap items-center justify-center gap-space-xs mb-space-xs">
+      <span class="text-label-md uppercase tracking-wider text-primary font-bold">{{ t('profile.role') }}</span>
+      <span class="text-label-sm px-space-sm py-0.5 rounded-full bg-secondary-container/40 text-secondary-fixed font-bold tracking-tight">
+        {{ t('profile.next') }}
+      </span>
     </div>
-    
-    <div class="flex justify-center gap-3">
-      <a 
-        v-for="link in socialLinks" 
+    <h1 class="relative text-display-hero-mobile md:text-display-hero text-on-surface tracking-tight mb-space-xs">
+      {{ t('profile.name') }}
+    </h1>
+    <p class="relative text-body-md text-on-surface-variant px-space-sm mb-space-lg leading-relaxed">
+      “{{ t('profile.tagline', { n: careerYears() }) }}”
+    </p>
+
+    <div class="relative w-full flex flex-col gap-space-xs py-space-sm px-space-md border border-outline-variant/50 bg-surface-container/60 rounded-xl mb-space-lg text-left">
+      <div class="flex items-center gap-space-sm text-label-md text-on-surface-variant">
+        <span class="material-symbols-outlined text-[16px] text-primary">location_on</span>
+        <span>{{ t('profile.location') }}</span>
+      </div>
+      <a class="flex items-center gap-space-sm text-label-md text-on-surface-variant hover:text-on-surface" :href="`mailto:${email}`">
+        <span class="material-symbols-outlined text-[16px] text-secondary">mail</span>
+        <span class="select-all">{{ email }}</span>
+      </a>
+      <a class="flex items-center gap-space-sm text-label-md text-on-surface-variant hover:text-on-surface" :href="`tel:${phone}`">
+        <span class="material-symbols-outlined text-[16px] text-tertiary">call</span>
+        <span>{{ formatPhone(phone) }}</span>
+      </a>
+    </div>
+
+    <div class="relative flex items-center gap-space-sm w-full">
+      <a
+        v-for="link in socials"
         :key="link.platform"
-        :href="link.url" 
-        target="_blank" 
-        class="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors text-sm"
-        :title="link.platform"
+        class="flex-1 py-space-xs px-space-sm rounded-lg bg-surface-container-high hover:bg-primary-container text-on-surface hover:text-on-primary-container transition-all text-center text-label-md font-semibold flex items-center justify-center gap-1"
+        :href="link.url"
+        rel="noopener noreferrer"
+        target="_blank"
       >
-        {{ link.icon === 'facebook' ? '📘' : link.icon === 'github' ? '🐙' : '💼' }}
+        <span class="material-symbols-outlined text-[16px]">{{ socialIcons[link.icon] }}</span>
+        {{ link.platform }}
       </a>
     </div>
   </div>
 </template>
-
-<script setup lang="ts">
-interface Props {
-  name: string
-  title: string
-  subtitle?: string
-  tagline?: string
-  email?: string
-  phone?: string
-  location: string
-  socialLinks: Array<{ platform: string; url: string; icon: string }>
-}
-
-defineProps<Props>()
-
-defineEmits<{
-  hover: [value: boolean]
-}>()
-</script>
-
-<style scoped>
-@reference 'tailwindcss';
-
-.glass-card {
-  @apply bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-4;
-}
-</style>

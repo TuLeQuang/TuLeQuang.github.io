@@ -1,64 +1,65 @@
 <script setup lang="ts">
+import { useI18n } from 'vue-i18n'
+import ProgressBar from '@/components/common/ProgressBar.vue'
 import { resumeData } from '@/data/resume'
-import type { SkillCategory } from '@/types'
+import { useFocus } from '@/composables/useFocus'
+import { skillRatio, skillYears } from '@/utils/experience'
+import { accentStyles } from '@/utils/styleMaps'
+import type { ClusterAccent, SkillCategory } from '@/types'
 
-interface SkillGroup {
-  category: SkillCategory
-  label: string
-  icon: string
-  color: string
-  bgColor: string
-  barColor: string
-}
+const { t } = useI18n()
+const { focus, focusSkill } = useFocus()
 
-const skillGroups: SkillGroup[] = [
-  { category: 'frontend', label: 'Frontend', icon: '🖥️', color: 'text-pink-600', bgColor: 'bg-pink-50', barColor: 'bg-pink-500' },
-  { category: 'backend', label: 'Backend', icon: '⚙️', color: 'text-green-600', bgColor: 'bg-green-50', barColor: 'bg-green-500' },
-  { category: 'database', label: 'Database', icon: '📦', color: 'text-blue-600', bgColor: 'bg-blue-50', barColor: 'bg-blue-500' },
-]
+/** Colour follows the matching Galaxy node's accent, so each skill keeps one colour everywhere. */
+const accentOf = (id: SkillCategory): ClusterAccent =>
+  resumeData.skillClusters.find(c => c.id === id)?.accent ?? 'primary'
 
-const maxYears = 8
+const columns = ([
+  { id: 'frontend', icon: 'web' },
+  { id: 'backend', icon: 'dns' },
+  { id: 'database', icon: 'storage' }
+] as const).map(c => {
+  const accent = accentStyles[accentOf(c.id)]
+  return { ...c, titleClass: accent.lightText, barClass: accent.lightBar, ringClass: accent.lightRing }
+})
 
-const getSkillsByGroup = (category: SkillCategory) => {
-  return resumeData.skills
-    .filter(s => s.category === category)
-    .sort((a, b) => b.years - a.years)
-}
-
-const getBarWidth = (years: number) => {
-  return Math.min((years / maxYears) * 100, 100)
-}
+const skillsOf = (category: SkillCategory) => resumeData.skills.filter(s => s.category === category)
+const isFocused = (category: SkillCategory): boolean => focus.value?.kind === 'skill' && focus.value.value === category
+/** Click again on the same column turns the highlight off (toggle handled by useFocus). */
+const toggle = (category: SkillCategory): void => focusSkill(category, 'none')
 </script>
 
 <template>
-  <div class="mb-12 animate-on-scroll opacity-0 translate-y-10 transition-all duration-700">
-    <h3 class="text-lg font-semibold text-gray-800 mb-6 flex items-center gap-2">
-      <span class="w-8 h-8 rounded-lg bg-blue-100 flex items-center justify-center text-sm">💻</span>
-      Tech Stack
-    </h3>
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-      <div v-for="group in skillGroups" :key="group.category"
-           class="rounded-2xl border border-gray-100 p-5 hover:shadow-md transition-shadow"
-           :class="group.bgColor">
-        <div class="flex items-center gap-2 mb-4">
-          <span class="text-lg">{{ group.icon }}</span>
-          <h4 class="font-bold text-base" :class="group.color">{{ group.label }}</h4>
-        </div>
-        <div class="space-y-3">
-          <div v-for="skill in getSkillsByGroup(group.category)" :key="skill.name">
-            <div class="flex justify-between items-center mb-1">
-              <span class="text-sm font-medium text-gray-700">{{ skill.name }}</span>
-              <span class="text-xs text-gray-400">{{ skill.years }}yr</span>
-            </div>
-            <div class="h-2 bg-white/80 rounded-full overflow-hidden">
-              <div class="h-full rounded-full transition-all duration-1000 ease-out"
-                   :class="group.barColor"
-                   :style="{ width: `${getBarWidth(skill.years)}%` }">
-              </div>
-            </div>
-          </div>
-        </div>
+  <div v-reveal class="grid grid-cols-1 md:grid-cols-3 gap-space-lg p-space-lg sm:p-space-xl bg-content-surface rounded-xl shadow-xs">
+    <button
+      v-for="column in columns"
+      :key="column.id"
+      type="button"
+      class="group flex flex-col gap-space-md text-left rounded-lg p-space-sm -m-space-sm cursor-pointer transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-container"
+      :class="isFocused(column.id) ? ['ring-2 bg-content-bg shadow-md', column.ringClass] : 'hover:bg-content-bg/70'"
+      :aria-pressed="isFocused(column.id)"
+      :title="t('builder.skillToggle', { label: t(`builder.skills.${column.id}`) })"
+      @click="toggle(column.id)"
+    >
+      <div class="flex items-center gap-space-xs text-headline-sm pb-space-xs w-full" :class="column.titleClass">
+        <span class="material-symbols-outlined text-[20px]">{{ column.icon }}</span>
+        <span>{{ t(`builder.skills.${column.id}`) }}</span>
+        <span
+          class="material-symbols-outlined text-[18px] ml-auto transition-opacity duration-300"
+          :class="isFocused(column.id) ? 'opacity-100' : 'opacity-0 group-hover:opacity-60'"
+          aria-hidden="true"
+        >{{ isFocused(column.id) ? 'check_circle' : 'ads_click' }}</span>
       </div>
-    </div>
+      <div class="flex flex-col gap-space-sm w-full">
+        <ProgressBar
+          v-for="skill in skillsOf(column.id)"
+          :key="skill.name"
+          :label="skill.name"
+          :value="t('common.years', { n: skillYears(skill) })"
+          :ratio="skillRatio(skill)"
+          :bar-class="column.barClass"
+        />
+      </div>
+    </button>
   </div>
 </template>

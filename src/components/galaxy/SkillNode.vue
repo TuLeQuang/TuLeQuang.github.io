@@ -1,44 +1,51 @@
-<template>
-  <div 
-    class="glass-card skill-node"
-    :class="positionClass"
-    @mouseenter="$emit('hover', label)" 
-    @mouseleave="$emit('hover', null)"
-    @click="$emit('click')"
-  >
-    <h3 class="font-bold text-lg mb-2" :class="colorClass">{{ label }}</h3>
-    <div class="flex flex-wrap gap-1">
-      <span v-for="skill in skills" :key="skill" class="text-xs bg-white/10 px-2 py-1 rounded">
-        {{ skill }}
-      </span>
-    </div>
-  </div>
-</template>
-
 <script setup lang="ts">
-interface Props {
-  label: string
-  skills: string[]
-  colorClass: string
-  positionClass: string
-}
+import { computed } from 'vue'
+import { useI18n } from 'vue-i18n'
+import { useFocus } from '@/composables/useFocus'
+import { accentStyles } from '@/utils/styleMaps'
+import type { SkillCluster } from '@/types'
 
-defineProps<Props>()
-
-defineEmits<{
-  hover: [value: string | null]
-  click: []
+const props = defineProps<{
+  cluster: SkillCluster
+  /** Width classes differ per orbit position (code.html) */
+  widthClass: string
 }>()
+
+const { t } = useI18n()
+const { focus, focusSkill, setHovered } = useFocus()
+
+const accent = computed(() => accentStyles[props.cluster.accent])
+/** Highlight only — other nodes keep full opacity. */
+const isActive = computed(() => focus.value?.kind === 'skill' && focus.value.value === props.cluster.id)
 </script>
 
-<style scoped>
-@reference 'tailwindcss';
-
-.glass-card {
-  @apply bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-4;
-}
-
-.skill-node {
-  @apply cursor-pointer hover:scale-105 hover:bg-white/15 hover:border-white/40 hover:shadow-[0_0_20px_rgba(255,255,255,0.1)] transition-all duration-300 z-10;
-}
-</style>
+<template>
+  <button
+    type="button"
+    :data-galaxy-node="cluster.id"
+    :aria-pressed="isActive"
+    class="block text-left rounded-xl border bg-surface-container/70 backdrop-blur-xl p-space-md shadow-xl transition-all duration-300 hover:scale-105 hover:bg-surface-container-high/90 focus-visible:outline-2 focus-visible:outline-primary"
+    :class="[
+      widthClass,
+      accent.border,
+      isActive ? 'scale-105 ring-2 ring-primary/70 bg-surface-container-high/90 shadow-[0_0_32px_rgba(96,165,250,0.35)]' : ''
+    ]"
+    @mouseenter="setHovered(cluster.id)"
+    @mouseleave="setHovered(null)"
+    @focus="setHovered(cluster.id)"
+    @blur="setHovered(null)"
+    @click="focusSkill(cluster.id)"
+  >
+    <span class="flex items-center justify-between gap-space-xs pb-space-xs">
+      <span class="inline-flex items-center gap-space-xs text-label-md font-bold tracking-wider uppercase" :class="accent.text">
+        <span class="material-symbols-outlined text-[18px]">{{ cluster.icon }}</span>
+        {{ t(`galaxy.clusters.${cluster.id}.label`) }}
+      </span>
+      <span class="px-space-xs py-0.5 rounded-full text-label-sm whitespace-nowrap" :class="accent.chip">
+        {{ t(`galaxy.clusters.${cluster.id}.tier`) }}
+      </span>
+    </span>
+    <span class="block text-body-md text-on-surface font-semibold">{{ cluster.skills.join(', ') }}</span>
+    <span class="block text-label-sm text-on-surface-variant pt-space-xs">{{ t(`galaxy.clusters.${cluster.id}.desc`) }}</span>
+  </button>
+</template>

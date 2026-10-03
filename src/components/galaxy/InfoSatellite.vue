@@ -1,37 +1,18 @@
-<template>
-  <div 
-    class="glass-card"
-    :class="[positionClass, extraClass]"
-    @mouseenter="$emit('hover', title)" 
-    @mouseleave="$emit('hover', null)"
-  >
-    <h3 class="font-bold text-sm uppercase tracking-wider mb-2" :class="titleColorClass">{{ title }}</h3>
-    <slot></slot>
-  </div>
-</template>
-
 <script setup lang="ts">
-interface Props {
+defineProps<{
+  icon: string
   title: string
-  titleColorClass?: string
-  positionClass: string
-  extraClass?: string
-}
-
-withDefaults(defineProps<Props>(), {
-  titleColorClass: 'text-slate-400',
-  extraClass: ''
-})
-
-defineEmits<{
-  hover: [value: string | null]
+  /** Accent text class for the eyebrow, e.g. text-primary */
+  accentClass: string
 }>()
 </script>
 
-<style scoped>
-@reference 'tailwindcss';
-
-.glass-card {
-  @apply bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-4 z-10;
-}
-</style>
+<template>
+  <div class="rounded-xl border border-outline-variant/70 hover:border-outline/60 bg-surface-container-low/70 backdrop-blur-md p-space-md shadow-lg transition-all hover:-translate-y-1">
+    <div class="flex items-center gap-space-xs text-label-sm uppercase font-bold tracking-wider mb-space-xs" :class="accentClass">
+      <span class="material-symbols-outlined text-[16px]">{{ icon }}</span>
+      {{ title }}
+    </div>
+    <slot />
+  </div>
+</template>

@@ -74,6 +74,7 @@ Desktop.ini
 .env.development
 .env.production
 cv_raw/
+design/
 
 # ==========================================
 # Logs

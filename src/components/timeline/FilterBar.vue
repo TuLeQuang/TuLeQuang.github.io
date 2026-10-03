@@ -1,27 +1,42 @@
 <script setup lang="ts">
-interface Props {
-  filters: string[]
-  activeFilter: string
-  accentColor: string // 'blue' or 'purple'
-}
+import { useI18n } from 'vue-i18n'
+import type { FilterOption } from '@/types'
 
-const props = defineProps<Props>()
-const emit = defineEmits<{
-  (e: 'update:activeFilter', value: string): void
+defineProps<{
+  options: FilterOption[]
+  active: string
+  tone: 'builder' | 'analyst'
 }>()
+
+const emit = defineEmits<{ select: [id: string] }>()
+const { t } = useI18n()
+
+const activeClass = {
+  builder: 'bg-primary-container text-on-primary-container',
+  analyst: 'bg-domain-ai text-white'
+}
 </script>
 
 <template>
-  <div class="flex flex-wrap gap-2 mb-8">
-    <button v-for="filter in props.filters" :key="filter"
-            @click="emit('update:activeFilter', filter)"
-            class="px-4 py-1.5 rounded-full text-sm font-medium transition-colors border"
-            :class="[
-              props.activeFilter === filter 
-                ? (props.accentColor === 'blue' ? 'bg-blue-600 text-white border-blue-600' : 'bg-purple-600 text-white border-purple-600') 
-                : (props.accentColor === 'blue' ? 'bg-white border-gray-200 text-gray-600 hover:border-blue-300 hover:text-blue-600' : 'bg-white border-gray-200 text-gray-600 hover:border-purple-300 hover:text-purple-600')
-            ]">
-      {{ filter }}
+  <div class="flex items-center flex-wrap gap-space-xs p-1 bg-content-surface rounded-lg self-start" role="toolbar">
+    <button
+      v-for="option in options"
+      :key="option.id"
+      type="button"
+      :aria-pressed="active === option.id"
+      :title="option.hint"
+      class="py-1.5 rounded-md text-label-md font-semibold transition-all inline-flex items-center gap-0.5"
+      :class="[
+        active === option.id ? activeClass[tone] : 'hover:bg-slate-200 text-text-secondary',
+        option.parentId ? '-ml-1 pl-space-sm pr-space-md' : 'px-space-md'
+      ]"
+      @click="emit('select', option.id)"
+    >
+      <!-- key client of the employer on its left (e.g. CMC Global ↳ Samsung) -->
+      <span v-if="option.parentId" class="material-symbols-outlined text-[14px] opacity-70" aria-hidden="true">
+        subdirectory_arrow_right
+      </span>
+      {{ option.id === 'all' ? t('filters.all', { n: option.count }) : `${option.label} (${option.count})` }}
     </button>
   </div>
 </template>

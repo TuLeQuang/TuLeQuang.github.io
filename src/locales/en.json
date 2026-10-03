@@ -1,0 +1,322 @@
+{
+  "meta": {
+    "title": "Le Quang Tu {'|'} Portfolio"
+  },
+  "lang": {
+    "switch": "Switch language",
+    "vi": "VI",
+    "en": "EN"
+  },
+  "nav": {
+    "galaxy": "All About Me",
+    "builder": "The Builder (Dev {n}+ yrs)",
+    "transition": "The Pivot Story",
+    "analyst": "The Analyst (BA {n}+ yrs)",
+    "contact": "Contact",
+    "cta": "Contact",
+    "builderShort": "The Builder",
+    "analystShort": "The Analyst",
+    "breadcrumbRoot": "Galaxy",
+    "clearFocus": "Clear focus",
+    "badge": "Fullstack Dev → BA",
+    "clearHighlight": "Clear highlight: {label}",
+    "backToTop": "Back to top"
+  },
+  "common": {
+    "years": "{n} yrs",
+    "yearsApprox": "~{n} yrs",
+    "team": "Team {n}"
+  },
+  "profile": {
+    "name": "Le Quang Tu",
+    "role": "Fullstack Developer",
+    "next": "→ Business Analyst",
+    "tagline": "From building systems to designing them — {n}+ years of end-to-end product development.",
+    "location": "Hanoi, Vietnam",
+    "objective": "Growing toward Project Owner — leading products from concept to launch."
+  },
+  "galaxy": {
+    "hint": "Click a node to explore related projects and skills",
+    "clusters": {
+      "database": {
+        "label": "Data Architecture",
+        "tier": "Core Layer",
+        "desc": "Database design & production operations"
+      },
+      "frontend": {
+        "label": "Frontend Dev",
+        "tier": "Client Tier",
+        "desc": "Vue 2/3, Mapbox, Litjs — interactive interfaces"
+      },
+      "backend": {
+        "label": "Backend Stack",
+        "tier": "Server Logic",
+        "desc": "RESTful API, MVC, OOP & design patterns"
+      },
+      "analysis": {
+        "label": "Analysis & Specification",
+        "tier": "Strategic Bridge",
+        "desc": "Requirement elicitation → WBS / SRS / Solution Proposal"
+      }
+    },
+    "satellites": {
+      "education": "Academic Foundation",
+      "tenures": "Corporate Tenures",
+      "accolades": "Key Accolades"
+    },
+    "education": {
+      "school": "Ha Noi University of Industry (HaUI)",
+      "major": "Software Engineering",
+      "gpa": "GPA: {gpa}"
+    },
+    "connections": {
+      "frontend-backend": "FE + BE = end-to-end development",
+      "backend-database": "Database design + production operations",
+      "frontend-analysis": "From wireframe → straight to code",
+      "backend-analysis": "Knowing the system → better designs",
+      "database-analysis": "Data design is the foundation of BA work"
+    },
+    "keyClients": "Key client: {names}"
+  },
+  "companies": {
+    "vccorp": {
+      "name": "Vccorp",
+      "role": "PHP Developer / Leader"
+    },
+    "cmc": {
+      "name": "CMC Global",
+      "role": "Software Engineer · BA / Pre-sale"
+    }
+  },
+  "builder": {
+    "eyebrow": "ENGINEERING ARCHIVE",
+    "title": "🔧 THE BUILDER",
+    "subtitle": "{n}+ years building AdTech & supply-chain logistics platforms end-to-end",
+    "metaLabel": "Primary Tenures",
+    "metaValue": "Vccorp • CMC Global (client: Samsung)",
+    "skills": {
+      "frontend": "Frontend",
+      "backend": "Backend",
+      "database": "Database & Data"
+    },
+    "skillToggle": "Click to toggle highlighting of projects using {label}",
+    "timelineTitle": "Engineering Milestones"
+  },
+  "transition": {
+    "eyebrow": "The Strategic Evolution",
+    "quote": "“{n} years of writing code gave me something not every BA has: the ability to see straight from business requirements down to system architecture.”",
+    "body": "From gathering requirements to shipping code — one person who speaks both business and engineering.",
+    "stats": {
+      "devYears": "Years Dev",
+      "baYears": "Years BA",
+      "projects": "Projects",
+      "domains": "Domains",
+      "honors": "Honors"
+    }
+  },
+  "analyst": {
+    "eyebrow": "SPECIFICATION & PRODUCT ARCHITECTURE",
+    "title": "📊 THE ANALYST",
+    "subtitle": "{n}+ years of requirement analysis, system design & pre-sale consulting",
+    "metaLabel": "Focus Areas",
+    "metaValue": "AI Agents • WMS • Fleet IoT • TMS",
+    "competencies": "BA Competencies & Deliverables",
+    "deliverableKit": "Standard Deliverable Kit",
+    "domainTitle": "Domain Coverage Matrix",
+    "domainDesc": "Analysis & system design across many kinds of business domains.",
+    "domainCount": "{n} project | {n} projects",
+    "domainTotal": "Total projects contributed: {n}",
+    "timelineTitle": "BA Evolution Track"
+  },
+  "filters": {
+    "all": "All ({n})"
+  },
+  "card": {
+    "viewDetails": "View Key Responsibilities & Deliverables",
+    "hideDetails": "Collapse",
+    "responsibilities": "Responsibilities",
+    "deliverables": "Deliverables",
+    "dualRole": "Dual Role: BA + Dev",
+    "roleLine": "Role: {role}",
+    "teamSize": "Team size: {n}",
+    "clientOf": "{customer} · client of {company}"
+  },
+  "roles": {
+    "ba": "Business Analyst",
+    "baDev": "BA + Developer",
+    "leader": "Leader",
+    "moduleLeader": "Module Leader",
+    "frontendDev": "Front-end Developer",
+    "backendDev": "Backend Developer"
+  },
+  "domains": {
+    "AI": "AI / Productivity",
+    "Logistics": "Logistics / Transport",
+    "IoT": "IoT / Maritime",
+    "Warehouse": "Warehouse",
+    "AdTech": "AdTech / Advertising",
+    "SupplyChain": "Supply Chain"
+  },
+  "deliverables": {
+    "wbs": "WBS",
+    "srs": "SRS",
+    "wireframe": "Wireframe",
+    "proposal": "Solution Proposal",
+    "useCase": "Use Case Spec",
+    "mockup": "Mockup",
+    "frontendCode": "Front-end code"
+  },
+  "achievements": {
+    "best-project-2025": "Best Project Q3.2025",
+    "rising-star-2024": "Rising Star Q2.2024",
+    "best-employee-2020": "Best Employee 2020"
+  },
+  "projects": {
+    "cello-supply-chain": {
+      "title": "Cello — Supply Chain Logistics (FIS · VMS · IoT)",
+      "summary": "End-to-end logistics platform: international transport, customs clearance, domestic transport, warehousing, last-mile delivery (LMD) and reverse logistics. Manages master data, contracts, invoices and real-time shipment tracking.",
+      "responsibilities": [
+        "Plan and assign tasks for the module",
+        "Ensure system reliability & performance",
+        "Handle incidents and optimize workflows",
+        "Analyze bottlenecks",
+        "Write documentation and run training"
+      ]
+    },
+    "cello-tracking": {
+      "title": "Visibility Management System — Cello Tracking",
+      "summary": "Visibility tracking system integrating shipboard IoT with Mapbox to follow vessel positions & routes in real time. IoT sensors collect position, speed and environmental conditions and stream them to a central platform.",
+      "responsibilities": [
+        "Front-end Developer: built the vessel position & route tracking UI on Mapbox"
+      ]
+    },
+    "adserving-3rd-tracking": {
+      "title": "Adserving 3rd-Party Tracking",
+      "summary": "Lets users edit creative properties, generate dynamic click URLs and embed third-party tracking pixels (DoubleClick, Atlas, Sizmek…). Supports advertisers using their own servers to verify views and clicks.",
+      "responsibilities": [
+        "System analysis & design",
+        "Backend + frontend coding",
+        "Performance optimization and bug fixing"
+      ]
+    },
+    "tagmanager": {
+      "title": "Tagmanager",
+      "summary": "Tag Management System (TMS) — quickly manage and update measurement codes & code snippets (tags) on websites.",
+      "responsibilities": [
+        "System analysis & design",
+        "Designed the CoreJS",
+        "Backend + frontend coding and optimization",
+        "Built APIs to connect with other systems"
+      ]
+    },
+    "ad-template-tool": {
+      "title": "Advertising Template Management Tool",
+      "summary": "Manages all advertising templates and tests how they render on websites.",
+      "responsibilities": [
+        "System analysis & design",
+        "Backend + frontend coding",
+        "Optimization and bug fixing"
+      ]
+    },
+    "ms-word-ai-agent": {
+      "title": "MS Word Add-in AI Agent",
+      "summary": "Integrates an AI chatbot into MS Word using LLMs (ChatGPT, Google…) to search, interact with and edit document content through AI.",
+      "responsibilities": [
+        "Analyzed & designed the whole system",
+        "Designed wireframes",
+        "Wrote functional documents (WBS, SRS)",
+        "Took part in pre-sale"
+      ]
+    },
+    "transport-management": {
+      "title": "Transport Management System",
+      "summary": "Automated vehicle dispatching solution managing orders, vehicles & drivers. Optimizes vehicle allocation logic to match requirements and cut transport costs.",
+      "responsibilities": [
+        "Took part in pre-sale",
+        "System analysis & design",
+        "Designed wireframes, wrote functional documents (WBS, SRS)",
+        "Consulted on transport management solutions"
+      ]
+    },
+    "fleet-management": {
+      "title": "Fleet Management System (IoT)",
+      "summary": "IoT-connected system for vessels: receives telemetry (position, operating parameters), raises operational alerts and manages vessel maintenance information.",
+      "responsibilities": [
+        "System analysis & design",
+        "Designed wireframes, wrote documents (WBS, SRS)",
+        "Took part in pre-sale",
+        "Front-end coding"
+      ]
+    },
+    "warehouse-management": {
+      "title": "Warehouse Management System",
+      "summary": "Comprehensive solution optimizing warehouse processes: monitoring & controlling inbound / outbound flows and managing inventory.",
+      "responsibilities": [
+        "System analysis & design",
+        "Designed wireframes",
+        "Took part in pre-sale",
+        "Consulted on warehouse management solutions"
+      ]
+    }
+  },
+  "milestones": {
+    "builder-2018": {
+      "title": "Started at Vccorp",
+      "desc": "PHP Developer — built the Advertising Template Tool, then led Tagmanager (PHP, Laravel, jQuery, MySQL)."
+    },
+    "builder-2019": {
+      "title": "Led Adserving 3rd-Party Tracking",
+      "desc": "Designed & coded the whole fullstack system: PHP / Laravel + Vue.js + Redis (team of 3)."
+    },
+    "builder-2020": {
+      "title": "Best Employee Award",
+      "desc": "Honored as an outstanding employee — Admicro division, Vccorp."
+    },
+    "builder-2022": {
+      "title": "Joined CMC Global",
+      "desc": "Software Engineer: Java / Spring + Vue.js for Samsung Cello; Module Leader (team of 70) from 12/2022."
+    },
+    "builder-2024": {
+      "title": "Rising Star Q2.2024",
+      "desc": "Recognized as Rising Star at CMC Global."
+    },
+    "analyst-2019": {
+      "title": "First system analysis",
+      "desc": "Analyzed & designed Tagmanager and Adserving on my own at Vccorp (AdTech / Web Analytics)."
+    },
+    "analyst-2022": {
+      "title": "Samsung Cello — module management",
+      "desc": "Bottleneck analysis, workflow optimization, documentation and training (Supply Chain / Logistics)."
+    },
+    "analyst-2024": {
+      "title": "Moved into the BA role",
+      "desc": "Warehouse Management and Fleet Management (IoT): business analysis, wireframes, WBS, SRS."
+    },
+    "analyst-2025": {
+      "title": "Multi-domain BA",
+      "desc": "Transport Management and MS Word AI Agent: analysis & design, functional documents, pre-sale."
+    }
+  },
+  "contact": {
+    "eyebrow": "GET IN TOUCH",
+    "title": "🤝 Connect & Collaborate",
+    "subtitle": "Open to conversations about solution analysis, system design and product development",
+    "identity": "Combining a fullstack engineering background with business analysis. Hands-on experience with AdTech, Samsung's supply-chain logistics platform and AI products.",
+    "direct": "Direct Coordinates",
+    "profiles": "Profiles & Networks"
+  },
+  "footer": {
+    "tagline": "Combining {n}+ years of software development with analytical thinking to build products that deliver value to customers and businesses.",
+    "navTitle": "Navigation & Artifacts",
+    "links": {
+      "galaxy": "Skill Galaxy",
+      "builder": "Engineering Projects",
+      "transition": "The Pivot Story",
+      "analyst": "Business Analysis"
+    },
+    "direct": "Direct Connect",
+    "rights": "© {year} Le Quang Tu. All rights reserved.",
+    "built": "Built with Vue.js & Tailwind CSS",
+    "badge": "Fullstack Dev & BA"
+  }
+}

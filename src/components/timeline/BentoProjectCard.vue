@@ -1,100 +1,125 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
+import { useI18n } from 'vue-i18n'
+import AwardBadge from '@/components/common/AwardBadge.vue'
+import DomainBadge from '@/components/common/DomainBadge.vue'
+import TechChip from '@/components/common/TechChip.vue'
+import ProjectDrawer from './ProjectDrawer.vue'
+import { useFocus } from '@/composables/useFocus'
+import { customerOf } from '@/utils/customers'
+import { roleStyles, techMatchesSkill } from '@/utils/styleMaps'
+import type { Project, ProjectTrack, SkillCategory } from '@/types'
 
-interface Props {
-  title: string
-  company?: string
-  domain?: string
-  role?: string
-  period?: string
-  teamSize?: number | string
-  technologies: string[]
-  achievement?: string
-  featured?: boolean
-  highlighted?: boolean
-  muted?: boolean
-  responsibilities?: string[]
-  deliverables?: string[]
-  accentColor: string
-}
+const props = defineProps<{
+  project: Project
+  track: ProjectTrack
+  /** Matches the current focus → ring + lift (other cards are not dimmed) */
+  highlighted: boolean
+  /** Galaxy skill currently focused → matching chips light up */
+  matchCategory: SkillCategory | null
+}>()
 
-const props = defineProps<Props>()
+const { t } = useI18n()
+const { focusTech } = useFocus()
+const open = ref(false)
 
-const expanded = ref(false)
+const isFeatured = computed(() => props.project.layout === 'featured')
+const isAnalyst = computed(() => props.track === 'analyst')
+const customer = computed(() => customerOf(props.project))
+/** Key client → "Samsung · client of CMC Global"; otherwise the customer name (Vccorp, CMC's Customer). */
+const owner = computed(() =>
+  customer.value.keyClient
+    ? t('card.clientOf', { customer: customer.value.name, company: customer.value.company })
+    : customer.value.name
+)
+const chips = computed(() =>
+  isAnalyst.value
+    ? (props.project.deliverables ?? []).map(code => ({ key: code, label: t(`deliverables.${code}`), matched: props.matchCategory === 'analysis' }))
+    : props.project.technologies.map(tech => ({
+        key: tech,
+        label: tech,
+        matched: props.matchCategory !== null && techMatchesSkill(tech, props.matchCategory)
+      }))
+)
 
-const toggleProject = () => {
-  expanded.value = !expanded.value
-}
-
-const getRoleBadgeClass = (role?: string) => {
-  if (!role) return 'bg-gray-100 text-gray-800'
-  const lower = role.toLowerCase()
-  if (lower.includes('ba') && lower.includes('dev')) return 'bg-gradient-to-r from-purple-500 to-blue-500 text-white'
-  if (lower.includes('ba')) return 'bg-purple-100 text-purple-800'
-  if (lower.includes('leader')) return 'bg-green-100 text-green-800'
-  if (lower.includes('module')) return 'bg-teal-100 text-teal-800'
-  if (lower.includes('dev')) return 'bg-blue-100 text-blue-800'
-  return 'bg-gray-100 text-gray-800'
-}
-
-const getDomainTagClass = (domain?: string) => {
-  const d = domain?.toLowerCase()
-  if (d === 'ai') return 'bg-violet-100 text-violet-800'
-  if (d === 'logistics') return 'bg-blue-100 text-blue-800'
-  if (d === 'iot') return 'bg-teal-100 text-teal-800'
-  if (d === 'warehouse') return 'bg-orange-100 text-orange-800'
-  if (d === 'adtech') return 'bg-pink-100 text-pink-800'
-  if (d === 'supply chain') return 'bg-emerald-100 text-emerald-800'
-  return 'bg-gray-100 text-gray-800'
-}
+const stateClass = computed(() =>
+  props.highlighted ? `scale-[1.02] shadow-xl ring-2 ${isAnalyst.value ? 'ring-domain-ai' : 'ring-primary-container'}` : ''
+)
+const titleHover = computed(() => (isAnalyst.value ? 'group-hover:text-domain-ai' : 'group-hover:text-primary-container'))
 </script>
 
 <template>
-  <div @click="toggleProject"
-       class="bg-white border border-gray-100 p-5 rounded-2xl cursor-pointer transition-all duration-500 animate-on-scroll opacity-0 translate-y-10"
-       :class="[
-         props.featured ? 'md:col-span-2' : '',
-         props.highlighted ? `ring-2 ${props.accentColor === 'blue' ? 'ring-blue-500' : 'ring-purple-500'} shadow-xl scale-[1.02]` : 'hover:shadow-lg',
-         props.muted ? 'opacity-40 scale-[0.98]' : ''
-       ]">
-    <div class="flex justify-between items-start mb-3">
-      <h4 class="font-bold text-lg text-gray-900">{{ props.title }}</h4>
-      <span v-if="props.company" class="text-xs text-gray-400 uppercase tracking-wider font-semibold">{{ props.company }}</span>
-    </div>
-    
-    <div class="flex flex-wrap gap-2 mb-3">
-      <span v-if="props.domain" class="text-xs px-2 py-1 rounded-full font-medium" :class="getDomainTagClass(props.domain)">{{ props.domain }}</span>
-      <span v-if="props.role" class="text-xs px-2 py-1 rounded-full font-medium" :class="getRoleBadgeClass(props.role)">{{ props.role }}</span>
-      <span class="text-xs px-2 py-1 rounded-full bg-gray-100 text-gray-600">{{ props.period }} • {{ props.teamSize }}</span>
-    </div>
-
-    <div v-if="props.achievement" class="mb-3 inline-flex items-center gap-1.5 text-xs font-medium bg-amber-50 text-amber-800 border border-amber-300 px-2 py-1 rounded-md">
-      <span>🏆</span> {{ props.achievement }}
-    </div>
-
-    <div class="flex flex-wrap gap-1.5 mb-4">
-      <span v-for="tech in props.technologies" :key="tech" class="text-[11px] bg-slate-50 border border-slate-200 text-slate-500 px-1.5 py-0.5 rounded">
-        {{ tech }}
-      </span>
-    </div>
-
-    <!-- Expanded Content -->
-    <div v-if="expanded" class="mt-4 pt-4 border-t border-gray-100 text-sm text-gray-600">
-      <div v-if="props.responsibilities && props.responsibilities.length > 0" class="mb-3">
-        <h5 class="font-semibold text-gray-800 mb-1">Responsibilities</h5>
-        <ul class="list-disc pl-4 space-y-1">
-          <li v-for="res in props.responsibilities" :key="res">{{ res }}</li>
-        </ul>
+  <article
+    :id="`${track}-${project.slug}`"
+    class="bg-content-bg rounded-xl shadow-md transition-all duration-300 group cursor-pointer flex flex-col justify-between"
+    :class="[
+      project.layout ? 'md:col-span-2' : '',
+      isFeatured ? 'p-space-lg sm:p-space-xl hover:shadow-xl' : 'p-space-lg hover:shadow-lg',
+      stateClass
+    ]"
+    @click="open = !open"
+  >
+    <div>
+      <!-- Featured header: badges left, period right -->
+      <div v-if="isFeatured" class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-xs mb-space-sm">
+        <div class="flex items-center gap-space-xs flex-wrap">
+          <DomainBadge :domain="project.domain" />
+          <AwardBadge v-if="project.achievementId" :achievement-id="project.achievementId" />
+          <span class="px-space-sm py-0.5 rounded-full bg-slate-100 text-text-secondary text-label-sm font-medium">{{ owner }}</span>
+          <span class="px-space-sm py-0.5 rounded-full text-label-sm font-bold" :class="roleStyles[project.role]">
+            {{ t(`roles.${project.role}`) }} · {{ t('common.team', { n: project.teamSize }) }}
+          </span>
+        </div>
+        <span class="text-label-sm text-text-muted whitespace-nowrap">{{ project.period }}</span>
       </div>
-      <div v-if="props.deliverables && props.deliverables.length > 0">
-        <h5 class="font-semibold text-gray-800 mb-1">Deliverables</h5>
-        <ul class="space-y-1">
-          <li v-for="del in props.deliverables" :key="del" class="flex gap-2 items-start">
-            <span class="text-green-500">✓</span>
-            <span>{{ del }}</span>
-          </li>
-        </ul>
+      <!-- Standard header: domain left, award / dual role / owner right -->
+      <div v-else class="flex items-center justify-between gap-space-xs mb-space-xs">
+        <DomainBadge :domain="project.domain" />
+        <AwardBadge v-if="project.achievementId" :achievement-id="project.achievementId" />
+        <span v-else-if="project.role === 'baDev'" class="px-2 py-0.5 rounded-full text-label-sm font-bold" :class="roleStyles.baDev">
+          {{ t('card.dualRole') }}
+        </span>
+        <span v-else class="text-label-sm text-text-muted">{{ owner }}</span>
+      </div>
+
+      <component
+        :is="isFeatured ? 'h3' : 'h4'"
+        class="text-text-primary transition-colors"
+        :class="[isFeatured ? 'text-headline-lg' : 'text-headline-md', titleHover]"
+      >
+        {{ t(`projects.${project.slug}.title`) }}
+      </component>
+      <p class="text-text-secondary mt-space-xs" :class="isFeatured ? 'text-body-lg leading-relaxed' : 'text-body-md'">
+        {{ t(`projects.${project.slug}.summary`) }}
+      </p>
+
+      <div class="flex flex-wrap" :class="isFeatured ? 'gap-space-xs mt-space-md' : 'gap-1 mt-space-sm'">
+        <TechChip
+          v-for="chip in chips"
+          :key="chip.key"
+          :label="chip.label"
+          :size="isFeatured ? 'md' : 'sm'"
+          :tone="isAnalyst && isFeatured ? 'deliverable' : 'neutral'"
+          :matched="chip.matched"
+          :clickable="!isAnalyst"
+          @select="focusTech(chip.key)"
+        />
       </div>
     </div>
-  </div>
+
+    <div>
+      <div v-if="!isFeatured" class="mt-space-md pt-space-xs flex flex-wrap items-center justify-between gap-x-space-sm text-text-muted text-label-sm">
+        <span>{{ t('card.roleLine', { role: t(`roles.${project.role}`) }) }}</span>
+        <span>{{ t('card.teamSize', { n: project.teamSize }) }} · {{ project.period }}</span>
+      </div>
+      <ProjectDrawer
+        :slug="project.slug"
+        :open="open"
+        :tone="track"
+        :deliverables="project.deliverables"
+        :matched="matchCategory === 'analysis'"
+        @toggle="open = !open"
+      />
+    </div>
+  </article>
 </template>

@@ -1,45 +1,66 @@
 <script setup lang="ts">
-import type { Achievement } from '@/types'
+import { computed } from 'vue'
+import { useI18n } from 'vue-i18n'
+import AwardBadge from '@/components/common/AwardBadge.vue'
+import { useFocus } from '@/composables/useFocus'
+import { milestoneMatchesFocus } from '@/utils/focusMatch'
+import type { TimelineMilestone } from '@/types'
 
-interface Props {
-  milestones: Array<{
-    year: string
-    title: string
-    description: string
-    company?: string
-    achievement?: Achievement
-    tags?: string[]
-  }>
-  accentColor: string  // 'blue' or 'purple'
-}
+const props = defineProps<{
+  milestones: TimelineMilestone[]
+  title: string
+  icon: string
+  iconClass: string
+  /** Colour of the vertical rail (before: pseudo-element) */
+  railClass: string
+  /** Dot colour per row, newest first (code.html) */
+  dotClasses: string[]
+}>()
 
-const props = defineProps<Props>()
+const { t } = useI18n()
+const { focus } = useFocus()
+
+/** Newest first */
+const rows = computed(() => [...props.milestones].reverse())
+
+/** Milestones related to the current focus get highlighted; the others stay as they are. */
+const matches = computed(() => {
+  const f = focus.value
+  return new Set(f ? rows.value.filter(m => milestoneMatchesFocus(m, f)).map(m => m.id) : [])
+})
+
+const isPulsing = (m: TimelineMilestone): boolean =>
+  focus.value?.kind === 'achievement' && focus.value.value === m.achievementId
 </script>
 
 <template>
-  <div class="relative pl-8 border-l-2" :class="props.accentColor === 'blue' ? 'border-blue-200' : 'border-purple-200'">
-    <div v-for="(item, idx) in props.milestones" :key="idx" 
-         class="mb-10 relative animate-on-scroll opacity-0 -translate-x-10 transition-all duration-700 delay-100">
-      <div class="absolute -left-[41px] w-5 h-5 rounded-full flex items-center justify-center bg-white border-2"
-           :class="item.achievement ? 'border-amber-400' : (props.accentColor === 'blue' ? 'border-blue-400' : 'border-purple-400')">
-        <div v-if="item.achievement" class="w-3 h-3 bg-amber-400 rounded-full animate-ping"></div>
-        <div v-else class="w-2.5 h-2.5 rounded-full" :class="props.accentColor === 'blue' ? 'bg-blue-500' : 'bg-purple-500'"></div>
-      </div>
-      <div class="bg-white p-5 rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
-        <div class="flex justify-between items-start mb-2">
-          <h3 class="font-bold text-lg text-gray-900">{{ item.title }}</h3>
-          <span class="text-sm font-semibold" :class="props.accentColor === 'blue' ? 'text-blue-600' : 'text-purple-600'">{{ item.year }}</span>
+  <div v-reveal class="lg:col-span-4 bg-content-surface p-space-lg rounded-xl shadow-xs lg:sticky lg:top-28">
+    <div class="flex items-center gap-space-xs text-headline-sm text-text-primary mb-space-md">
+      <span class="material-symbols-outlined text-[20px]" :class="iconClass">{{ icon }}</span>
+      <span>{{ title }}</span>
+    </div>
+    <div
+      class="relative pl-space-md flex flex-col gap-space-lg before:content-[''] before:absolute before:top-2 before:bottom-2 before:left-[11px] before:w-0.5"
+      :class="railClass"
+    >
+      <div
+        v-for="(milestone, index) in rows"
+        :key="milestone.id"
+        class="relative pl-space-md rounded-lg transition-all duration-300"
+        :class="{ 'bg-content-bg shadow-md ring-1 ring-primary-container/30 py-space-xs pr-space-xs': matches.has(milestone.id) }"
+      >
+        <span
+          class="absolute -left-[19px] top-1 w-4 h-4 rounded-full bg-content-bg shadow-xs flex items-center justify-center"
+          :class="{ 'animate-pulse-glow': isPulsing(milestone) }"
+        >
+          <span class="w-2 h-2 rounded-full" :class="dotClasses[index] ?? 'bg-slate-300'" />
+        </span>
+        <div class="text-label-sm text-text-muted">{{ milestone.year }}</div>
+        <div class="text-headline-sm text-text-primary flex flex-wrap items-center gap-1">
+          <span>{{ t(`milestones.${milestone.id}.title`) }}</span>
+          <AwardBadge v-if="milestone.achievementId" :achievement-id="milestone.achievementId" :pulse="isPulsing(milestone)" />
         </div>
-        <div v-if="item.company" class="text-sm text-gray-500 mb-2">{{ item.company }}</div>
-        <p class="text-gray-600 text-sm mb-3">{{ item.description }}</p>
-        <div v-if="item.tags" class="flex flex-wrap gap-2">
-          <span v-for="tag in item.tags" :key="tag" class="text-xs bg-slate-100 text-slate-600 px-2 py-1 rounded-full">
-            {{ tag }}
-          </span>
-        </div>
-        <div v-if="item.achievement" class="mt-3 inline-flex items-center gap-1.5 text-xs font-medium bg-amber-50 text-amber-800 border border-amber-300 px-2 py-1 rounded-full">
-          <span>{{ item.achievement.icon || '🏆' }}</span> {{ item.achievement.title }}
-        </div>
+        <p class="text-body-md text-text-secondary mt-1">{{ t(`milestones.${milestone.id}.desc`) }}</p>
       </div>
     </div>
   </div>
