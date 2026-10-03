@@ -69,7 +69,7 @@ const getDomainTagClass = (domain?: string) => {
     </div>
 
     <div v-if="props.achievement" class="mb-3 inline-flex items-center gap-1.5 text-xs font-medium bg-amber-50 text-amber-800 border border-amber-300 px-2 py-1 rounded-md">
-      <span>🏆</span> {{ typeof props.achievement === 'object' ? props.achievement.title : props.achievement }}
+      <span>🏆</span> {{ props.achievement }}
     </div>
 
     <div class="flex flex-wrap gap-1.5 mb-4">
@@ -89,9 +89,9 @@ const getDomainTagClass = (domain?: string) => {
       <div v-if="props.deliverables && props.deliverables.length > 0">
         <h5 class="font-semibold text-gray-800 mb-1">Deliverables</h5>
         <ul class="space-y-1">
-          <li v-for="del in props.deliverables" :key="typeof del === 'object' ? del.name : del" class="flex gap-2 items-start">
+          <li v-for="del in props.deliverables" :key="del" class="flex gap-2 items-start">
             <span class="text-green-500">✓</span>
-            <span>{{ typeof del === 'object' ? del.name : del }}</span>
+            <span>{{ del }}</span>
           </li>
         </ul>
       </div>
