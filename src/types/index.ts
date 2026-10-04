@@ -134,7 +134,7 @@ export interface FilterOption {
 }
 
 // ===== Focus state (shared interaction state) =====
-export type FocusKind = 'skill' | 'company' | 'domain' | 'achievement'
+export type FocusKind = 'skill' | 'company' | 'domain' | 'achievement' | 'customer'
 
 export interface FocusState {
   kind: FocusKind

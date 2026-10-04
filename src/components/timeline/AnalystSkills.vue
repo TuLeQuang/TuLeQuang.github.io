@@ -9,18 +9,23 @@ import { skillRatio, skillYears } from '@/utils/experience'
 import type { DeliverableCode } from '@/types'
 
 const { t } = useI18n()
-const { focus } = useFocus()
+const { focus, focusSkill } = useFocus()
 
 const skills = resumeData.skills.filter(s => s.category === 'analysis')
 const kit: DeliverableCode[] = ['wbs', 'srs', 'wireframe', 'proposal', 'useCase', 'mockup']
 const isFocused = computed(() => focus.value?.kind === 'skill' && focus.value.value === 'analysis')
+const toggle = (): void => focusSkill('analysis', 'none')
 </script>
 
 <template>
   <div
     v-reveal
-    class="bg-content-surface p-space-lg sm:p-space-xl rounded-xl shadow-xs flex flex-col justify-between transition-all duration-300"
-    :class="isFocused ? 'ring-2 ring-domain-ai/40' : ''"
+    role="button"
+    tabindex="0"
+    class="bg-content-surface p-space-lg sm:p-space-xl rounded-xl shadow-xs flex flex-col justify-between transition-all duration-300 cursor-pointer hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-domain-ai"
+    :class="isFocused ? 'ring-2 ring-domain-ai/60 bg-content-bg shadow-md' : 'hover:bg-content-bg/70'"
+    @click="toggle"
+    @keydown.enter="toggle"
   >
     <div>
       <div class="flex items-center gap-space-xs text-domain-ai-text text-headline-sm mb-space-md">

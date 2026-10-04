@@ -5,13 +5,20 @@ import { resumeData } from '@/data/resume'
 import { useFocus } from '@/composables/useFocus'
 import { keyClientsOf } from '@/utils/customers'
 import { companyYears } from '@/utils/experience'
+import type { CompanyId } from '@/types'
 
 const { t } = useI18n()
-const { focus, focusCompany, focusAchievement } = useFocus()
+const { focus, focusCompany, focusCustomer, focusAchievement } = useFocus()
 const { education, companies, achievements, projects } = resumeData
 
-const isFocused = (kind: 'company' | 'achievement', value: string): boolean =>
+const isFocused = (kind: 'company' | 'customer' | 'achievement', value: string): boolean =>
   focus.value?.kind === kind && focus.value.value === value
+
+const isCompanyActive = (companyName: CompanyId): boolean => {
+  if (isFocused('company', companyName)) return true
+  if (focus.value?.kind === 'customer' && keyClientsOf(companyName).some(c => c.id === focus.value?.value)) return true
+  return false
+}
 
 /** "(AI Agent)" / "(CMC Global)" suffix: linked project title, otherwise the company. */
 const achievementContext = (projectSlug: string | undefined, company: string): string => {
@@ -24,7 +31,7 @@ const rowButton = 'w-full rounded-md px-1 -mx-1 transition-colors hover:bg-surfa
 </script>
 
 <template>
-  <div class="w-full grid grid-cols-1 md:grid-cols-3 gap-space-lg mt-space-3xl z-20">
+  <div class="w-full grid grid-cols-1 md:grid-cols-3 gap-space-md lg:gap-space-lg mt-1 z-20">
     <InfoSatellite icon="school" :title="t('galaxy.satellites.education')" accent-class="text-primary">
       <h4 class="text-headline-sm text-on-surface">{{ t('galaxy.education.school') }}</h4>
       <p class="text-body-md text-on-surface-variant">{{ t('galaxy.education.major') }} ({{ education.period }})</p>
@@ -35,26 +42,42 @@ const rowButton = 'w-full rounded-md px-1 -mx-1 transition-colors hover:bg-surfa
 
     <InfoSatellite icon="timeline" :title="t('galaxy.satellites.tenures')" accent-class="text-secondary">
       <div class="flex flex-col gap-1">
-        <button
+        <div
           v-for="company in companies"
           :key="company.name"
-          type="button"
-          class="flex flex-col text-body-md"
-          :class="[rowButton, isFocused('company', company.name) ? 'bg-surface-container-high ring-1 ring-secondary/50' : '']"
-          @click="focusCompany(company.name)"
+          class="flex flex-col text-body-md rounded-md p-1 -mx-1 transition-colors"
+          :class="[
+            isCompanyActive(company.name)
+              ? 'bg-surface-container-high ring-1 ring-secondary/50'
+              : 'hover:bg-surface-container-high/50'
+          ]"
         >
-          <span class="flex justify-between items-center gap-space-sm">
-            <span class="text-on-surface font-semibold">{{ company.name }}</span>
+          <button
+            type="button"
+            class="w-full flex justify-between items-center gap-space-sm text-left cursor-pointer"
+            @click="focusCompany(company.name)"
+          >
+            <span class="text-on-surface font-semibold hover:text-secondary transition-colors">{{ company.name }}</span>
             <span class="text-on-surface-variant text-label-sm text-right">
               {{ t('common.yearsApprox', { n: companyYears(company) }) }} • {{ t(`companies.${company.i18nKey}.role`) }}
             </span>
-          </span>
+          </button>
           <!-- Samsung is a client of CMC Global, not an employer -->
-          <span v-if="keyClientsOf(company.name).length" class="flex items-center gap-0.5 text-label-sm text-secondary/90">
+          <div v-if="keyClientsOf(company.name).length" class="flex items-center gap-1 text-label-sm text-secondary/90 mt-0.5">
             <span class="material-symbols-outlined text-[14px]" aria-hidden="true">subdirectory_arrow_right</span>
-            {{ t('galaxy.keyClients', { names: keyClientsOf(company.name).map(c => c.name).join(', ') }) }}
-          </span>
-        </button>
+            <span>{{ t('galaxy.keyClientsLabel') }}</span>
+            <button
+              v-for="client in keyClientsOf(company.name)"
+              :key="client.id"
+              type="button"
+              class="font-semibold underline decoration-secondary/50 hover:text-secondary-fixed transition-colors cursor-pointer px-1 rounded hover:bg-secondary/20"
+              :class="isFocused('customer', client.id) ? 'bg-secondary/30 text-secondary-fixed ring-1 ring-secondary/70 font-bold' : ''"
+              @click.stop="focusCustomer(client.id)"
+            >
+              {{ client.name }}
+            </button>
+          </div>
+        </div>
       </div>
     </InfoSatellite>
 

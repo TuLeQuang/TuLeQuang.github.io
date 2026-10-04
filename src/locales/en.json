@@ -30,8 +30,11 @@
   "profile": {
     "name": "Le Quang Tu",
     "role": "Fullstack Developer",
+    "targetRole": "Business Analyst",
     "next": "→ Business Analyst",
-    "tagline": "From building systems to designing them — {n}+ years of end-to-end product development.",
+    "viewBuilder": "Explore The Builder track",
+    "viewAnalyst": "Explore The Analyst track",
+    "tagline": "From building systems to designing them — end-to-end product development.",
     "location": "Hanoi, Vietnam",
     "objective": "Growing toward Project Owner — leading products from concept to launch."
   },
@@ -70,13 +73,12 @@
       "gpa": "GPA: {gpa}"
     },
     "connections": {
-      "frontend-backend": "FE + BE = end-to-end development",
       "backend-database": "Database design + production operations",
       "frontend-analysis": "From wireframe → straight to code",
-      "backend-analysis": "Knowing the system → better designs",
-      "database-analysis": "Data design is the foundation of BA work"
+      "backend-analysis": "Knowing the system → better designs"
     },
-    "keyClients": "Key client: {names}"
+    "keyClients": "Key client: {names}",
+    "keyClientsLabel": "Key client:"
   },
   "companies": {
     "vccorp": {
@@ -87,6 +89,11 @@
       "name": "CMC Global",
       "role": "Software Engineer · BA / Pre-sale"
     }
+  },
+  "customers": {
+    "samsung": "Samsung",
+    "vccorp": "Vccorp",
+    "cmcCustomer": "CMC Customer"
   },
   "builder": {
     "eyebrow": "ENGINEERING ARCHIVE",

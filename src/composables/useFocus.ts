@@ -36,13 +36,23 @@ export function useFocus() {
   const focusSkill = (category: SkillCategory, scroll: 'track' | 'none' = 'track'): void =>
     apply({ kind: 'skill', value: category, track: trackOfSkill(category), labelKey: `galaxy.clusters.${category}.label` }, scroll)
 
-  const focusCompany = (company: CompanyId): void => {
+  const focusCompany = (
+    company: CompanyId,
+    scroll: 'track' | 'none' = 'track',
+    track: ProjectTrack = 'builder'
+  ): void => {
     const key = resumeData.companies.find(c => c.name === company)?.i18nKey ?? 'cmc'
-    apply({ kind: 'company', value: company, track: 'builder', labelKey: `companies.${key}.name` })
+    apply({ kind: 'company', value: company, track, labelKey: `companies.${key}.name` }, scroll)
   }
 
-  const focusDomain = (domain: ProjectDomain): void =>
-    apply({ kind: 'domain', value: domain, track: trackOfDomain(domain), labelKey: `domains.${domain}` })
+  const focusCustomer = (customer: string, scroll: 'track' | 'none' = 'track'): void => {
+    const key = customer === 'samsung' ? 'samsung' : customer
+    apply({ kind: 'customer', value: customer, track: 'builder', labelKey: `customers.${key}` }, scroll)
+  }
+
+  const focusDomain = (domain: ProjectDomain, scroll: 'track' | 'none' = 'track'): void => {
+    apply({ kind: 'domain', value: domain, track: trackOfDomain(domain), labelKey: `domains.${domain}` }, scroll)
+  }
 
   const focusAchievement = (id: string): void => {
     const achievement = resumeData.achievements.find(a => a.id === id)
@@ -50,14 +60,13 @@ export function useFocus() {
     apply({ kind: 'achievement', value: id, track: achievement.track, labelKey: `achievements.${id}` })
   }
 
-  /** Smart Tag: a tech chip in a card highlights its Galaxy node. */
+  /** Smart Tag: a tech chip in a card highlights related skill and keeps current position (Requirement 2.2). */
   const focusTech = (tech: string): void => {
     const category = categoryOfTech(tech)
     if (!category) return
-    focus.value = null
     apply(
       { kind: 'skill', value: category, track: trackOfSkill(category), labelKey: `galaxy.clusters.${category}.label` },
-      'galaxy'
+      'none'
     )
   }
 
@@ -74,6 +83,7 @@ export function useFocus() {
     hovered: readonly(hovered),
     focusSkill,
     focusCompany,
+    focusCustomer,
     focusDomain,
     focusAchievement,
     focusTech,

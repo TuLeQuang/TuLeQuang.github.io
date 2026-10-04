@@ -30,8 +30,11 @@
   "profile": {
     "name": "Lê Quang Tú",
     "role": "Fullstack Developer",
+    "targetRole": "Business Analyst",
     "next": "→ Business Analyst",
-    "tagline": "Từ xây dựng hệ thống đến thiết kế hệ thống — {n}+ năm phát triển sản phẩm end-to-end.",
+    "viewBuilder": "Xem hành trình The Builder",
+    "viewAnalyst": "Xem hành trình The Analyst",
+    "tagline": "Từ xây dựng hệ thống đến thiết kế hệ thống — phát triển sản phẩm end-to-end.",
     "location": "Hà Nội, Việt Nam",
     "objective": "Mục tiêu trở thành Project Owner — dẫn dắt sản phẩm từ concept đến launch."
   },
@@ -70,13 +73,12 @@
       "gpa": "GPA: {gpa}"
     },
     "connections": {
-      "frontend-backend": "FE + BE = phát triển end-to-end",
       "backend-database": "Thiết kế DB + vận hành production",
       "frontend-analysis": "Từ wireframe → code trực tiếp",
-      "backend-analysis": "Hiểu hệ thống → thiết kế tốt hơn",
-      "database-analysis": "Thiết kế dữ liệu là nền tảng cho BA"
+      "backend-analysis": "Hiểu hệ thống → thiết kế tốt hơn"
     },
-    "keyClients": "Khách hàng tiêu biểu: {names}"
+    "keyClients": "Khách hàng tiêu biểu: {names}",
+    "keyClientsLabel": "Khách hàng tiêu biểu:"
   },
   "companies": {
     "vccorp": {
@@ -87,6 +89,11 @@
       "name": "CMC Global",
       "role": "Software Engineer · BA / Pre-sale"
     }
+  },
+  "customers": {
+    "samsung": "Samsung",
+    "vccorp": "Vccorp",
+    "cmcCustomer": "CMC Customer"
   },
   "builder": {
     "eyebrow": "HỒ SƠ KỸ THUẬT",

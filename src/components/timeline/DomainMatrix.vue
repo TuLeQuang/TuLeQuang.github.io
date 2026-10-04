@@ -11,6 +11,9 @@ const { baDomains, projects } = resumeData
 
 const countOf = (domain: ProjectDomain): number => projects.filter(p => p.domain === domain).length
 const isActive = (domain: ProjectDomain): boolean => focus.value?.kind === 'domain' && focus.value.value === domain
+const onDomainClick = (domain: ProjectDomain): void => {
+  focusDomain(domain, domain === 'AdTech' ? 'track' : 'none')
+}
 </script>
 
 <template>
@@ -27,9 +30,9 @@ const isActive = (domain: ProjectDomain): boolean => focus.value?.kind === 'doma
           :key="domain"
           type="button"
           :aria-pressed="isActive(domain)"
-          class="p-space-sm rounded-lg bg-content-bg shadow-xs flex flex-col text-left transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md"
+          class="p-space-sm rounded-lg bg-content-bg shadow-xs flex flex-col text-left transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md cursor-pointer"
           :class="isActive(domain) ? 'ring-2 ring-domain-ai' : ''"
-          @click="focusDomain(domain)"
+          @click="onDomainClick(domain)"
         >
           <span class="text-2xl mb-1" aria-hidden="true">{{ domainIcons[domain] }}</span>
           <span class="text-headline-sm text-text-primary">{{ t(`domains.${domain}`) }}</span>

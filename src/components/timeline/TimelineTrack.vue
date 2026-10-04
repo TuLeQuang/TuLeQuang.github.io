@@ -31,6 +31,9 @@ const matches = computed(() => {
 
 const isPulsing = (m: TimelineMilestone): boolean =>
   focus.value?.kind === 'achievement' && focus.value.value === m.achievementId
+
+const isAnalyst = computed(() => props.iconClass.includes('domain-ai'))
+const ringTone = computed(() => (isAnalyst.value ? 'ring-domain-ai/50' : 'ring-primary-container/30'))
 </script>
 
 <template>
@@ -47,7 +50,7 @@ const isPulsing = (m: TimelineMilestone): boolean =>
         v-for="(milestone, index) in rows"
         :key="milestone.id"
         class="relative pl-space-md rounded-lg transition-all duration-300"
-        :class="{ 'bg-content-bg shadow-md ring-1 ring-primary-container/30 py-space-xs pr-space-xs': matches.has(milestone.id) }"
+        :class="matches.has(milestone.id) ? ['bg-content-bg shadow-md ring-1 py-space-xs pr-space-xs', ringTone] : ''"
       >
         <span
           class="absolute -left-[19px] top-1 w-4 h-4 rounded-full bg-content-bg shadow-xs flex items-center justify-center"

@@ -147,11 +147,9 @@ export const resumeData: ResumeData = {
   ],
 
   galaxyConnections: [
-    { id: 'frontend-backend', from: 'frontend', to: 'backend' },
     { id: 'backend-database', from: 'backend', to: 'database' },
     { id: 'frontend-analysis', from: 'frontend', to: 'analysis' },
-    { id: 'backend-analysis', from: 'backend', to: 'analysis' },
-    { id: 'database-analysis', from: 'database', to: 'analysis' }
+    { id: 'backend-analysis', from: 'backend', to: 'analysis' }
   ],
 
   baDomains: ['AI', 'Logistics', 'IoT', 'Warehouse', 'AdTech']

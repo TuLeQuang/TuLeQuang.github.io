@@ -31,12 +31,12 @@ const cluster = (id: SkillCategory): SkillCluster => {
       <GalaxyConnections :container="canvas" />
 
       <!-- Top orbit: Database -->
-      <div class="relative mb-space-xl lg:mb-space-2xl z-20">
+      <div class="relative mb-space-2xl lg:mb-space-3xl z-20">
         <SkillNode :cluster="cluster('database')" width-class="w-[280px] sm:w-[320px]" />
       </div>
 
       <!-- Mid orbit: Frontend │ Hub │ Backend -->
-      <div class="w-full flex flex-col lg:flex-row items-center justify-between gap-space-xl lg:gap-space-2xl relative my-space-md">
+      <div class="w-full flex flex-col lg:flex-row items-center justify-between gap-space-xl lg:gap-space-2xl relative my-space-lg lg:my-space-xl">
         <div class="relative order-2 lg:order-1 z-20">
           <SkillNode :cluster="cluster('frontend')" width-class="w-[260px] sm:w-[290px]" />
         </div>
@@ -49,11 +49,11 @@ const cluster = (id: SkillCategory): SkillCluster => {
       </div>
 
       <!-- Bottom orbit: Analysis -->
-      <div class="relative mt-space-md z-20">
+      <div class="relative mt-space-2xl lg:mt-space-3xl z-20">
         <SkillNode :cluster="cluster('analysis')" width-class="w-[300px] sm:w-[360px]" />
       </div>
 
-      <p class="relative z-20 mt-space-xl text-label-md text-on-surface-variant/80 flex items-center gap-space-xs">
+      <p class="relative z-20 mt-space-lg mb-0 text-label-md text-on-surface-variant/80 flex items-center gap-space-xs">
         <span class="material-symbols-outlined text-[16px] text-primary">touch_app</span>
         {{ t('galaxy.hint') }}
       </p>
