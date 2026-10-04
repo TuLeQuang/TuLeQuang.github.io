@@ -1,9 +1,10 @@
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import ProgressBar from '@/components/common/ProgressBar.vue'
 import TechChip from '@/components/common/TechChip.vue'
 import { resumeData } from '@/data/resume'
+import { useBreakpoint } from '@/composables/useBreakpoint'
 import { useFocus } from '@/composables/useFocus'
 import { skillRatio, skillYears } from '@/utils/experience'
 import type { DeliverableCode } from '@/types'
@@ -15,6 +16,11 @@ const skills = resumeData.skills.filter(s => s.category === 'analysis')
 const kit: DeliverableCode[] = ['wbs', 'srs', 'wireframe', 'proposal', 'useCase', 'mockup']
 const isFocused = computed(() => focus.value?.kind === 'skill' && focus.value.value === 'analysis')
 const toggle = (): void => focusSkill('analysis', 'none')
+
+/** Mobile: the bars are collapsed by default so the deliverable kit is seen first. */
+const { isMobile } = useBreakpoint()
+const expanded = ref(false)
+const showBars = computed(() => !isMobile.value || expanded.value)
 </script>
 
 <template>
@@ -32,7 +38,19 @@ const toggle = (): void => focusSkill('analysis', 'none')
         <span class="material-symbols-outlined text-[20px]">assignment</span>
         <span>{{ t('analyst.competencies') }}</span>
       </div>
-      <div class="flex flex-col gap-space-sm">
+      <button
+        v-if="isMobile"
+        type="button"
+        class="w-full min-h-11 flex items-center justify-between text-label-md font-semibold text-domain-ai"
+        :aria-expanded="expanded"
+        aria-controls="analyst-competency-bars"
+        @click.stop="expanded = !expanded"
+        @keydown.enter.stop
+      >
+        <span>{{ expanded ? t('analyst.hideCompetencies') : t('analyst.showCompetencies') }}</span>
+        <span class="material-symbols-outlined text-[18px] transition-transform duration-300" :class="{ 'rotate-180': expanded }">expand_more</span>
+      </button>
+      <div v-if="showBars" id="analyst-competency-bars" class="flex flex-col gap-space-sm">
         <ProgressBar
           v-for="skill in skills"
           :key="skill.name"

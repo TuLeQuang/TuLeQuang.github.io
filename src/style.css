@@ -170,6 +170,11 @@
   section[id] {
     scroll-margin-top: 5rem; /* fixed header h-20 */
   }
+  @media (max-width: 767px) {
+    section[id] {
+      scroll-margin-top: 3.5rem; /* mobile header h-14 */
+    }
+  }
   button:not(:disabled),
   [role='button'] {
     cursor: pointer; /* v4 removed the default pointer cursor */
@@ -185,6 +190,17 @@
 
 ::-webkit-scrollbar {
   display: none;
+}
+
+/* Mobile horizontal strips (HScroll, FilterBar): hide scrollbar + fade both edges */
+@utility no-scrollbar {
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+@utility mask-fade-x {
+  mask-image: linear-gradient(to right, transparent 0, #000 16px, #000 calc(100% - 16px), transparent 100%);
 }
 
 /* ==========================================================

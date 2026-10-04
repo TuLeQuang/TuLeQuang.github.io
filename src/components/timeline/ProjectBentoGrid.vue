@@ -2,8 +2,10 @@
 import { computed, ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 import BentoProjectCard from './BentoProjectCard.vue'
+import ProjectCardCompact from './ProjectCardCompact.vue'
 import FilterBar from './FilterBar.vue'
 import { resumeData } from '@/data/resume'
+import { useBreakpoint } from '@/composables/useBreakpoint'
 import { useFocus } from '@/composables/useFocus'
 import { keyClientsOf } from '@/utils/customers'
 import { projectMatchesFocus } from '@/utils/focusMatch'
@@ -12,6 +14,7 @@ import type { CompanyId, FilterOption, Project, ProjectDomain, ProjectTrack, Ski
 const props = defineProps<{ track: ProjectTrack }>()
 
 const { t } = useI18n()
+const { isMobile } = useBreakpoint()
 const { focus, focusCompany, focusCustomer, focusDomain, clear } = useFocus()
 const active = ref('all')
 
@@ -110,7 +113,7 @@ const matchCategory = computed<SkillCategory | null>(() =>
     <FilterBar :options="options" :active="active" :tone="track" @select="onFilterSelect" />
     <TransitionGroup
       tag="div"
-      class="relative grid grid-cols-1 md:grid-cols-2 gap-space-lg"
+      class="relative grid grid-cols-1 md:grid-cols-2 gap-space-sm md:gap-space-lg"
       enter-active-class="transition-all duration-500 ease-out"
       enter-from-class="opacity-0 translate-y-6 scale-[0.98]"
       enter-to-class="opacity-100 translate-y-0 scale-100"
@@ -119,7 +122,8 @@ const matchCategory = computed<SkillCategory | null>(() =>
       leave-to-class="opacity-0 scale-95"
       move-class="transition-all duration-500 ease-out"
     >
-      <BentoProjectCard
+      <component
+        :is="isMobile ? ProjectCardCompact : BentoProjectCard"
         v-for="(project, index) in visible"
         :key="project.slug"
         :project="project"

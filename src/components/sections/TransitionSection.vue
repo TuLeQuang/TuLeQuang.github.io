@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n'
 import { resumeData } from '@/data/resume'
-import { baYears, careerYears } from '@/utils/experience'
+import { BA_START, CAREER_START, baYears, careerYears } from '@/utils/experience'
 
 const { t } = useI18n()
 
@@ -13,12 +13,21 @@ const stats = [
   { key: 'domains', value: `${resumeData.baDomains.length}` },
   { key: 'honors', value: `🏆 ${resumeData.achievements.length}` }
 ]
+
+/** Mobile journey: the BA award year comes from its timeline milestone. */
+const award = resumeData.achievements.find(a => a.id === 'best-project-2025')
+const awardYear = resumeData.analystTimeline.find(m => m.achievementId === award?.id)?.year ?? ''
+const journey = [
+  { key: 'dev', year: `${CAREER_START}` },
+  { key: 'hybrid', year: `${BA_START}` },
+  { key: 'ba', year: awardYear }
+]
 </script>
 
 <template>
   <section
     id="the-transition"
-    class="w-full bg-linear-to-b from-content-bg via-surface to-background px-gutter-mobile sm:px-gutter lg:px-margin py-space-3xl select-none"
+    class="w-full bg-linear-to-b from-content-bg via-surface to-background px-gutter-mobile sm:px-gutter lg:px-margin py-space-2xl md:py-space-3xl select-none"
   >
     <div class="max-w-4xl mx-auto">
       <div
@@ -39,9 +48,21 @@ const stats = [
           <blockquote class="text-headline-xl-mobile md:text-headline-xl text-white tracking-tight leading-snug max-w-2xl">
             {{ t('transition.quote', { n: careerYears() }) }}
           </blockquote>
-          <p class="text-body-lg text-white/90 mt-space-md max-w-xl">{{ t('transition.body') }}</p>
+          <p class="text-body-lg text-white/90 mt-space-md max-w-xl hidden md:block">{{ t('transition.body') }}</p>
+          <p class="text-body-md text-white/90 mt-space-sm md:hidden">{{ t('transition.bodyShort') }}</p>
 
-          <div class="w-full mt-space-2xl pt-space-lg">
+          <!-- Mobile mini journey: Dev → Dev + BA → BA (award) -->
+          <ol class="md:hidden w-full mt-space-lg flex items-stretch gap-1 text-left">
+            <li v-for="(step, index) in journey" :key="step.key" class="flex-1 flex items-center gap-1">
+              <div class="flex-1 rounded-lg bg-white/15 backdrop-blur-md px-space-xs py-space-xs">
+                <span class="block text-headline-sm text-white">{{ step.year }}</span>
+                <span class="block text-label-sm text-white/85 leading-tight">{{ t(`transition.journey.${step.key}`) }}</span>
+              </div>
+              <span v-if="index < journey.length - 1" class="material-symbols-outlined text-[16px] text-white/70" aria-hidden="true">arrow_forward</span>
+            </li>
+          </ol>
+
+          <div class="w-full mt-space-lg md:mt-space-2xl pt-space-lg">
             <div class="grid grid-cols-2 sm:grid-cols-5 gap-space-md text-center">
               <div
                 v-for="(stat, index) in stats"

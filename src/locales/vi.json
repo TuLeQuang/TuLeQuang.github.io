@@ -119,6 +119,12 @@
       "projects": "Dự án",
       "domains": "Domain",
       "honors": "Giải thưởng"
+    },
+    "bodyShort": "Một người hiểu cả ngôn ngữ nghiệp vụ lẫn kỹ thuật.",
+    "journey": {
+      "dev": "Vccorp · Developer",
+      "hybrid": "CMC Global · Dev + BA",
+      "ba": "Best Project · BA"
     }
   },
   "analyst": {
@@ -133,7 +139,9 @@
     "domainDesc": "Phân tích & thiết kế hệ thống cho nhiều dạng nghiệp vụ khác nhau.",
     "domainCount": "{n} dự án",
     "domainTotal": "Tổng số dự án đã tham gia: {n}",
-    "timelineTitle": "Hành trình BA"
+    "timelineTitle": "Hành trình BA",
+    "showCompetencies": "Xem năng lực BA",
+    "hideCompetencies": "Thu gọn"
   },
   "filters": {
     "all": "Tất cả ({n})"
@@ -146,7 +154,11 @@
     "dualRole": "Dual Role: BA + Dev",
     "roleLine": "Vai trò: {role}",
     "teamSize": "Quy mô team: {n}",
-    "clientOf": "{customer} · khách hàng của {company}"
+    "clientOf": "{customer} · khách hàng của {company}",
+    "openDetails": "Xem chi tiết dự án",
+    "moreChips": "+{n}",
+    "techStack": "Công nghệ",
+    "client": "Khách hàng"
   },
   "roles": {
     "ba": "Business Analyst",
@@ -310,7 +322,10 @@
     "subtitle": "Sẵn sàng trao đổi về phân tích giải pháp, thiết kế hệ thống và phát triển sản phẩm",
     "identity": "Kết hợp nền tảng kỹ thuật fullstack với phân tích nghiệp vụ. Kinh nghiệm thực tế với AdTech, nền tảng logistics chuỗi cung ứng của Samsung và các sản phẩm AI.",
     "direct": "Thông tin liên hệ",
-    "profiles": "Mạng xã hội"
+    "profiles": "Mạng xã hội",
+    "call": "Gọi {phone}",
+    "downloadCv": "Tải CV (PDF)",
+    "email": "Gửi email"
   },
   "footer": {
     "tagline": "Kết hợp {n}+ năm phát triển phần mềm với tư duy phân tích để tạo ra sản phẩm có giá trị cho khách hàng và doanh nghiệp.",
@@ -325,5 +340,59 @@
     "rights": "© {year} Lê Quang Tú. Bảo lưu mọi quyền.",
     "built": "Xây dựng bằng Vue.js & Tailwind CSS",
     "badge": "Fullstack Dev & BA"
+  },
+  "mobileNav": {
+    "profile": "Hồ sơ",
+    "analyst": "BA",
+    "builder": "Dev",
+    "contact": "Liên hệ",
+    "menu": "Mở menu",
+    "menuTitle": "Điều hướng"
+  },
+  "hero": {
+    "ctaContact": "Liên hệ ngay",
+    "ctaAnalyst": "Xem năng lực BA",
+    "scrollHint": "Vuốt để khám phá",
+    "quickProfile": "Hồ sơ nhanh"
+  },
+  "strengths": {
+    "eyebrow": "WHY ME AS A BA",
+    "title": "Vì sao chọn tôi làm BA?",
+    "items": {
+      "bilingual": {
+        "title": "Hiểu cả nghiệp vụ lẫn kỹ thuật",
+        "proof": "{n}+ năm phát triển phần mềm; tự phân tích & thiết kế Tagmanager, Adserving từ {start}"
+      },
+      "deliverables": {
+        "title": "Bộ tài liệu BA đầy đủ",
+        "proof": "Từ thu thập yêu cầu đến đặc tả chi tiết"
+      },
+      "presale": {
+        "title": "Pre-sale: tư vấn & trình bày giải pháp",
+        "proof": "Tham gia pre-sale ở cả {n} dự án BA tại CMC Global"
+      },
+      "domains": {
+        "title": "Đa lĩnh vực, nắm nghiệp vụ nhanh",
+        "proof": "{n} lĩnh vực: {domains}"
+      },
+      "feasible": {
+        "title": "Giải pháp khả thi vì hiểu hệ thống",
+        "proof": "Fleet Management: vừa phân tích nghiệp vụ vừa code front-end"
+      },
+      "recognized": {
+        "title": "Kết quả được ghi nhận",
+        "proof": "{award} — {project}, vai trò BA"
+      }
+    }
+  },
+  "skillsMap": {
+    "title": "Bản đồ kỹ năng",
+    "tapHint": "Chạm vào 1 ô để xem chi tiết",
+    "viewProjects": "Xem dự án liên quan",
+    "hub": "Xem liên kết kỹ năng"
+  },
+  "sheet": {
+    "close": "Đóng",
+    "dragHint": "Kéo xuống để đóng"
   }
 }

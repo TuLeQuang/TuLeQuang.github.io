@@ -9,21 +9,28 @@ let frame = 0
 let users = 0
 
 /**
- * Position-based (not IntersectionObserver): the active section is the last one whose top has
- * crossed the probe line. Deterministic, so a section that merely touches the header edge after
- * an anchor jump (scroll-margin-top) can no longer steal the active state.
+ * Position-based (not IntersectionObserver): the active section is the one whose top crossed the
+ * probe line most recently (largest top ≤ probe). Independent of DOM order, so it still works when
+ * mobile reorders sections (Analyst before Builder). A section that merely touches the header edge
+ * after an anchor jump (scroll-margin-top) can no longer steal the active state.
  */
 const update = (): void => {
   frame = 0
   const atBottom = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2
   if (atBottom) {
-    active.value = SECTION_IDS[SECTION_IDS.length - 1]
+    // Last section on screen (by position, not array order)
+    const offset = (id: SectionId): number => document.getElementById(id)?.offsetTop ?? 0
+    active.value = [...SECTION_IDS].sort((a, b) => offset(b) - offset(a))[0] ?? SECTION_IDS[0]
     return
   }
   let current: SectionId = SECTION_IDS[0]
+  let best = -Infinity
   for (const id of SECTION_IDS) {
-    const el = document.getElementById(id)
-    if (el && el.getBoundingClientRect().top <= PROBE_OFFSET) current = id
+    const top = document.getElementById(id)?.getBoundingClientRect().top
+    if (top !== undefined && top <= PROBE_OFFSET && top > best) {
+      best = top
+      current = id
+    }
   }
   active.value = current
 }

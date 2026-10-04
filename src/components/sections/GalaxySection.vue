@@ -6,10 +6,16 @@ import GalaxyConnections from '@/components/galaxy/GalaxyConnections.vue'
 import ProfileHub from '@/components/galaxy/ProfileHub.vue'
 import SkillNode from '@/components/galaxy/SkillNode.vue'
 import SatelliteGrid from '@/components/galaxy/SatelliteGrid.vue'
+import MobileHero from '@/components/galaxy/MobileHero.vue'
+import QuickProfileStrip from '@/components/galaxy/QuickProfileStrip.vue'
+import SkillGridCompact from '@/components/galaxy/SkillGridCompact.vue'
+import BaStrengthsSection from '@/components/sections/BaStrengthsSection.vue'
+import { useBreakpoint } from '@/composables/useBreakpoint'
 import { resumeData } from '@/data/resume'
 import type { SkillCategory, SkillCluster } from '@/types'
 
 const { t } = useI18n()
+const { isMobile } = useBreakpoint()
 const canvas = ref<HTMLElement | null>(null)
 
 const cluster = (id: SkillCategory): SkillCluster => {
@@ -22,12 +28,20 @@ const cluster = (id: SkillCategory): SkillCluster => {
 <template>
   <section
     id="skill-galaxy"
-    class="relative w-full min-h-[1100px] xl:min-h-[1250px] bg-linear-to-b from-[#0f172a] via-[#131b2e] to-[#0b1326] flex flex-col items-center justify-center overflow-hidden px-gutter-mobile sm:px-gutter py-space-3xl select-none"
+    class="relative w-full md:min-h-[1100px] xl:min-h-[1250px] bg-linear-to-b from-[#0f172a] via-[#131b2e] to-[#0b1326] flex flex-col items-center justify-center overflow-hidden px-gutter-mobile sm:px-gutter pt-0 pb-space-2xl md:py-space-3xl select-none"
   >
     <GalaxyBackground />
 
+    <!-- Mobile: hero → quick profile → BA strengths → compact skill map (Q-M1) -->
+    <div v-if="isMobile" class="relative w-full max-w-md flex flex-col z-10">
+      <MobileHero />
+      <QuickProfileStrip />
+      <BaStrengthsSection />
+      <SkillGridCompact />
+    </div>
+
     <!-- Polar canvas -->
-    <div ref="canvas" class="relative w-full max-w-[1240px] flex flex-col items-center z-10">
+    <div v-else ref="canvas" class="relative w-full max-w-[1240px] flex flex-col items-center z-10">
       <GalaxyConnections :container="canvas" />
 
       <!-- Top orbit: Database -->

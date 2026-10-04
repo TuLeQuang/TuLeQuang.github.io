@@ -1,7 +1,9 @@
 <script setup lang="ts">
+import { computed, ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 import ProgressBar from '@/components/common/ProgressBar.vue'
 import { resumeData } from '@/data/resume'
+import { useBreakpoint } from '@/composables/useBreakpoint'
 import { useFocus } from '@/composables/useFocus'
 import { skillRatio, skillYears } from '@/utils/experience'
 import { accentStyles } from '@/utils/styleMaps'
@@ -27,10 +29,52 @@ const skillsOf = (category: SkillCategory) => resumeData.skills.filter(s => s.ca
 const isFocused = (category: SkillCategory): boolean => focus.value?.kind === 'skill' && focus.value.value === category
 /** Click again on the same column turns the highlight off (toggle handled by useFocus). */
 const toggle = (category: SkillCategory): void => focusSkill(category, 'none')
+
+/** Mobile: one column at a time. The tab follows a skill focused elsewhere (Galaxy, chips). */
+const { isMobile } = useBreakpoint()
+const tab = ref<SkillCategory>('frontend')
+watch(focus, f => {
+  const match = f?.kind === 'skill' ? columns.find(c => c.id === f.value) : undefined
+  if (match) tab.value = match.id
+})
+const current = computed(() => columns.find(c => c.id === tab.value) ?? columns[0])
+const selectTab = (id: SkillCategory): void => {
+  tab.value = id
+  toggle(id)
+}
 </script>
 
 <template>
-  <div v-reveal class="grid grid-cols-1 md:grid-cols-3 gap-space-lg p-space-lg sm:p-space-xl bg-content-surface rounded-xl shadow-xs">
+  <!-- Mobile: segmented tabs -->
+  <div v-if="isMobile" v-reveal class="p-space-md bg-content-surface rounded-xl shadow-xs flex flex-col gap-space-md">
+    <div class="grid grid-cols-3 gap-1 p-1 rounded-lg bg-content-bg" role="tablist">
+      <button
+        v-for="column in columns"
+        :key="column.id"
+        type="button"
+        role="tab"
+        class="min-h-11 rounded-md text-label-md font-semibold inline-flex items-center justify-center gap-1 transition-all"
+        :class="column.id === current?.id ? ['bg-content-surface shadow-xs', column.titleClass, isFocused(column.id) ? ['ring-2', column.ringClass] : ''] : 'text-text-secondary'"
+        :aria-selected="column.id === current?.id"
+        @click="selectTab(column.id)"
+      >
+        <span class="material-symbols-outlined text-[18px]" aria-hidden="true">{{ column.icon }}</span>
+        {{ t(`builder.skills.${column.id}`) }}
+      </button>
+    </div>
+    <div v-if="current" role="tabpanel" class="flex flex-col gap-space-sm">
+      <ProgressBar
+        v-for="skill in skillsOf(current.id)"
+        :key="skill.name"
+        :label="skill.name"
+        :value="t('common.years', { n: skillYears(skill) })"
+        :ratio="skillRatio(skill)"
+        :bar-class="current.barClass"
+      />
+    </div>
+  </div>
+
+  <div v-else v-reveal class="grid grid-cols-1 md:grid-cols-3 gap-space-lg p-space-lg sm:p-space-xl bg-content-surface rounded-xl shadow-xs">
     <button
       v-for="column in columns"
       :key="column.id"

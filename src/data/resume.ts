@@ -13,7 +13,9 @@ export const resumeData: ResumeData = {
       { platform: 'GitHub', url: 'https://github.com/TuLeQuang', icon: 'github' },
       { platform: 'LinkedIn', url: 'https://www.linkedin.com/in/t%C3%BA-l%C3%AA-2167132b4/', icon: 'linkedin' },
       { platform: 'Facebook', url: 'https://www.facebook.com/chido.kedokatoji', icon: 'facebook' }
-    ]
+    ],
+    // Put the PDF(s) in public/cv/. Point `en` to an English file once it exists.
+    cvUrl: { vi: 'cv/LeQuangTu_CV.pdf', en: 'cv/LeQuangTu_CV.pdf' }
   },
 
   education: { period: '10/2014 – 05/2018', gpa: '3.21 / 4' },

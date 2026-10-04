@@ -5,15 +5,18 @@ import AnalystSkills from '@/components/timeline/AnalystSkills.vue'
 import DomainMatrix from '@/components/timeline/DomainMatrix.vue'
 import ProjectBentoGrid from '@/components/timeline/ProjectBentoGrid.vue'
 import TimelineTrack from '@/components/timeline/TimelineTrack.vue'
+import YearRail from '@/components/timeline/YearRail.vue'
+import { useBreakpoint } from '@/composables/useBreakpoint'
 import { resumeData } from '@/data/resume'
 import { baYears } from '@/utils/experience'
 
 const { t } = useI18n()
+const { isMobile } = useBreakpoint()
 </script>
 
 <template>
-  <section id="the-analyst" class="w-full bg-content-bg text-text-primary px-gutter-mobile sm:px-gutter lg:px-margin py-space-3xl">
-    <div class="max-w-7xl mx-auto flex flex-col gap-space-2xl">
+  <section id="the-analyst" class="w-full bg-content-bg text-text-primary px-gutter-mobile sm:px-gutter lg:px-margin py-space-2xl md:py-space-3xl">
+    <div class="max-w-7xl mx-auto flex flex-col gap-space-xl md:gap-space-2xl">
       <SectionHeader
         tone="analyst"
         :eyebrow="t('analyst.eyebrow')"
@@ -25,11 +28,19 @@ const { t } = useI18n()
 
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-space-xl">
         <AnalystSkills />
-        <DomainMatrix />
+        <DomainMatrix v-if="!isMobile" />
       </div>
 
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-space-xl items-start">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-space-lg md:gap-space-xl items-start">
+        <YearRail
+          v-if="isMobile"
+          :milestones="resumeData.analystTimeline"
+          :title="t('analyst.timelineTitle')"
+          icon="account_tree"
+          tone="analyst"
+        />
         <TimelineTrack
+          v-else
           :milestones="resumeData.analystTimeline"
           :title="t('analyst.timelineTitle')"
           icon="account_tree"

@@ -119,6 +119,12 @@
       "projects": "Projects",
       "domains": "Domains",
       "honors": "Honors"
+    },
+    "bodyShort": "One person who speaks both business and engineering.",
+    "journey": {
+      "dev": "Vccorp · Developer",
+      "hybrid": "CMC Global · Dev + BA",
+      "ba": "Best Project · BA"
     }
   },
   "analyst": {
@@ -133,7 +139,9 @@
     "domainDesc": "Analysis & system design across many kinds of business domains.",
     "domainCount": "{n} project | {n} projects",
     "domainTotal": "Total projects contributed: {n}",
-    "timelineTitle": "BA Evolution Track"
+    "timelineTitle": "BA Evolution Track",
+    "showCompetencies": "Show BA competencies",
+    "hideCompetencies": "Collapse"
   },
   "filters": {
     "all": "All ({n})"
@@ -146,7 +154,11 @@
     "dualRole": "Dual Role: BA + Dev",
     "roleLine": "Role: {role}",
     "teamSize": "Team size: {n}",
-    "clientOf": "{customer} · client of {company}"
+    "clientOf": "{customer} · client of {company}",
+    "openDetails": "View project details",
+    "moreChips": "+{n}",
+    "techStack": "Tech stack",
+    "client": "Client"
   },
   "roles": {
     "ba": "Business Analyst",
@@ -310,7 +322,10 @@
     "subtitle": "Open to conversations about solution analysis, system design and product development",
     "identity": "Combining a fullstack engineering background with business analysis. Hands-on experience with AdTech, Samsung's supply-chain logistics platform and AI products.",
     "direct": "Direct Coordinates",
-    "profiles": "Profiles & Networks"
+    "profiles": "Profiles & Networks",
+    "call": "Call {phone}",
+    "downloadCv": "Download CV (PDF)",
+    "email": "Send email"
   },
   "footer": {
     "tagline": "Combining {n}+ years of software development with analytical thinking to build products that deliver value to customers and businesses.",
@@ -325,5 +340,59 @@
     "rights": "© {year} Le Quang Tu. All rights reserved.",
     "built": "Built with Vue.js & Tailwind CSS",
     "badge": "Fullstack Dev & BA"
+  },
+  "mobileNav": {
+    "profile": "Profile",
+    "analyst": "BA",
+    "builder": "Dev",
+    "contact": "Contact",
+    "menu": "Open menu",
+    "menuTitle": "Navigation"
+  },
+  "hero": {
+    "ctaContact": "Contact me",
+    "ctaAnalyst": "See my BA work",
+    "scrollHint": "Swipe to explore",
+    "quickProfile": "Quick profile"
+  },
+  "strengths": {
+    "eyebrow": "WHY ME AS A BA",
+    "title": "Why hire me as a BA?",
+    "items": {
+      "bilingual": {
+        "title": "Fluent in both business and tech",
+        "proof": "{n}+ years building software; analysed & designed Tagmanager and Adserving myself since {start}"
+      },
+      "deliverables": {
+        "title": "A complete BA deliverable kit",
+        "proof": "From requirement gathering to detailed specs"
+      },
+      "presale": {
+        "title": "Pre-sale: consulting & pitching solutions",
+        "proof": "Took part in pre-sale on all {n} BA projects at CMC Global"
+      },
+      "domains": {
+        "title": "Multi-domain, quick to learn the business",
+        "proof": "{n} domains: {domains}"
+      },
+      "feasible": {
+        "title": "Feasible solutions — I know how systems are built",
+        "proof": "Fleet Management: business analysis and front-end coding at once"
+      },
+      "recognized": {
+        "title": "Recognized results",
+        "proof": "{award} — {project}, as BA"
+      }
+    }
+  },
+  "skillsMap": {
+    "title": "Skill map",
+    "tapHint": "Tap a tile to see details",
+    "viewProjects": "See related projects",
+    "hub": "Show skill links"
+  },
+  "sheet": {
+    "close": "Close",
+    "dragHint": "Drag down to close"
   }
 }

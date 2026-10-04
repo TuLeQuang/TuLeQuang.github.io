@@ -15,7 +15,9 @@ const scrolled = ref(false)
 const focusLabel = computed(() => (focus.value ? t(focus.value.labelKey) : ''))
 
 const onScroll = (): void => {
-  scrolled.value = window.scrollY > 600
+  // Mobile: only after ~2 screens, so it does not compete with the bottom nav
+  const threshold = window.innerWidth < 768 ? window.innerHeight * 2 : 600
+  scrolled.value = window.scrollY > threshold
 }
 const onKey = (event: KeyboardEvent): void => {
   if (event.key === 'Escape' && focus.value) clear()
@@ -41,12 +43,14 @@ const fade = {
 </script>
 
 <template>
-  <div class="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-40 flex flex-col items-end gap-space-sm pointer-events-none">
+  <div
+    class="fixed right-4 bottom-[calc(5rem+env(safe-area-inset-bottom))] md:bottom-6 sm:right-6 z-40 flex flex-col items-end gap-space-sm pointer-events-none"
+  >
     <Transition v-bind="fade">
       <button
         v-if="focus"
         type="button"
-        class="pointer-events-auto inline-flex items-center gap-1 max-w-[calc(100vw-2rem)] pl-space-sm pr-space-md py-1.5 rounded-full bg-primary-container/90 text-on-primary-container text-label-md font-semibold shadow-lg backdrop-blur-md hover:bg-primary-blue-dark transition-colors"
+        class="pointer-events-auto hidden md:inline-flex items-center gap-1 max-w-[calc(100vw-2rem)] pl-space-sm pr-space-md py-1.5 rounded-full bg-primary-container/90 text-on-primary-container text-label-md font-semibold shadow-lg backdrop-blur-md hover:bg-primary-blue-dark transition-colors"
         :aria-label="t('nav.clearHighlight', { label: focusLabel })"
         @click="clear"
       >
@@ -59,7 +63,7 @@ const fade = {
       <button
         v-if="scrolled"
         type="button"
-        class="pointer-events-auto w-9 h-9 rounded-full bg-surface-container-high/60 text-on-surface-variant shadow-md backdrop-blur-md flex items-center justify-center opacity-50 hover:opacity-100 hover:text-on-surface transition-opacity"
+        class="pointer-events-auto w-11 h-11 md:w-9 md:h-9 rounded-full bg-surface-container-high/60 text-on-surface-variant shadow-md backdrop-blur-md flex items-center justify-center opacity-70 md:opacity-50 hover:opacity-100 hover:text-on-surface transition-opacity"
         :aria-label="t('nav.backToTop')"
         :title="t('nav.backToTop')"
         @click="toTop"

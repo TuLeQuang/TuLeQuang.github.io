@@ -35,6 +35,8 @@ export interface PersonalInfo {
   email: string
   phone: string
   socialLinks: SocialLink[]
+  /** CV PDF per language, relative to `public/` (Q-M5). Both may point to the same file. */
+  cvUrl: Record<Locale, string>
 }
 
 export interface Education {

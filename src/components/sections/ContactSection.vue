@@ -1,10 +1,15 @@
 <script setup lang="ts">
+import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
+import ContactActions from '@/components/common/ContactActions.vue'
 import SectionHeader from '@/components/common/SectionHeader.vue'
 import { resumeData } from '@/data/resume'
+import { cvFileName, cvHref } from '@/utils/contact'
 import { formatPhone, socialIcons } from '@/utils/styleMaps'
+import type { Locale } from '@/types'
 
-const { t } = useI18n()
+const { t, locale } = useI18n()
+const current = computed(() => locale.value as Locale)
 const { email, phone, socialLinks } = resumeData.personalInfo
 const socials = socialLinks.filter(link => link.url)
 const card = 'flex flex-col gap-space-md p-space-lg sm:p-space-xl rounded-xl bg-surface-container/60 backdrop-blur-md'
@@ -12,14 +17,23 @@ const row = 'flex items-center gap-space-sm text-on-surface-variant p-space-xs r
 </script>
 
 <template>
-  <section id="contact" class="w-full bg-[#0f172a] text-on-surface px-gutter-mobile sm:px-gutter lg:px-margin py-space-3xl">
-    <div class="max-w-7xl mx-auto flex flex-col gap-space-2xl">
+  <section id="contact" class="w-full bg-[#0f172a] text-on-surface px-gutter-mobile sm:px-gutter lg:px-margin py-space-2xl md:py-space-3xl">
+    <div class="max-w-7xl mx-auto flex flex-col gap-space-xl md:gap-space-2xl">
       <SectionHeader
         tone="contact"
         :eyebrow="t('contact.eyebrow')"
         :title="t('contact.title')"
         :subtitle="t('contact.subtitle')"
       />
+
+      <!-- Mobile: large tap targets (Email · Call · CV) -->
+      <div v-reveal class="md:hidden flex flex-col gap-space-sm">
+        <ContactActions tone="dark" />
+        <div :class="row" class="justify-center">
+          <span class="material-symbols-outlined text-tertiary text-[20px]">pin_drop</span>
+          <span>{{ t('profile.location') }}</span>
+        </div>
+      </div>
 
       <div class="grid grid-cols-1 md:grid-cols-3 gap-space-xl">
         <!-- Identity -->
@@ -40,8 +54,8 @@ const row = 'flex items-center gap-space-sm text-on-surface-variant p-space-xs r
           </div>
         </div>
 
-        <!-- Direct coordinates -->
-        <div v-reveal="100" :class="card">
+        <!-- Direct coordinates (desktop; mobile uses ContactActions above) -->
+        <div v-reveal="100" :class="card" class="max-md:hidden">
           <h4 class="text-headline-sm text-on-surface flex items-center gap-space-xs">
             <span class="material-symbols-outlined text-primary text-[20px]">contacts</span>
             <span>{{ t('contact.direct') }}</span>
@@ -51,14 +65,26 @@ const row = 'flex items-center gap-space-sm text-on-surface-variant p-space-xs r
               <span class="material-symbols-outlined text-primary text-[20px]">mail</span>
               <span class="select-all">{{ email }}</span>
             </a>
-            <a :class="row" class="hover:text-primary hover:bg-surface-container transition-colors" :href="`tel:${phone}`">
+            <!-- Desktop has no dialer (Q-M7): plain, selectable text -->
+            <div :class="row">
               <span class="material-symbols-outlined text-secondary text-[20px]">call</span>
-              <span>{{ formatPhone(phone) }}</span>
-            </a>
+              <span class="select-all">{{ formatPhone(phone) }}</span>
+            </div>
             <div :class="row">
               <span class="material-symbols-outlined text-tertiary text-[20px]">pin_drop</span>
               <span>{{ t('profile.location') }}</span>
             </div>
+            <a
+              :class="row"
+              class="hover:text-primary hover:bg-surface-container transition-colors"
+              :href="cvHref(current)"
+              :download="cvFileName(current)"
+              target="_blank"
+              rel="noopener"
+            >
+              <span class="material-symbols-outlined text-primary text-[20px]">download</span>
+              <span>{{ t('contact.downloadCv') }}</span>
+            </a>
           </div>
         </div>
 

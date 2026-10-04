@@ -19,8 +19,8 @@ const iconButton =
 
 <template>
   <footer class="w-full bg-surface-container-lowest text-on-surface-variant">
-    <div class="w-full px-gutter lg:px-margin py-space-2xl">
-      <div class="grid grid-cols-1 md:grid-cols-12 gap-space-xl items-start pb-space-2xl">
+    <div class="w-full px-gutter-mobile sm:px-gutter lg:px-margin py-space-lg md:py-space-2xl">
+      <div class="hidden md:grid grid-cols-1 md:grid-cols-12 gap-space-xl items-start pb-space-2xl">
         <div class="md:col-span-5 flex flex-col gap-space-sm">
           <div class="flex items-center gap-space-sm">
             <span class="text-headline-md text-on-surface tracking-tight">{{ t('profile.name') }}</span>
