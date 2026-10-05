@@ -3,7 +3,7 @@ import { onBeforeUnmount, onMounted, ref } from 'vue'
 import { useBreakpoint } from '@/composables/useBreakpoint'
 import { STAR_COUNT, createStars, drawStar, stepStar, type StarField } from '@/utils/starfield'
 
-const { isMobile, reducedMotion } = useBreakpoint()
+const { isMobile } = useBreakpoint()
 
 const canvasRef = ref<HTMLCanvasElement | null>(null)
 let animId = 0
