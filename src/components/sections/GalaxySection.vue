@@ -55,7 +55,7 @@ const cluster = (id: SkillCategory): SkillCluster => {
         <div class="relative order-2 lg:order-1 z-20">
           <SkillNode :cluster="cluster('frontend')" width-class="w-[260px] sm:w-[290px]" />
         </div>
-        <div class="relative order-1 lg:order-2 z-30 max-w-[440px] w-full">
+        <div class="relative order-1 lg:order-2 z-30 max-w-[420px] w-full">
           <ProfileHub />
         </div>
         <div class="relative order-3 z-20">
