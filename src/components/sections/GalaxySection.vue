@@ -28,7 +28,7 @@ const cluster = (id: SkillCategory): SkillCluster => {
 <template>
   <section
     id="all-about-me"
-    class="relative w-full md:min-h-[1100px] xl:min-h-[1250px] bg-linear-to-b from-[#0f172a] via-[#131b2e] to-[#0b1326] flex flex-col items-center justify-center overflow-hidden px-gutter-mobile sm:px-gutter pt-0 pb-space-2xl md:py-space-3xl select-none"
+    class="relative w-full bg-linear-to-b from-[#0f172a] via-[#131b2e] to-[#0b1326] flex flex-col items-center justify-center overflow-hidden px-gutter-mobile sm:px-gutter pt-2 md:pt-4 pb-4 md:pb-6 select-none"
   >
     <span id="skill-galaxy" class="absolute -top-20 pointer-events-none" aria-hidden="true" />
     <GalaxyBackground />
@@ -46,12 +46,12 @@ const cluster = (id: SkillCategory): SkillCluster => {
       <GalaxyConnections :container="canvas" />
 
       <!-- Top orbit: Database -->
-      <div class="relative mb-space-2xl lg:mb-space-3xl z-20">
+      <div class="relative mb-4 lg:mb-5 z-20">
         <SkillNode :cluster="cluster('database')" width-class="w-[280px] sm:w-[320px]" />
       </div>
 
       <!-- Mid orbit: Frontend │ Hub │ Backend -->
-      <div class="w-full flex flex-col lg:flex-row items-center justify-between gap-space-xl lg:gap-space-2xl relative my-space-lg lg:my-space-xl">
+      <div class="w-full flex flex-col lg:flex-row items-center justify-between gap-space-lg lg:gap-space-xl relative my-3 lg:my-4">
         <div class="relative order-2 lg:order-1 z-20">
           <SkillNode :cluster="cluster('frontend')" width-class="w-[260px] sm:w-[290px]" />
         </div>
@@ -64,11 +64,11 @@ const cluster = (id: SkillCategory): SkillCluster => {
       </div>
 
       <!-- Bottom orbit: Analysis -->
-      <div class="relative mt-space-2xl lg:mt-space-3xl z-20">
+      <div class="relative mt-4 lg:mt-5 z-20">
         <SkillNode :cluster="cluster('analysis')" width-class="w-[300px] sm:w-[360px]" />
       </div>
 
-      <p class="relative z-20 mt-space-lg mb-0 text-label-md text-on-surface-variant/80 flex items-center gap-space-xs">
+      <p class="relative z-20 mt-2 mb-0 text-label-md text-on-surface-variant/80 flex items-center gap-space-xs">
         <span class="material-symbols-outlined text-[16px] text-primary">touch_app</span>
         {{ t('galaxy.hint') }}
       </p>

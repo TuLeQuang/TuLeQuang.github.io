@@ -207,7 +207,7 @@ onBeforeUnmount(() => {
 
   <!-- Decorative orbital track rings (desktop orbital layout only) -->
   <div class="absolute inset-0 hidden md:flex items-center justify-center pointer-events-none z-0" aria-hidden="true">
-    <svg class="w-full max-w-[1300px] h-[950px] opacity-25" fill="none" viewBox="0 0 1200 900">
+    <svg class="w-full max-w-[1300px] h-[950px] max-h-full opacity-25" fill="none" viewBox="0 0 1200 900">
       <circle class="text-primary/40" cx="600" cy="450" r="230" stroke="currentColor" stroke-dasharray="6 8" stroke-width="1.5" />
       <ellipse class="text-secondary/30" cx="600" cy="450" rx="460" ry="380" stroke="currentColor" stroke-dasharray="4 6" stroke-width="1.2" />
       <line class="text-outline/30" stroke="currentColor" stroke-width="1" x1="600" x2="940" y1="220" y2="180" />
