@@ -2,6 +2,7 @@
 import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 import ContactActions from '@/components/common/ContactActions.vue'
+import ContactBackground from '@/components/contact/ContactBackground.vue'
 import SectionHeader from '@/components/common/SectionHeader.vue'
 import { resumeData } from '@/data/resume'
 import { cvFileName, cvHref } from '@/utils/contact'
@@ -12,13 +13,14 @@ const { t, locale } = useI18n()
 const current = computed(() => locale.value as Locale)
 const { email, phone, socialLinks } = resumeData.personalInfo
 const socials = socialLinks.filter(link => link.url)
-const card = 'flex flex-col gap-space-md p-space-lg sm:p-space-xl rounded-xl bg-surface-container/60 backdrop-blur-md'
+const card = 'flex flex-col gap-space-md p-space-lg sm:p-space-xl rounded-xl bg-surface-container/60 backdrop-blur-md border border-outline-variant/20'
 const row = 'flex items-center gap-space-sm text-on-surface-variant p-space-xs rounded-lg'
 </script>
 
 <template>
-  <section id="contact" class="w-full bg-[#0f172a] text-on-surface px-gutter-mobile sm:px-gutter lg:px-margin py-space-2xl md:py-space-3xl">
-    <div class="max-w-7xl mx-auto flex flex-col gap-space-xl md:gap-space-2xl">
+  <section id="contact" class="relative w-full bg-[#0f172a] text-on-surface px-gutter-mobile sm:px-gutter lg:px-margin py-space-2xl md:py-space-3xl overflow-hidden select-none">
+    <ContactBackground />
+    <div class="relative z-10 max-w-7xl mx-auto flex flex-col gap-space-xl md:gap-space-2xl">
       <SectionHeader
         tone="contact"
         :eyebrow="t('contact.eyebrow')"

@@ -1,21 +1,21 @@
 import type { ProjectTrack } from '@/types'
 import { baYears, careerYears } from '@/utils/experience'
 
-/** Section anchors (ids come from code.html so header links match 1:1). */
-export const SECTION_IDS = ['skill-galaxy', 'the-builder', 'the-transition', 'the-analyst', 'contact'] as const
+/** Section anchors (matching English titles of sections). */
+export const SECTION_IDS = ['all-about-me', 'the-builder', 'the-pivot-story', 'the-analyst', 'contact'] as const
 export type SectionId = (typeof SECTION_IDS)[number]
 
 /** i18n key of each header link. */
 export const SECTION_NAV_KEYS: Record<SectionId, string> = {
-  'skill-galaxy': 'nav.galaxy',
+  'all-about-me': 'nav.galaxy',
   'the-builder': 'nav.builder',
-  'the-transition': 'nav.transition',
+  'the-pivot-story': 'nav.transition',
   'the-analyst': 'nav.analyst',
   contact: 'nav.contact'
 }
 
 /** Mobile reading order: BA-first (Q-M3). Desktop keeps SECTION_IDS order. */
-export const MOBILE_SECTION_ORDER: SectionId[] = ['skill-galaxy', 'the-analyst', 'the-transition', 'the-builder', 'contact']
+export const MOBILE_SECTION_ORDER: SectionId[] = ['all-about-me', 'the-analyst', 'the-pivot-story', 'the-builder', 'contact']
 
 /** Interpolation params of a nav label ("The Builder ({n}+ yrs Dev)"). */
 export const navParams = (id: SectionId): Record<string, number> => {
@@ -31,4 +31,13 @@ export const TRACK_SECTION: Record<ProjectTrack, SectionId> = {
 
 export const scrollToSection = (id: SectionId): void => {
   document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+}
+
+export const scrollToProject = (slug: string, track: ProjectTrack): void => {
+  const el = document.getElementById(`${track}-${slug}`)
+  if (el) {
+    el.scrollIntoView({ behavior: 'smooth', block: 'start' })
+  } else {
+    scrollToSection(TRACK_SECTION[track])
+  }
 }

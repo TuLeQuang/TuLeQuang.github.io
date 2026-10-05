@@ -92,7 +92,9 @@
   },
   "customers": {
     "samsung": "Samsung",
+    "vinfast": "VinFast",
     "vccorp": "Vccorp",
+    "cmcGlobal": "CMC Global",
     "cmcCustomer": "CMC Customer"
   },
   "builder": {
@@ -100,7 +102,7 @@
     "title": "🔧 THE BUILDER",
     "subtitle": "{n}+ years building AdTech & supply-chain logistics platforms end-to-end",
     "metaLabel": "Primary Tenures",
-    "metaValue": "Vccorp • CMC Global (client: Samsung)",
+    "metaValue": "Vccorp • CMC Global (clients: Samsung, VinFast)",
     "skills": {
       "frontend": "Frontend",
       "backend": "Backend",
@@ -132,7 +134,7 @@
     "title": "📊 THE ANALYST",
     "subtitle": "{n}+ years of requirement analysis, system design & pre-sale consulting",
     "metaLabel": "Focus Areas",
-    "metaValue": "AI Agents • WMS • Fleet IoT • TMS",
+    "metaValue": "EV Fleet Digital Twin • CRM • AI Agents • WMS • Fleet IoT",
     "competencies": "BA Competencies & Deliverables",
     "deliverableKit": "Standard Deliverable Kit",
     "domainTitle": "Domain Coverage Matrix",
@@ -171,10 +173,12 @@
   "domains": {
     "AI": "AI / Productivity",
     "Logistics": "Logistics / Transport",
-    "IoT": "IoT / Maritime",
+    "IoT": "IoT / Devices & EV",
     "Warehouse": "Warehouse",
     "AdTech": "AdTech / Advertising",
-    "SupplyChain": "Supply Chain"
+    "SupplyChain": "Supply Chain",
+    "CRM": "CRM",
+    "HRTech": "HR Tech / Recruitment"
   },
   "deliverables": {
     "wbs": "WBS",
@@ -191,6 +195,33 @@
     "best-employee-2020": "Best Employee 2020"
   },
   "projects": {
+    "crm-system": {
+      "title": "CRM — Customer Relationship Management",
+      "summary": "End-to-end customer relationship management system tracking customer journeys from acquisition and nurturing to deal management. Integrates customer data management, sales pipeline, analytics reporting and master data synchronization with internal systems.",
+      "responsibilities": [
+        "System analysis & design for 1 phase",
+        "Designed wireframes and diagrams",
+        "Defined functional requirement documents (WBS, SRS)"
+      ]
+    },
+    "fleet-digital-twin": {
+      "title": "Fleet Digital Twin (EV)",
+      "summary": "Solution design consulting and development of a Digital Twin system for electric vehicle fleet management for VinFast. Enables real-time monitoring and simulation of vehicle status including battery health, motor performance, mileage, and operational efficiency, supporting predictive maintenance and route optimization.",
+      "responsibilities": [
+        "Solution design consulting and co-working with VinFast BA team",
+        "Front-end coding (React)",
+        "Designed wireframes and functional documents (WBS, SRS)"
+      ]
+    },
+    "rts-recruitment": {
+      "title": "RTS — Recruitment Tracking System",
+      "summary": "End-to-end recruitment management system enabling HR to track candidates through every stage from application to onboarding. Upgraded business logic, integrated interview scheduling, candidate evaluation and recruitment analytics reporting.",
+      "responsibilities": [
+        "System analysis & design for 1 phase",
+        "Designed wireframes and diagrams",
+        "Defined functional requirement documents (WBS, SRS)"
+      ]
+    },
     "cello-supply-chain": {
       "title": "Cello — Supply Chain Logistics (FIS · VMS · IoT)",
       "summary": "End-to-end logistics platform: international transport, customs clearance, domestic transport, warehousing, last-mile delivery (LMD) and reverse logistics. Manages master data, contracts, invoices and real-time shipment tracking.",
@@ -299,6 +330,10 @@
       "title": "Rising Star Q2.2024",
       "desc": "Recognized as Rising Star at CMC Global."
     },
+    "builder-2025": {
+      "title": "Frontend & IoT Digital Twin",
+      "desc": "Developed frontend for EV Fleet Digital Twin system for VinFast (React, Java / Spring)."
+    },
     "analyst-2019": {
       "title": "First system analysis",
       "desc": "Analyzed & designed Tagmanager and Adserving on my own at Vccorp (AdTech / Web Analytics)."
@@ -314,6 +349,10 @@
     "analyst-2025": {
       "title": "Multi-domain BA",
       "desc": "Transport Management and MS Word AI Agent: analysis & design, functional documents, pre-sale."
+    },
+    "analyst-2026": {
+      "title": "Enterprise Consulting & Internal Platforms",
+      "desc": "Solution consulting for VinFast Fleet Digital Twin; analysis & system design for internal CRM & RTS at CMC Global."
     }
   },
   "contact": {

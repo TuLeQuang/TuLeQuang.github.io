@@ -24,7 +24,7 @@ const items = [
   {
     key: 'bilingual', icon: 'translate',
     params: { n: careerYears(), start: CAREER_START },
-    action: () => scrollToSection('the-transition')
+    action: () => scrollToSection('the-pivot-story')
   },
   { key: 'deliverables', icon: 'description', params: {}, action: () => focusSkill('analysis') },
   {

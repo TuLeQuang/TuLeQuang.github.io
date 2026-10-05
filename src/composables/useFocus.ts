@@ -1,7 +1,8 @@
 import { readonly, ref } from 'vue'
 import { resumeData } from '@/data/resume'
 import { categoryOfTech } from '@/utils/styleMaps'
-import { scrollToSection, TRACK_SECTION } from '@/utils/sections'
+import { scrollToSection, scrollToProject, TRACK_SECTION } from '@/utils/sections'
+import { projectMatchesFocus } from '@/utils/focusMatch'
 import type { CompanyId, FocusState, ProjectDomain, ProjectTrack, SkillCategory } from '@/types'
 
 /** Galaxy node currently hovered (drives line glow; other nodes are never dimmed). */
@@ -14,15 +15,27 @@ const hovered = ref<HoverTarget>(null)
 const isSame = (next: FocusState): boolean =>
   focus.value?.kind === next.kind && focus.value.value === next.value
 
-/** Set (or toggle off) the focus, then optionally scroll to the related section. */
+/** Set (or toggle off) the focus, then optionally scroll to the related section or highlighted project. */
 const apply = (next: FocusState, scroll: 'track' | 'galaxy' | 'none' = 'track'): void => {
   if (isSame(next)) {
     focus.value = null
     return
   }
   focus.value = next
-  if (scroll === 'track') scrollToSection(TRACK_SECTION[next.track])
-  if (scroll === 'galaxy') scrollToSection('skill-galaxy')
+  if (scroll === 'track') {
+    // If the focus matches specific project(s), scroll directly to the first highlighted card
+    const matchingProject = resumeData.projects.find(
+      p => p.tracks.includes(next.track) && projectMatchesFocus(p, next)
+    )
+    if (matchingProject) {
+      setTimeout(() => {
+        scrollToProject(matchingProject.slug, next.track)
+      }, 80)
+      return
+    }
+    scrollToSection(TRACK_SECTION[next.track])
+  }
+  if (scroll === 'galaxy') scrollToSection('all-about-me')
 }
 
 const trackOfSkill = (category: SkillCategory): ProjectTrack => (category === 'analysis' ? 'analyst' : 'builder')

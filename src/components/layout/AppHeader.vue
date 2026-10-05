@@ -3,7 +3,6 @@ import { computed, onBeforeUnmount, onMounted, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import LanguageSwitcher from './LanguageSwitcher.vue'
 import MobileMenuSheet from './MobileMenuSheet.vue'
-import { resumeData } from '@/data/resume'
 import { useFocus } from '@/composables/useFocus'
 import { useScrollSpy } from '@/composables/useScrollSpy'
 import { navParams, scrollToSection, SECTION_IDS, SECTION_NAV_KEYS, TRACK_SECTION, type SectionId } from '@/utils/sections'
@@ -11,7 +10,6 @@ import { navParams, scrollToSection, SECTION_IDS, SECTION_NAV_KEYS, TRACK_SECTIO
 const { t } = useI18n()
 const { active } = useScrollSpy()
 const { focus, clear } = useFocus()
-const email = resumeData.personalInfo.email
 const menuOpen = ref(false)
 
 const navLabel = (id: SectionId): string => t(SECTION_NAV_KEYS[id], navParams(id))
@@ -45,12 +43,9 @@ const crumbs = computed(() => {
     :class="{ 'max-md:-translate-y-full': hidden && !menuOpen }"
   >
     <div class="h-14 md:h-20 w-full px-gutter-mobile sm:px-gutter lg:px-margin flex items-center justify-between gap-space-sm">
-      <a class="flex items-center gap-space-sm group min-w-0" href="#skill-galaxy">
+      <a class="flex items-center gap-space-sm group min-w-0" href="#all-about-me">
         <span class="text-headline-sm text-on-surface group-hover:text-primary transition-colors tracking-tight truncate">
           {{ t('profile.name') }}
-        </span>
-        <span class="hidden sm:inline-flex items-center px-space-sm py-space-xs rounded-full bg-surface-container-high text-label-sm text-primary">
-          {{ t('nav.badge') }}
         </span>
       </a>
 
@@ -72,22 +67,7 @@ const crumbs = computed(() => {
       </nav>
 
       <div class="flex items-center gap-space-sm sm:gap-space-md shrink-0">
-        <a
-          class="hidden md:inline-flex items-center px-space-md py-space-xs rounded-full bg-surface-container text-label-md text-on-surface-variant hover:text-on-surface transition-colors"
-          :href="`mailto:${email}`"
-        >
-          {{ email }}
-        </a>
-        <a
-          class="hidden md:inline-flex items-center px-space-lg py-space-sm rounded-lg bg-primary-container text-on-primary-container text-headline-sm shadow-md hover:bg-primary-blue-dark transition-all"
-          href="#contact"
-        >
-          {{ t('nav.cta') }}
-        </a>
         <LanguageSwitcher />
-        <div class="hidden md:flex w-8 h-8 rounded-full bg-primary items-center justify-center shrink-0">
-          <span class="material-symbols-outlined text-on-primary text-[18px]">person</span>
-        </div>
         <button
           type="button"
           class="md:hidden w-11 h-11 -mr-2 rounded-full flex items-center justify-center text-on-surface hover:bg-surface-container"
@@ -112,7 +92,7 @@ const crumbs = computed(() => {
         v-if="crumbs"
         class="h-10 px-gutter-mobile sm:px-gutter lg:px-margin hidden md:flex items-center gap-space-xs bg-surface-container-low/90 text-label-md text-on-surface-variant"
       >
-        <button type="button" class="hover:text-primary transition-colors" @click="scrollToSection('skill-galaxy')">
+        <button type="button" class="hover:text-primary transition-colors" @click="scrollToSection('all-about-me')">
           {{ t('nav.breadcrumbRoot') }}
         </button>
         <span class="material-symbols-outlined text-[16px] text-outline">chevron_right</span>

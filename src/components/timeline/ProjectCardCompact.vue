@@ -50,7 +50,7 @@ const ring = computed(() =>
   <button
     :id="`${track}-${project.slug}`"
     type="button"
-    class="w-full text-left bg-content-bg rounded-xl shadow-md border-l-4 p-space-md flex flex-col gap-space-xs active:scale-[0.99] transition-all duration-300"
+    class="scroll-mt-20 w-full text-left bg-content-bg rounded-xl shadow-md border-l-4 p-space-md flex flex-col gap-space-xs active:scale-[0.99] transition-all duration-300"
     :class="[accent, ring]"
     :aria-label="`${t(`projects.${project.slug}.title`)} — ${t('card.openDetails')}`"
     @click="openProject(project.slug, track)"

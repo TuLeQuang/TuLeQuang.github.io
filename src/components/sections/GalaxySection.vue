@@ -27,9 +27,10 @@ const cluster = (id: SkillCategory): SkillCluster => {
 
 <template>
   <section
-    id="skill-galaxy"
+    id="all-about-me"
     class="relative w-full md:min-h-[1100px] xl:min-h-[1250px] bg-linear-to-b from-[#0f172a] via-[#131b2e] to-[#0b1326] flex flex-col items-center justify-center overflow-hidden px-gutter-mobile sm:px-gutter pt-0 pb-space-2xl md:py-space-3xl select-none"
   >
+    <span id="skill-galaxy" class="absolute -top-20 pointer-events-none" aria-hidden="true" />
     <GalaxyBackground />
 
     <!-- Mobile: hero → quick profile → BA strengths → compact skill map (Q-M1) -->

@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n'
+import StarfieldBackground from '@/components/common/StarfieldBackground.vue'
 import { resumeData } from '@/data/resume'
 import { careerYears, currentYear } from '@/utils/experience'
 import { socialIcons } from '@/utils/styleMaps'
@@ -8,9 +9,9 @@ const { t } = useI18n()
 const { email, socialLinks } = resumeData.personalInfo
 const socials = socialLinks.filter(link => link.url)
 const links = [
-  { href: '#skill-galaxy', key: 'footer.links.galaxy' },
+  { href: '#all-about-me', key: 'footer.links.galaxy' },
   { href: '#the-builder', key: 'footer.links.builder' },
-  { href: '#the-transition', key: 'footer.links.transition' },
+  { href: '#the-pivot-story', key: 'footer.links.transition' },
   { href: '#the-analyst', key: 'footer.links.analyst' }
 ]
 const iconButton =
@@ -18,8 +19,9 @@ const iconButton =
 </script>
 
 <template>
-  <footer class="w-full bg-surface-container-lowest text-on-surface-variant">
-    <div class="w-full px-gutter-mobile sm:px-gutter lg:px-margin py-space-lg md:py-space-2xl">
+  <footer class="relative w-full bg-surface-container-lowest text-on-surface-variant overflow-hidden select-none">
+    <StarfieldBackground :star-count="{ desktop: 140, mobile: 50 }" />
+    <div class="relative z-10 w-full px-gutter-mobile sm:px-gutter lg:px-margin py-space-lg md:py-space-2xl">
       <div class="hidden md:grid grid-cols-1 md:grid-cols-12 gap-space-xl items-start pb-space-2xl">
         <div class="md:col-span-5 flex flex-col gap-space-sm">
           <div class="flex items-center gap-space-sm">

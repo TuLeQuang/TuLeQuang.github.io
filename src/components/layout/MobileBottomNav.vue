@@ -8,7 +8,7 @@ const { t } = useI18n()
 const { active } = useScrollSpy()
 
 const tabs: { id: SectionId; icon: string; key: string }[] = [
-  { id: 'skill-galaxy', icon: 'person', key: 'mobileNav.profile' },
+  { id: 'all-about-me', icon: 'person', key: 'mobileNav.profile' },
   { id: 'the-analyst', icon: 'analytics', key: 'mobileNav.analyst' },
   { id: 'the-builder', icon: 'terminal', key: 'mobileNav.builder' },
   { id: 'contact', icon: 'mail', key: 'mobileNav.contact' }

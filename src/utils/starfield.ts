@@ -62,40 +62,77 @@ export function stepStar(star: Star, width: number, height: number, field: StarF
   let targetY = basePixelY
   let targetAlpha = star.baseAlpha + Math.sin(star.twinklePhase) * 0.08
   let targetR = star.radius
+
+  // Subtle 3D parallax drift based on cursor position relative to galaxy center
+  if (field.x !== -9999 && field.y !== -9999 && width > 0 && height > 0) {
+    const mouseOffsetX = (field.x - width / 2) / (width / 2)
+    const mouseOffsetY = (field.y - height / 2) / (height / 2)
+    const depthFactor = (star.radius / 2.5) * 16
+    targetX += mouseOffsetX * depthFactor
+    targetY += mouseOffsetY * depthFactor
+  }
+
   const proximity = dist < field.radius ? (1 - dist / field.radius) * field.strength : 0
 
   if (proximity > 0) {
-    // Hút nhẹ về phía chuột (di chuyển tối đa ~22px) — chỉ trên desktop
-    const pull = Math.pow(proximity, 1.2) * field.maxPull
+    // Gravitational pull towards cursor (clearly visible displacement)
+    const pull = Math.pow(proximity, 1.1) * field.maxPull
     const angle = Math.atan2(dy, dx)
-    targetX = basePixelX + Math.cos(angle) * pull
-    targetY = basePixelY + Math.sin(angle) * pull
+    targetX += Math.cos(angle) * pull
+    targetY += Math.sin(angle) * pull
 
     // Sáng bừng lên khi chuột ở gần
-    targetAlpha = Math.min(1.0, star.baseAlpha + proximity * 0.72)
-    targetR = star.radius * (1 + proximity * 0.85)
+    targetAlpha = Math.min(1.0, star.baseAlpha + proximity * 0.8)
+    targetR = star.radius * (1 + proximity * 1.2)
   }
 
-  // Quán tính lướt mềm mại: trôi nhẹ về phía chuột và từ từ trở về vị trí cũ khi chuột đi xa
-  star.currentX += (targetX - star.currentX) * 0.06
-  star.currentY += (targetY - star.currentY) * 0.06
-  star.currentAlpha += (targetAlpha - star.currentAlpha) * 0.08
-  star.currentR += (targetR - star.currentR) * 0.08
+  // Quán tính lướt mềm mại và nhạy bén: theo chuột mượt mà và êm ái
+  star.currentX += (targetX - star.currentX) * 0.16
+  star.currentY += (targetY - star.currentY) * 0.16
+  star.currentAlpha += (targetAlpha - star.currentAlpha) * 0.12
+  star.currentR += (targetR - star.currentR) * 0.12
   return proximity
 }
 
-/** Draw one star (plus a soft halo when it is strongly lit). */
+const hexToRgba = (hex: string, alpha: number): string => {
+  if (hex.startsWith('#') && hex.length === 7) {
+    const r = parseInt(hex.slice(1, 3), 16)
+    const g = parseInt(hex.slice(3, 5), 16)
+    const b = parseInt(hex.slice(5, 7), 16)
+    return `rgba(${r}, ${g}, ${b}, ${alpha})`
+  }
+  return hex
+}
+
+/** Draw one star (plus a soft halo with feathered, gradient edge when lit). */
 export function drawStar(ctx: CanvasRenderingContext2D, star: Star, halo: boolean): void {
+  const r = Math.max(0.5, star.currentR)
+
+  // Vòng sáng bên ngoài mở / mờ dần mềm mại ở viền (radial gradient)
+  if (halo) {
+    const outerR = r * 3.8
+    const grad = ctx.createRadialGradient(
+      star.currentX, star.currentY, r * 0.2,
+      star.currentX, star.currentY, outerR
+    )
+    grad.addColorStop(0, hexToRgba(star.color, 0.55))
+    grad.addColorStop(0.3, hexToRgba(star.color, 0.32))
+    grad.addColorStop(0.7, hexToRgba(star.color, 0.1))
+    grad.addColorStop(1, hexToRgba(star.color, 0))
+
+    ctx.save()
+    ctx.globalAlpha = Math.min(0.65, star.currentAlpha * 0.6)
+    ctx.fillStyle = grad
+    ctx.beginPath()
+    ctx.arc(star.currentX, star.currentY, outerR, 0, Math.PI * 2)
+    ctx.fill()
+    ctx.restore()
+  }
+
+  // Nhân sao sắc nét ở trung tâm
   ctx.fillStyle = star.color
   ctx.globalAlpha = Math.max(0.08, Math.min(1.0, star.currentAlpha))
   ctx.beginPath()
-  ctx.arc(star.currentX, star.currentY, Math.max(0.5, star.currentR), 0, Math.PI * 2)
+  ctx.arc(star.currentX, star.currentY, r, 0, Math.PI * 2)
   ctx.fill()
-
-  if (halo) {
-    ctx.globalAlpha = star.currentAlpha * 0.35
-    ctx.beginPath()
-    ctx.arc(star.currentX, star.currentY, star.currentR * 2.4, 0, Math.PI * 2)
-    ctx.fill()
-  }
 }

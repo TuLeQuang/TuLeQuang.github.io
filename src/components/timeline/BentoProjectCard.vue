@@ -51,7 +51,7 @@ const titleHover = computed(() => (isAnalyst.value ? 'group-hover:text-domain-ai
 <template>
   <article
     :id="`${track}-${project.slug}`"
-    class="bg-content-bg rounded-xl shadow-md transition-all duration-300 group cursor-pointer flex flex-col justify-between"
+    class="scroll-mt-24 md:scroll-mt-28 bg-content-bg rounded-xl shadow-md transition-all duration-300 group cursor-pointer flex flex-col justify-between"
     :class="[
       project.layout ? 'md:col-span-2' : '',
       isFeatured ? 'p-space-lg sm:p-space-xl hover:shadow-xl' : 'p-space-lg hover:shadow-lg',

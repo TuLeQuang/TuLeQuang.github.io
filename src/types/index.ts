@@ -56,7 +56,7 @@ export interface Company {
   until?: number
 }
 
-export type CustomerId = 'vccorp' | 'samsung' | 'cmcCustomer'
+export type CustomerId = 'vccorp' | 'samsung' | 'cmcCustomer' | 'vinfast' | 'cmcGlobal'
 
 /**
  * End customer of a project. Every customer belongs to an employer (`company`):
@@ -85,7 +85,7 @@ export interface Achievement {
 
 // ===== Projects =====
 export type ProjectRole = 'ba' | 'baDev' | 'leader' | 'moduleLeader' | 'frontendDev' | 'backendDev'
-export type ProjectDomain = 'AI' | 'Logistics' | 'IoT' | 'Warehouse' | 'AdTech' | 'SupplyChain'
+export type ProjectDomain = 'AI' | 'Logistics' | 'IoT' | 'Warehouse' | 'AdTech' | 'SupplyChain' | 'CRM' | 'HRTech'
 export type DeliverableCode = 'wbs' | 'srs' | 'wireframe' | 'proposal' | 'useCase' | 'mockup' | 'frontendCode'
 
 /** Title / summary / responsibilities live in i18n: projects.<slug>.* */
@@ -96,7 +96,7 @@ export interface Project {
   /** End customer (see `customers`): Vccorp (in-house), Samsung (key client of CMC), CMC's Customer */
   customer: CustomerId
   role: ProjectRole
-  teamSize: number
+  teamSize: number | string
   technologies: string[]
   domain: ProjectDomain
   tracks: ProjectTrack[]

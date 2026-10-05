@@ -46,7 +46,7 @@ const { isMobile } = useBreakpoint()
           icon="account_tree"
           icon-class="text-domain-ai"
           rail-class="before:bg-secondary-purple-light"
-          :dot-classes="['bg-domain-ai', 'bg-domain-iot', 'bg-primary-container', 'bg-slate-300']"
+          :dot-classes="['bg-domain-crm', 'bg-domain-ai', 'bg-domain-iot', 'bg-primary-container', 'bg-slate-400']"
         />
         <ProjectBentoGrid track="analyst" />
       </div>

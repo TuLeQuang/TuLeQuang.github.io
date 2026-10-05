@@ -4,7 +4,7 @@ import { SECTION_IDS, type SectionId } from '@/utils/sections'
 /** Fixed header (h-20) + a small tolerance: a section is active once its top passes this line. */
 const PROBE_OFFSET = 80 + 40
 
-const active = ref<SectionId>('skill-galaxy')
+const active = ref<SectionId>('all-about-me')
 let frame = 0
 let users = 0
 

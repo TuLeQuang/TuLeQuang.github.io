@@ -42,7 +42,7 @@ const { isMobile } = useBreakpoint()
           icon="route"
           icon-class="text-primary-container"
           rail-class="before:bg-primary-blue-light"
-          :dot-classes="['bg-primary-container', 'bg-primary-blue-dark', 'bg-tertiary', 'bg-slate-400', 'bg-slate-300']"
+          :dot-classes="['bg-domain-iot', 'bg-primary-container', 'bg-primary-blue-dark', 'bg-tertiary', 'bg-slate-400', 'bg-slate-300']"
         />
         <ProjectBentoGrid track="builder" />
       </div>

@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n'
+import StarfieldBackground from '@/components/common/StarfieldBackground.vue'
 import { resumeData } from '@/data/resume'
 import { BA_START, CAREER_START, baYears, careerYears } from '@/utils/experience'
 
@@ -26,10 +27,15 @@ const journey = [
 
 <template>
   <section
-    id="the-transition"
-    class="w-full bg-linear-to-b from-content-bg via-surface to-background px-gutter-mobile sm:px-gutter lg:px-margin py-space-2xl md:py-space-3xl select-none"
+    id="the-pivot-story"
+    class="relative w-full bg-linear-to-b from-content-bg via-surface to-background px-gutter-mobile sm:px-gutter lg:px-margin py-space-2xl md:py-space-3xl select-none overflow-hidden"
   >
-    <div class="max-w-4xl mx-auto">
+    <span id="the-transition" class="absolute -top-20 pointer-events-none" aria-hidden="true" />
+    <StarfieldBackground
+      :star-count="{ desktop: 200, mobile: 70 }"
+      mask-class="fade-top-mask"
+    />
+    <div class="relative z-10 max-w-4xl mx-auto">
       <div
         v-reveal
         class="relative rounded-2xl bg-linear-to-br from-[#2563eb] via-[#4f46e5] to-[#7c3aed] p-space-xl sm:p-space-2xl text-white shadow-[0_20px_50px_-15px_rgba(37,99,235,0.4)] overflow-hidden"

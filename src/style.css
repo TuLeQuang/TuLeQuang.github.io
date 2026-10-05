@@ -97,6 +97,12 @@
   --color-domain-supplychain: #10b981;
   --color-domain-supplychain-bg: #ecfdf5;
   --color-domain-supplychain-text: #047857;
+  --color-domain-crm: #6366f1;
+  --color-domain-crm-bg: #eef2ff;
+  --color-domain-crm-text: #4338ca;
+  --color-domain-hrtech: #06b6d4;
+  --color-domain-hrtech-bg: #ecfeff;
+  --color-domain-hrtech-text: #0e7490;
 
   /* ---------- Typography (size + line-height + weight) ---------- */
   --text-display-hero: 36px;

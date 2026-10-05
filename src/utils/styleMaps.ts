@@ -7,7 +7,9 @@ export const domainStyles: Record<ProjectDomain, { chip: string; dot: string }> 
   IoT: { chip: 'bg-domain-iot-bg text-domain-iot-text', dot: 'bg-domain-iot' },
   Warehouse: { chip: 'bg-domain-warehouse-bg text-domain-warehouse-text', dot: 'bg-domain-warehouse' },
   AdTech: { chip: 'bg-domain-adtech-bg text-domain-adtech-text', dot: 'bg-domain-adtech' },
-  SupplyChain: { chip: 'bg-domain-supplychain-bg text-domain-supplychain-text', dot: 'bg-domain-supplychain' }
+  SupplyChain: { chip: 'bg-domain-supplychain-bg text-domain-supplychain-text', dot: 'bg-domain-supplychain' },
+  CRM: { chip: 'bg-domain-crm-bg text-domain-crm-text', dot: 'bg-domain-crm' },
+  HRTech: { chip: 'bg-domain-hrtech-bg text-domain-hrtech-text', dot: 'bg-domain-hrtech' }
 }
 
 export const domainIcons: Record<ProjectDomain, string> = {
@@ -16,7 +18,9 @@ export const domainIcons: Record<ProjectDomain, string> = {
   IoT: '📡',
   Warehouse: '🏭',
   AdTech: '📢',
-  SupplyChain: '🌐'
+  SupplyChain: '🌐',
+  CRM: '💼',
+  HRTech: '👥'
 }
 
 export const roleStyles: Record<ProjectRole, string> = {
@@ -61,7 +65,7 @@ export const accentStyles: Record<
 
 /** Technology keywords that belong to each Galaxy skill category (used for skill focus). */
 export const skillKeywords: Record<SkillCategory, string[]> = {
-  frontend: ['JavaScript', 'Vue.js', 'Vue3', 'jQuery', 'Mapbox', 'Litjs', 'HTML', 'CSS'],
+  frontend: ['JavaScript', 'Vue.js', 'Vue3', 'React', 'jQuery', 'Mapbox', 'Litjs', 'HTML', 'CSS'],
   backend: ['Java', 'Spring', 'PHP', 'Laravel'],
   database: ['PostgreSQL', 'MySQL', 'Redis', 'DB2'],
   analysis: []

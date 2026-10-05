@@ -25,10 +25,12 @@ export const resumeData: ResumeData = {
     { name: 'CMC Global', i18nKey: 'cmc', start: '05/2022', since: 2022 }
   ],
 
-  // End customers. Samsung is a key client of CMC Global (not an employer).
+  // End customers. Samsung & VinFast are key clients of CMC Global (not employers).
   customers: [
     { id: 'vccorp', name: 'Vccorp', company: 'Vccorp' }, // in-house products
     { id: 'samsung', name: 'Samsung', company: 'CMC Global', keyClient: true },
+    { id: 'vinfast', name: 'VinFast', company: 'CMC Global', keyClient: true },
+    { id: 'cmcGlobal', name: 'CMC Global', company: 'CMC Global' },
     { id: 'cmcCustomer', name: "CMC's Customer", company: 'CMC Global' }
   ],
 
@@ -37,6 +39,7 @@ export const resumeData: ResumeData = {
     { name: 'HTML / CSS', category: 'frontend', since: 2018 },
     { name: 'JavaScript', category: 'frontend', since: 2018 },
     { name: 'Vue.js (2 & 3)', category: 'frontend', since: 2018 },
+    { name: 'React', category: 'frontend', since: 2025 },
     { name: 'jQuery', category: 'frontend', since: 2018, until: 2024 },
     { name: 'Mapbox', category: 'frontend', since: 2022, until: 2023 },
     // Backend
@@ -59,7 +62,7 @@ export const resumeData: ResumeData = {
 
   skillClusters: [
     { id: 'database', icon: 'database', accent: 'primary', skills: ['PostgreSQL', 'MySQL', 'Redis', 'DB2'] },
-    { id: 'frontend', icon: 'devices', accent: 'iot', skills: ['Vue.js', 'JavaScript', 'HTML/CSS', 'jQuery'] },
+    { id: 'frontend', icon: 'devices', accent: 'iot', skills: ['Vue.js', 'React', 'JavaScript', 'HTML/CSS', 'jQuery'] },
     { id: 'backend', icon: 'terminal', accent: 'secondary', skills: ['Java / Spring', 'PHP / Laravel', 'REST API'] },
     { id: 'analysis', icon: 'schema', accent: 'tertiary', skills: ['UML', 'Wireframe', 'WBS', 'SRS', 'Use Case'] }
   ],
@@ -77,31 +80,24 @@ export const resumeData: ResumeData = {
   ],
 
   projects: [
-    // ----- Builder -----
+    // ----- Latest (2025–2026) -----
     {
-      slug: 'cello-supply-chain', period: '12/2022 – 04/2024', company: 'CMC Global', customer: 'samsung',
-      role: 'moduleLeader', teamSize: 70, domain: 'SupplyChain', tracks: ['builder'], layout: 'featured',
-      technologies: ['DB2', 'JavaScript', 'jQuery', 'Vue.js', 'Java', 'Spring']
+      slug: 'crm-system', period: '02/2026 – 03/2026', company: 'CMC Global', customer: 'cmcGlobal',
+      role: 'ba', teamSize: 4, domain: 'CRM', tracks: ['analyst'],
+      deliverables: ['wbs', 'srs', 'wireframe'],
+      technologies: ['PostgreSQL', 'JavaScript', 'Vue.js', 'Java', 'Spring']
     },
     {
-      slug: 'cello-tracking', period: '05/2022 – 11/2022', company: 'CMC Global', customer: 'samsung',
-      role: 'frontendDev', teamSize: 12, domain: 'IoT', tracks: ['builder'],
-      technologies: ['DB2', 'JavaScript', 'Vue.js', 'Mapbox', 'Java', 'Spring']
+      slug: 'fleet-digital-twin', period: '12/2025 – 09/2026', company: 'CMC Global', customer: 'vinfast',
+      role: 'baDev', teamSize: '6+', domain: 'IoT', tracks: ['analyst', 'builder'], layout: 'featured',
+      deliverables: ['wbs', 'srs', 'wireframe', 'proposal', 'frontendCode'],
+      technologies: ['PostgreSQL', 'JavaScript', 'React', 'Java', 'Spring']
     },
     {
-      slug: 'adserving-3rd-tracking', period: '12/2019 – 04/2022', company: 'Vccorp', customer: 'vccorp',
-      role: 'leader', teamSize: 3, domain: 'AdTech', tracks: ['builder'], achievementId: 'best-employee-2020',
-      technologies: ['PHP', 'MySQL', 'Redis', 'Laravel', 'JavaScript', 'Vue.js']
-    },
-    {
-      slug: 'tagmanager', period: '03/2018 – 02/2020', company: 'Vccorp', customer: 'vccorp',
-      role: 'leader', teamSize: 3, domain: 'AdTech', tracks: ['builder'],
-      technologies: ['PHP', 'MySQL', 'Laravel', 'JavaScript', 'jQuery']
-    },
-    {
-      slug: 'ad-template-tool', period: '01/2018 – 02/2018', company: 'Vccorp', customer: 'vccorp',
-      role: 'backendDev', teamSize: 3, domain: 'AdTech', tracks: ['builder'], layout: 'wide',
-      technologies: ['PHP', 'MySQL', 'Laravel', 'JavaScript', 'Vue.js', 'jQuery']
+      slug: 'rts-recruitment', period: '11/2025 – 12/2025', company: 'CMC Global', customer: 'cmcGlobal',
+      role: 'ba', teamSize: 12, domain: 'HRTech', tracks: ['analyst'],
+      deliverables: ['wbs', 'srs', 'wireframe'],
+      technologies: ['PostgreSQL', 'JavaScript', 'Vue.js', 'Java', 'Spring']
     },
     // ----- Analyst -----
     {
@@ -127,6 +123,32 @@ export const resumeData: ResumeData = {
       role: 'ba', teamSize: 3, domain: 'Warehouse', tracks: ['analyst'], layout: 'wide',
       deliverables: ['wireframe', 'proposal'],
       technologies: ['PostgreSQL', 'JavaScript', 'Vue3', 'Java', 'Spring']
+    },
+    // ----- Builder -----
+    {
+      slug: 'cello-supply-chain', period: '12/2022 – 04/2024', company: 'CMC Global', customer: 'samsung',
+      role: 'moduleLeader', teamSize: 70, domain: 'SupplyChain', tracks: ['builder'], layout: 'featured',
+      technologies: ['DB2', 'JavaScript', 'jQuery', 'Vue.js', 'Java', 'Spring']
+    },
+    {
+      slug: 'cello-tracking', period: '05/2022 – 11/2022', company: 'CMC Global', customer: 'samsung',
+      role: 'frontendDev', teamSize: 12, domain: 'IoT', tracks: ['builder'],
+      technologies: ['DB2', 'JavaScript', 'Vue.js', 'Mapbox', 'Java', 'Spring']
+    },
+    {
+      slug: 'adserving-3rd-tracking', period: '12/2019 – 04/2022', company: 'Vccorp', customer: 'vccorp',
+      role: 'leader', teamSize: 3, domain: 'AdTech', tracks: ['builder'], achievementId: 'best-employee-2020',
+      technologies: ['PHP', 'MySQL', 'Redis', 'Laravel', 'JavaScript', 'Vue.js']
+    },
+    {
+      slug: 'tagmanager', period: '03/2018 – 02/2020', company: 'Vccorp', customer: 'vccorp',
+      role: 'leader', teamSize: 3, domain: 'AdTech', tracks: ['builder'],
+      technologies: ['PHP', 'MySQL', 'Laravel', 'JavaScript', 'jQuery']
+    },
+    {
+      slug: 'ad-template-tool', period: '01/2018 – 02/2018', company: 'Vccorp', customer: 'vccorp',
+      role: 'backendDev', teamSize: 3, domain: 'AdTech', tracks: ['builder'], layout: 'wide',
+      technologies: ['PHP', 'MySQL', 'Laravel', 'JavaScript', 'Vue.js', 'jQuery']
     }
   ],
 
@@ -135,7 +157,8 @@ export const resumeData: ResumeData = {
     { id: 'builder-2019', year: '2019', company: 'Vccorp', projectSlugs: ['adserving-3rd-tracking'] },
     { id: 'builder-2020', year: '2020', company: 'Vccorp', achievementId: 'best-employee-2020' },
     { id: 'builder-2022', year: '2022', company: 'CMC Global', projectSlugs: ['cello-tracking', 'cello-supply-chain'] },
-    { id: 'builder-2024', year: '2024', company: 'CMC Global', achievementId: 'rising-star-2024' }
+    { id: 'builder-2024', year: '2024', company: 'CMC Global', achievementId: 'rising-star-2024' },
+    { id: 'builder-2025', year: '2025 – 2026', company: 'CMC Global', projectSlugs: ['fleet-digital-twin'] }
   ],
 
   analystTimeline: [
@@ -145,6 +168,10 @@ export const resumeData: ResumeData = {
     {
       id: 'analyst-2025', year: '2025', company: 'CMC Global', achievementId: 'best-project-2025',
       projectSlugs: ['ms-word-ai-agent', 'transport-management']
+    },
+    {
+      id: 'analyst-2026', year: '2025 – 2026', company: 'CMC Global',
+      projectSlugs: ['crm-system', 'fleet-digital-twin', 'rts-recruitment']
     }
   ],
 
@@ -154,5 +181,5 @@ export const resumeData: ResumeData = {
     { id: 'backend-analysis', from: 'backend', to: 'analysis' }
   ],
 
-  baDomains: ['AI', 'Logistics', 'IoT', 'Warehouse', 'AdTech']
+  baDomains: ['AI', 'Logistics', 'IoT', 'Warehouse', 'AdTech', 'CRM', 'HRTech']
 }
