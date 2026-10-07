@@ -6,8 +6,10 @@ import { useFocus } from '@/composables/useFocus'
 import { keyClientsOf } from '@/utils/customers'
 import { companyYears } from '@/utils/experience'
 import type { CompanyId } from '@/types'
+import { useCv } from '@/composables/useCv'
 
 const { t } = useI18n()
+const cv = useCv()
 const { focus, focusCompany, focusCustomer, focusAchievement } = useFocus()
 const { education, companies, achievements, projects } = resumeData
 
@@ -23,7 +25,7 @@ const isCompanyActive = (companyName: CompanyId): boolean => {
 /** "(AI Agent)" / "(CMC Global)" suffix: linked project title, otherwise the company. */
 const achievementContext = (projectSlug: string | undefined, company: string): string => {
   const project = projects.find(p => p.slug === projectSlug)
-  return project ? t(`projects.${project.slug}.title`) : company
+  return project ? cv.value.projects[project.slug]?.title ?? project.slug : company
 }
 
 const iconColor = ['text-tertiary', 'text-primary', 'text-gold-light']
@@ -33,8 +35,8 @@ const rowButton = 'w-full rounded-md px-1 -mx-1 transition-colors hover:bg-surfa
 <template>
   <div class="w-full grid grid-cols-1 md:grid-cols-3 gap-space-md lg:gap-space-lg mt-1 z-20">
     <InfoSatellite icon="school" :title="t('galaxy.satellites.education')" accent-class="text-primary">
-      <h4 class="text-headline-sm text-on-surface">{{ t('galaxy.education.school') }}</h4>
-      <p class="text-body-md text-on-surface-variant">{{ t('galaxy.education.major') }} ({{ education.period }})</p>
+      <h4 class="text-headline-sm text-on-surface">{{ cv.education.school }}</h4>
+      <p class="text-body-md text-on-surface-variant">{{ cv.education.major }} ({{ education.period }})</p>
       <div class="mt-space-xs inline-flex items-center gap-1 text-label-md text-tertiary font-semibold">
         <span>{{ t('galaxy.education.gpa', { gpa: education.gpa }) }}</span>
       </div>
@@ -59,7 +61,7 @@ const rowButton = 'w-full rounded-md px-1 -mx-1 transition-colors hover:bg-surfa
           >
             <span class="text-on-surface font-semibold hover:text-secondary transition-colors">{{ company.name }}</span>
             <span class="text-on-surface-variant text-label-sm text-right">
-              {{ t('common.yearsApprox', { n: companyYears(company) }) }} • {{ t(`companies.${company.i18nKey}.role`) }}
+              {{ t('common.yearsApprox', { n: companyYears(company) }) }} • {{ cv.companies[company.i18nKey]?.role }}
             </span>
           </button>
           <!-- Samsung is a client of CMC Global, not an employer -->
@@ -92,7 +94,7 @@ const rowButton = 'w-full rounded-md px-1 -mx-1 transition-colors hover:bg-surfa
           @click="focusAchievement(achievement.id)"
         >
           <span :class="iconColor[index % iconColor.length]">{{ achievement.icon }}</span>
-          {{ t(`achievements.${achievement.id}`) }} ({{ achievementContext(achievement.projectSlug, achievement.company) }})
+          {{ cv.achievements[achievement.id] }} ({{ achievementContext(achievement.projectSlug, achievement.company) }})
         </button>
       </div>
     </InfoSatellite>

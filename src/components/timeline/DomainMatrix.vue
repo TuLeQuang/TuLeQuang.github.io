@@ -1,18 +1,21 @@
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n'
 import { resumeData } from '@/data/resume'
-import { useFocus } from '@/composables/useFocus'
+import { trackOfDomain, useFocus } from '@/composables/useFocus'
 import { domainIcons } from '@/utils/styleMaps'
 import type { ProjectDomain } from '@/types'
+import { useCv } from '@/composables/useCv'
 
 const { t } = useI18n()
+const cv = useCv()
 const { focus, focusDomain } = useFocus()
 const { baDomains, projects } = resumeData
 
 const countOf = (domain: ProjectDomain): number => projects.filter(p => p.domain === domain).length
 const isActive = (domain: ProjectDomain): boolean => focus.value?.kind === 'domain' && focus.value.value === domain
+/** Domains with analyst projects highlight in place; builder-only domains (e.g. AdTech) jump to their track. */
 const onDomainClick = (domain: ProjectDomain): void => {
-  focusDomain(domain, domain === 'AdTech' ? 'track' : 'none')
+  focusDomain(domain, trackOfDomain(domain) === 'analyst' ? 'none' : 'track')
 }
 </script>
 
@@ -23,7 +26,7 @@ const onDomainClick = (domain: ProjectDomain): void => {
         <span class="material-symbols-outlined text-[20px]">hub</span>
         <span>{{ t('analyst.domainTitle') }}</span>
       </div>
-      <p class="text-body-md text-text-secondary mb-space-lg">{{ t('analyst.domainDesc') }}</p>
+      <p class="text-body-md text-text-secondary mb-space-lg">{{ cv.narrative.analyst.domainDesc }}</p>
       <div class="grid grid-cols-2 sm:grid-cols-3 gap-space-sm">
         <button
           v-for="domain in baDomains"
@@ -35,7 +38,7 @@ const onDomainClick = (domain: ProjectDomain): void => {
           @click="onDomainClick(domain)"
         >
           <span class="text-2xl mb-1" aria-hidden="true">{{ domainIcons[domain] }}</span>
-          <span class="text-headline-sm text-text-primary">{{ t(`domains.${domain}`) }}</span>
+          <span class="text-headline-sm text-text-primary">{{ cv.domains[domain] }}</span>
           <span class="text-label-sm text-text-muted">{{ t('analyst.domainCount', countOf(domain)) }}</span>
         </button>
       </div>

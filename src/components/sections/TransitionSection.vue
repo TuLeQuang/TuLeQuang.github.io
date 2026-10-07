@@ -3,8 +3,10 @@ import { useI18n } from 'vue-i18n'
 import StarfieldBackground from '@/components/common/StarfieldBackground.vue'
 import { resumeData } from '@/data/resume'
 import { BA_START, CAREER_START, baYears, careerYears } from '@/utils/experience'
+import { fill, useCv } from '@/composables/useCv'
 
 const { t } = useI18n()
+const cv = useCv()
 
 /** Every number comes from data so the stats never drift from the rest of the page. */
 const stats = [
@@ -16,12 +18,12 @@ const stats = [
 ]
 
 /** Mobile journey: the BA award year comes from its timeline milestone. */
-const award = resumeData.achievements.find(a => a.id === 'best-project-2025')
+const award = resumeData.achievements.find(a => a.track === 'analyst' && a.projectSlug)
 const awardYear = resumeData.analystTimeline.find(m => m.achievementId === award?.id)?.year ?? ''
 const journey = [
-  { key: 'dev', year: `${CAREER_START}` },
-  { key: 'hybrid', year: `${BA_START}` },
-  { key: 'ba', year: awardYear }
+  { key: 'dev' as const, year: `${CAREER_START}` },
+  { key: 'hybrid' as const, year: `${BA_START}` },
+  { key: 'ba' as const, year: awardYear }
 ]
 </script>
 
@@ -52,17 +54,17 @@ const journey = [
             {{ t('transition.eyebrow') }}
           </div>
           <blockquote class="text-headline-xl-mobile md:text-headline-xl text-white tracking-tight leading-snug max-w-2xl">
-            {{ t('transition.quote', { n: careerYears() }) }}
+            {{ fill(cv.narrative.transition.quote, { n: careerYears() }) }}
           </blockquote>
-          <p class="text-body-lg text-white/90 mt-space-md max-w-xl hidden md:block">{{ t('transition.body') }}</p>
-          <p class="text-body-md text-white/90 mt-space-sm md:hidden">{{ t('transition.bodyShort') }}</p>
+          <p class="text-body-lg text-white/90 mt-space-md max-w-xl hidden md:block">{{ cv.narrative.transition.body }}</p>
+          <p class="text-body-md text-white/90 mt-space-sm md:hidden">{{ cv.narrative.transition.bodyShort }}</p>
 
           <!-- Mobile mini journey: Dev → Dev + BA → BA (award) -->
           <ol class="md:hidden w-full mt-space-lg flex items-stretch gap-1 text-left">
             <li v-for="(step, index) in journey" :key="step.key" class="flex-1 flex items-center gap-1">
               <div class="flex-1 rounded-lg bg-white/15 backdrop-blur-md px-space-xs py-space-xs">
                 <span class="block text-headline-sm text-white">{{ step.year }}</span>
-                <span class="block text-label-sm text-white/85 leading-tight">{{ t(`transition.journey.${step.key}`) }}</span>
+                <span class="block text-label-sm text-white/85 leading-tight">{{ cv.narrative.transition.journey[step.key] }}</span>
               </div>
               <span v-if="index < journey.length - 1" class="material-symbols-outlined text-[16px] text-white/70" aria-hidden="true">arrow_forward</span>
             </li>

@@ -8,8 +8,10 @@ import { resumeData } from '@/data/resume'
 import { cvFileName, cvHref } from '@/utils/contact'
 import { formatPhone, socialIcons } from '@/utils/styleMaps'
 import type { Locale } from '@/types'
+import { useCv } from '@/composables/useCv'
 
 const { t, locale } = useI18n()
+const cv = useCv()
 const current = computed(() => locale.value as Locale)
 const { email, phone, socialLinks } = resumeData.personalInfo
 const socials = socialLinks.filter(link => link.url)
@@ -25,7 +27,7 @@ const row = 'flex items-center gap-space-sm text-on-surface-variant p-space-xs r
         tone="contact"
         :eyebrow="t('contact.eyebrow')"
         :title="t('contact.title')"
-        :subtitle="t('contact.subtitle')"
+        :subtitle="cv.narrative.contact.subtitle"
       />
 
       <!-- Mobile: large tap targets (Email · Call · CV) -->
@@ -33,7 +35,7 @@ const row = 'flex items-center gap-space-sm text-on-surface-variant p-space-xs r
         <ContactActions tone="dark" />
         <div :class="row" class="justify-center">
           <span class="material-symbols-outlined text-tertiary text-[20px]">pin_drop</span>
-          <span>{{ t('profile.location') }}</span>
+          <span>{{ cv.profile.location }}</span>
         </div>
       </div>
 
@@ -43,16 +45,16 @@ const row = 'flex items-center gap-space-sm text-on-surface-variant p-space-xs r
           <div class="flex items-center gap-space-sm">
             <span class="text-3xl" aria-hidden="true">👨‍💻</span>
             <div>
-              <h3 class="text-headline-md text-on-surface">{{ t('profile.name') }}</h3>
+              <h3 class="text-headline-md text-on-surface">{{ cv.profile.name }}</h3>
               <span class="text-label-sm text-primary uppercase tracking-wider font-semibold">
-                {{ t('profile.role') }} {{ t('profile.next') }}
+                {{ cv.profile.role }} → {{ cv.profile.targetRole }}
               </span>
             </div>
           </div>
-          <p class="text-body-md text-on-surface-variant leading-relaxed">{{ t('contact.identity') }}</p>
+          <p class="text-body-md text-on-surface-variant leading-relaxed">{{ cv.narrative.contact.identity }}</p>
           <div class="flex items-center gap-space-xs text-label-md text-tertiary">
             <span class="material-symbols-outlined text-[18px]">verified</span>
-            <span>{{ t('profile.objective') }}</span>
+            <span>{{ cv.profile.objective }}</span>
           </div>
         </div>
 
@@ -74,7 +76,7 @@ const row = 'flex items-center gap-space-sm text-on-surface-variant p-space-xs r
             </div>
             <div :class="row">
               <span class="material-symbols-outlined text-tertiary text-[20px]">pin_drop</span>
-              <span>{{ t('profile.location') }}</span>
+              <span>{{ cv.profile.location }}</span>
             </div>
             <a
               :class="row"

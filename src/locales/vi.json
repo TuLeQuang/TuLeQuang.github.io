@@ -1,6 +1,6 @@
 {
   "meta": {
-    "title": "Lê Quang Tú {'|'} Portfolio"
+    "title": "{name} {'|'} Portfolio"
   },
   "lang": {
     "switch": "Chuyển ngôn ngữ",
@@ -18,7 +18,6 @@
     "analystShort": "The Analyst",
     "breadcrumbRoot": "Galaxy",
     "clearFocus": "Bỏ chọn",
-    "badge": "Fullstack Dev → BA",
     "clearHighlight": "Bỏ highlight: {label}",
     "backToTop": "Lên đầu trang"
   },
@@ -28,81 +27,26 @@
     "team": "Team {n}"
   },
   "profile": {
-    "name": "Lê Quang Tú",
-    "role": "Fullstack Developer",
-    "targetRole": "Business Analyst",
-    "next": "→ Business Analyst",
     "viewBuilder": "Xem hành trình The Builder",
-    "viewAnalyst": "Xem hành trình The Analyst",
-    "tagline": "Từ xây dựng hệ thống đến thiết kế hệ thống — phát triển sản phẩm end-to-end.",
-    "location": "Hà Nội, Việt Nam",
-    "objective": "Mục tiêu trở thành Project Owner — dẫn dắt sản phẩm từ concept đến launch."
+    "viewAnalyst": "Xem hành trình The Analyst"
   },
   "galaxy": {
     "hint": "Click vào một node để xem dự án và kỹ năng liên quan",
-    "clusters": {
-      "database": {
-        "label": "Data Architecture",
-        "tier": "Core Layer",
-        "desc": "Thiết kế cơ sở dữ liệu & vận hành production"
-      },
-      "frontend": {
-        "label": "Frontend Dev",
-        "tier": "Client Tier",
-        "desc": "Vue 2/3, Mapbox, Litjs — giao diện tương tác"
-      },
-      "backend": {
-        "label": "Backend Stack",
-        "tier": "Server Logic",
-        "desc": "RESTful API, MVC, OOP & design patterns"
-      },
-      "analysis": {
-        "label": "Analysis & Specification",
-        "tier": "Strategic Bridge",
-        "desc": "Thu thập yêu cầu → WBS / SRS / Solution Proposal"
-      }
-    },
     "satellites": {
       "education": "Học vấn",
       "tenures": "Quá trình làm việc",
       "accolades": "Thành tựu"
     },
     "education": {
-      "school": "Đại học Công nghiệp Hà Nội (HaUI)",
-      "major": "Kỹ thuật phần mềm",
       "gpa": "GPA: {gpa}"
-    },
-    "connections": {
-      "backend-database": "Thiết kế DB + vận hành production",
-      "frontend-analysis": "Từ wireframe → code trực tiếp",
-      "backend-analysis": "Hiểu hệ thống → thiết kế tốt hơn"
     },
     "keyClients": "Khách hàng tiêu biểu: {names}",
     "keyClientsLabel": "Khách hàng tiêu biểu:"
   },
-  "companies": {
-    "vccorp": {
-      "name": "Vccorp",
-      "role": "PHP Developer / Leader"
-    },
-    "cmc": {
-      "name": "CMC Global",
-      "role": "Software Engineer · BA / Pre-sale"
-    }
-  },
-  "customers": {
-    "samsung": "Samsung",
-    "vinfast": "VinFast",
-    "vccorp": "Vccorp",
-    "cmcGlobal": "CMC Global",
-    "cmcCustomer": "CMC Customer"
-  },
   "builder": {
     "eyebrow": "HỒ SƠ KỸ THUẬT",
     "title": "🔧 THE BUILDER",
-    "subtitle": "{n}+ năm xây dựng nền tảng AdTech & logistics chuỗi cung ứng end-to-end",
     "metaLabel": "Công ty",
-    "metaValue": "Vccorp • CMC Global (khách hàng: Samsung, VinFast)",
     "skills": {
       "frontend": "Frontend",
       "backend": "Backend",
@@ -113,32 +57,21 @@
   },
   "transition": {
     "eyebrow": "Bước chuyển chiến lược",
-    "quote": "“{n} năm viết code cho tôi thứ mà không phải BA nào cũng có: khả năng nhìn xuyên từ yêu cầu nghiệp vụ xuống tận kiến trúc hệ thống.”",
-    "body": "Từ thu thập yêu cầu đến khi code chạy thật — một người hiểu cả ngôn ngữ nghiệp vụ lẫn kỹ thuật.",
     "stats": {
       "devYears": "Năm Dev",
       "baYears": "Năm BA",
       "projects": "Dự án",
       "domains": "Domain",
       "honors": "Giải thưởng"
-    },
-    "bodyShort": "Một người hiểu cả ngôn ngữ nghiệp vụ lẫn kỹ thuật.",
-    "journey": {
-      "dev": "Vccorp · Developer",
-      "hybrid": "CMC Global · Dev + BA",
-      "ba": "Best Project · BA"
     }
   },
   "analyst": {
     "eyebrow": "ĐẶC TẢ & KIẾN TRÚC SẢN PHẨM",
     "title": "📊 THE ANALYST",
-    "subtitle": "{n}+ năm phân tích yêu cầu, thiết kế hệ thống & tư vấn pre-sale",
     "metaLabel": "Trọng tâm",
-    "metaValue": "EV Fleet Digital Twin • CRM • AI Agents • WMS • Fleet IoT",
     "competencies": "Năng lực BA & Deliverables",
     "deliverableKit": "Bộ deliverable chuẩn",
     "domainTitle": "Domain Coverage Matrix",
-    "domainDesc": "Phân tích & thiết kế hệ thống cho nhiều dạng nghiệp vụ khác nhau.",
     "domainCount": "{n} dự án",
     "domainTotal": "Tổng số dự án đã tham gia: {n}",
     "timelineTitle": "Hành trình BA",
@@ -162,204 +95,9 @@
     "techStack": "Công nghệ",
     "client": "Khách hàng"
   },
-  "roles": {
-    "ba": "Business Analyst",
-    "baDev": "BA + Developer",
-    "leader": "Leader",
-    "moduleLeader": "Module Leader",
-    "frontendDev": "Front-end Developer",
-    "backendDev": "Backend Developer"
-  },
-  "domains": {
-    "AI": "AI / Năng suất",
-    "Logistics": "Logistics / Vận tải",
-    "IoT": "IoT / Thiết bị & Xe điện",
-    "Warehouse": "Quản lý kho",
-    "AdTech": "AdTech / Quảng cáo",
-    "SupplyChain": "Chuỗi cung ứng",
-    "CRM": "CRM / Khách hàng",
-    "HRTech": "HR Tech / Tuyển dụng"
-  },
-  "deliverables": {
-    "wbs": "WBS",
-    "srs": "SRS",
-    "wireframe": "Wireframe",
-    "proposal": "Solution Proposal",
-    "useCase": "Use Case Spec",
-    "mockup": "Mockup",
-    "frontendCode": "Code front-end"
-  },
-  "achievements": {
-    "best-project-2025": "Best Project Q3.2025",
-    "rising-star-2024": "Rising Star Q2.2024",
-    "best-employee-2020": "Best Employee 2020"
-  },
-  "projects": {
-    "crm-system": {
-      "title": "CRM — Customer Relationship Management",
-      "summary": "Phát triển hệ thống quản lý quan hệ khách hàng (CRM), cho phép theo dõi toàn diện hành trình khách hàng từ tiếp cận (acquisition), nuôi dưỡng (nurturing) đến quản lý giao dịch sau khi thiết lập (deal management). Tích hợp quản lý dữ liệu khách hàng, luồng bán hàng (sales pipeline), báo cáo phân tích và đồng bộ master data với các hệ thống nội bộ khác.",
-      "responsibilities": [
-        "Phân tích & thiết kế hệ thống cho 1 giai đoạn",
-        "Thiết kế wireframe, sơ đồ (diagrams)",
-        "Xây dựng tài liệu đặc tả chức năng (WBS, SRS)"
-      ]
-    },
-    "fleet-digital-twin": {
-      "title": "Fleet Digital Twin (EV)",
-      "summary": "Tư vấn thiết kế giải pháp và phát triển hệ thống Digital Twin quản lý đội xe điện (EV fleet) cho VinFast, cho phép giám sát realtime và mô phỏng trạng thái phương tiện (sức khỏe pin, hiệu suất động cơ, quãng đường, hiệu quả vận hành). Hỗ trợ bảo trì dự đoán (predictive maintenance), tối ưu hóa lộ trình và hỗ trợ ra quyết định trong quản lý đội xe.",
-      "responsibilities": [
-        "Tư vấn thiết kế giải pháp và hỗ trợ đội ngũ BA của VinFast",
-        "Lập trình Front-end (React)",
-        "Xây dựng wireframe và tài liệu chức năng (WBS, SRS)"
-      ]
-    },
-    "rts-recruitment": {
-      "title": "RTS — Recruitment Tracking System",
-      "summary": "Bảo trì và nâng cấp hệ thống quản lý tuyển dụng toàn diện (end-to-end), giúp HR theo dõi ứng viên qua từng giai đoạn từ nộp hồ sơ đến onboarding. Cải tiến tính năng hiện có, cập nhật business logic theo yêu cầu mới, tích hợp xếp lịch phỏng vấn, đánh giá ứng viên và báo cáo phân tích tuyển dụng.",
-      "responsibilities": [
-        "Phân tích & thiết kế hệ thống cho 1 giai đoạn",
-        "Thiết kế wireframe, sơ đồ (diagrams)",
-        "Xây dựng tài liệu đặc tả chức năng (WBS, SRS)"
-      ]
-    },
-    "cello-supply-chain": {
-      "title": "Cello — Supply Chain Logistics (FIS · VMS · IoT)",
-      "summary": "Nền tảng logistics toàn diện: vận tải quốc tế, thông quan, nội địa, kho bãi, giao hàng chặng cuối (LMD), reverse logistics. Quản lý master data, hợp đồng, hoá đơn và theo dõi shipment realtime.",
-      "responsibilities": [
-        "Lập kế hoạch và phân task cho module",
-        "Đảm bảo reliability & performance của hệ thống",
-        "Xử lý sự cố và tối ưu workflow",
-        "Phân tích bottleneck",
-        "Viết documentation và training"
-      ]
-    },
-    "cello-tracking": {
-      "title": "Visibility Management System — Cello Tracking",
-      "summary": "Hệ thống Visibility Tracking tích hợp IoT trên tàu biển và Mapbox, theo dõi realtime vị trí tàu & tuyến đường. Cảm biến IoT thu thập vị trí, tốc độ, điều kiện môi trường và truyền về nền tảng trung tâm.",
-      "responsibilities": [
-        "Front-end Developer: xây dựng giao diện theo dõi vị trí & tuyến đường tàu trên Mapbox"
-      ]
-    },
-    "adserving-3rd-tracking": {
-      "title": "Adserving 3rd-Party Tracking",
-      "summary": "Cho phép chỉnh sửa creative properties, tạo click URL động, nhúng tracking pixel của bên thứ 3 (DoubleClick, Atlas, Sizmek…). Hỗ trợ advertiser dùng server riêng để xác thực view, click.",
-      "responsibilities": [
-        "Phân tích & thiết kế hệ thống",
-        "Code backend + frontend",
-        "Tối ưu hiệu năng và sửa lỗi"
-      ]
-    },
-    "tagmanager": {
-      "title": "Tagmanager",
-      "summary": "Tag Management System (TMS) — quản lý và cập nhật nhanh các measurement code & đoạn mã (tag) trên website.",
-      "responsibilities": [
-        "Phân tích & thiết kế hệ thống",
-        "Thiết kế CoreJS",
-        "Code backend + frontend và tối ưu",
-        "Xây dựng API kết nối với hệ thống khác"
-      ]
-    },
-    "ad-template-tool": {
-      "title": "Advertising Template Management Tool",
-      "summary": "Quản lý toàn bộ template quảng cáo và kiểm thử hiển thị trên các trang web.",
-      "responsibilities": [
-        "Phân tích & thiết kế hệ thống",
-        "Code backend + frontend",
-        "Tối ưu và sửa lỗi"
-      ]
-    },
-    "ms-word-ai-agent": {
-      "title": "MS Word Add-in AI Agent",
-      "summary": "Tích hợp chatbot AI vào MS Word, sử dụng các mô hình LLM (ChatGPT, Google…) cho phép tìm kiếm, tương tác và chỉnh sửa nội dung tài liệu qua AI.",
-      "responsibilities": [
-        "Phân tích & thiết kế toàn bộ hệ thống",
-        "Thiết kế wireframe",
-        "Viết tài liệu chức năng (WBS, SRS)",
-        "Tham gia pre-sale"
-      ]
-    },
-    "transport-management": {
-      "title": "Transport Management System",
-      "summary": "Giải pháp điều phối xe tự động, quản lý đơn hàng, phương tiện & tài xế. Tối ưu logic phân bổ xe phù hợp yêu cầu để giảm chi phí vận tải.",
-      "responsibilities": [
-        "Tham gia pre-sale",
-        "Phân tích & thiết kế hệ thống",
-        "Thiết kế wireframe, viết tài liệu chức năng (WBS, SRS)",
-        "Tư vấn giải pháp quản lý vận tải"
-      ]
-    },
-    "fleet-management": {
-      "title": "Fleet Management System (IoT)",
-      "summary": "Hệ thống kết nối IoT trên tàu thuyền, nhận dữ liệu telemetry (vị trí, thông số vận hành), cảnh báo trong vận hành và quản lý thông tin bảo trì tàu.",
-      "responsibilities": [
-        "Phân tích & thiết kế hệ thống",
-        "Thiết kế wireframe, viết tài liệu (WBS, SRS)",
-        "Tham gia pre-sale",
-        "Code front-end"
-      ]
-    },
-    "warehouse-management": {
-      "title": "Warehouse Management System",
-      "summary": "Giải pháp tổng thể tối ưu quy trình quản lý kho: giám sát & kiểm soát nhập / xuất, quản lý tồn kho.",
-      "responsibilities": [
-        "Phân tích & thiết kế hệ thống",
-        "Thiết kế wireframe",
-        "Tham gia pre-sale",
-        "Tư vấn giải pháp quản lý kho"
-      ]
-    }
-  },
-  "milestones": {
-    "builder-2018": {
-      "title": "Bắt đầu tại Vccorp",
-      "desc": "PHP Developer — xây Advertising Template Tool, sau đó dẫn dắt Tagmanager (PHP, Laravel, jQuery, MySQL)."
-    },
-    "builder-2019": {
-      "title": "Leader Adserving 3rd-Party Tracking",
-      "desc": "Thiết kế & code toàn bộ hệ thống fullstack: PHP / Laravel + Vue.js + Redis (team 3)."
-    },
-    "builder-2020": {
-      "title": "Best Employee Award",
-      "desc": "Được vinh danh nhân viên xuất sắc — khối Admicro, Vccorp."
-    },
-    "builder-2022": {
-      "title": "Gia nhập CMC Global",
-      "desc": "Software Engineer: Java / Spring + Vue.js cho Samsung Cello; từ 12/2022 làm Module Leader (team 70)."
-    },
-    "builder-2024": {
-      "title": "Rising Star Q2.2024",
-      "desc": "Được ghi nhận Rising Star tại CMC Global."
-    },
-    "builder-2025": {
-      "title": "Frontend & IoT Digital Twin",
-      "desc": "Phát triển giao diện hệ thống Digital Twin quản lý đội xe điện cho VinFast (React, Java / Spring)."
-    },
-    "analyst-2019": {
-      "title": "Phân tích hệ thống đầu tiên",
-      "desc": "Tự phân tích & thiết kế Tagmanager và Adserving tại Vccorp (AdTech / Web Analytics)."
-    },
-    "analyst-2022": {
-      "title": "Samsung Cello — quản lý module",
-      "desc": "Phân tích bottleneck, tối ưu workflow, viết documentation và training (Supply Chain / Logistics)."
-    },
-    "analyst-2024": {
-      "title": "Chuyển sang vai trò BA",
-      "desc": "Warehouse Management và Fleet Management (IoT): phân tích nghiệp vụ, wireframe, WBS, SRS."
-    },
-    "analyst-2025": {
-      "title": "BA đa domain",
-      "desc": "Transport Management và MS Word AI Agent: phân tích & thiết kế, tài liệu chức năng, pre-sale."
-    },
-    "analyst-2026": {
-      "title": "Tư vấn đối tác lớn & Hệ thống nội bộ",
-      "desc": "Tư vấn giải pháp Fleet Digital Twin cho VinFast; thiết kế phân tích hệ thống CRM & RTS nội bộ CMC Global."
-    }
-  },
   "contact": {
     "eyebrow": "LIÊN HỆ",
     "title": "🤝 Kết nối & Hợp tác",
-    "subtitle": "Sẵn sàng trao đổi về phân tích giải pháp, thiết kế hệ thống và phát triển sản phẩm",
-    "identity": "Kết hợp nền tảng kỹ thuật fullstack với phân tích nghiệp vụ. Kinh nghiệm thực tế với AdTech, nền tảng logistics chuỗi cung ứng của Samsung và các sản phẩm AI.",
     "direct": "Thông tin liên hệ",
     "profiles": "Mạng xã hội",
     "call": "Gọi {phone}",
@@ -367,18 +105,8 @@
     "email": "Gửi email"
   },
   "footer": {
-    "tagline": "Kết hợp {n}+ năm phát triển phần mềm với tư duy phân tích để tạo ra sản phẩm có giá trị cho khách hàng và doanh nghiệp.",
-    "navTitle": "Điều hướng",
-    "links": {
-      "galaxy": "Bản đồ kỹ năng",
-      "builder": "Dự án kỹ thuật",
-      "transition": "Câu chuyện chuyển đổi",
-      "analyst": "Phân tích nghiệp vụ"
-    },
-    "direct": "Liên hệ trực tiếp",
-    "rights": "© {year} Lê Quang Tú. Bảo lưu mọi quyền.",
-    "built": "Xây dựng bằng Vue.js & Tailwind CSS",
-    "badge": "Fullstack Dev & BA"
+    "rights": "© {year} {name}. Bảo lưu mọi quyền.",
+    "built": "Xây dựng bằng Vue.js & Tailwind CSS"
   },
   "mobileNav": {
     "profile": "Hồ sơ",
@@ -396,33 +124,7 @@
   },
   "strengths": {
     "eyebrow": "WHY ME AS A BA",
-    "title": "Vì sao chọn tôi làm BA?",
-    "items": {
-      "bilingual": {
-        "title": "Hiểu cả nghiệp vụ lẫn kỹ thuật",
-        "proof": "{n}+ năm phát triển phần mềm; tự phân tích & thiết kế Tagmanager, Adserving từ {start}"
-      },
-      "deliverables": {
-        "title": "Bộ tài liệu BA đầy đủ",
-        "proof": "Từ thu thập yêu cầu đến đặc tả chi tiết"
-      },
-      "presale": {
-        "title": "Pre-sale: tư vấn & trình bày giải pháp",
-        "proof": "Tham gia pre-sale ở cả {n} dự án BA tại CMC Global"
-      },
-      "domains": {
-        "title": "Đa lĩnh vực, nắm nghiệp vụ nhanh",
-        "proof": "{n} lĩnh vực: {domains}"
-      },
-      "feasible": {
-        "title": "Giải pháp khả thi vì hiểu hệ thống",
-        "proof": "Fleet Management: vừa phân tích nghiệp vụ vừa code front-end"
-      },
-      "recognized": {
-        "title": "Kết quả được ghi nhận",
-        "proof": "{award} — {project}, vai trò BA"
-      }
-    }
+    "title": "Vì sao chọn tôi làm BA?"
   },
   "skillsMap": {
     "title": "Bản đồ kỹ năng",

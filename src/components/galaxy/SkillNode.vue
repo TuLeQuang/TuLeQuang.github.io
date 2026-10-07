@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { computed } from 'vue'
-import { useI18n } from 'vue-i18n'
 import { useFocus } from '@/composables/useFocus'
 import { accentStyles } from '@/utils/styleMaps'
 import type { SkillCluster } from '@/types'
+import { useCv } from '@/composables/useCv'
 
 const props = defineProps<{
   cluster: SkillCluster
@@ -11,7 +11,7 @@ const props = defineProps<{
   widthClass: string
 }>()
 
-const { t } = useI18n()
+const cv = useCv()
 const { focus, focusSkill, setHovered } = useFocus()
 
 const accent = computed(() => accentStyles[props.cluster.accent])
@@ -39,13 +39,13 @@ const isActive = computed(() => focus.value?.kind === 'skill' && focus.value.val
     <span class="flex items-center justify-between gap-space-xs pb-space-xs">
       <span class="inline-flex items-center gap-space-xs text-label-md font-bold tracking-wider uppercase" :class="accent.text">
         <span class="material-symbols-outlined text-[18px]">{{ cluster.icon }}</span>
-        {{ t(`galaxy.clusters.${cluster.id}.label`) }}
+        {{ cv.clusters[cluster.id].label }}
       </span>
       <span class="px-space-xs py-0.5 rounded-full text-label-sm whitespace-nowrap" :class="accent.chip">
-        {{ t(`galaxy.clusters.${cluster.id}.tier`) }}
+        {{ cv.clusters[cluster.id].tier }}
       </span>
     </span>
     <span class="block text-body-md text-on-surface font-semibold">{{ cluster.skills.join(', ') }}</span>
-    <span class="block text-label-sm text-on-surface-variant pt-space-xs">{{ t(`galaxy.clusters.${cluster.id}.desc`) }}</span>
+    <span class="block text-label-sm text-on-surface-variant pt-space-xs">{{ cv.clusters[cluster.id].desc }}</span>
   </button>
 </template>

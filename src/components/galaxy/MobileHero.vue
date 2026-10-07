@@ -3,12 +3,14 @@ import { useI18n } from 'vue-i18n'
 import { resumeData } from '@/data/resume'
 import { baYears, careerYears } from '@/utils/experience'
 import { scrollToSection } from '@/utils/sections'
+import { useCv } from '@/composables/useCv'
 
 /**
  * Mobile "pocket hero" (section ①): who · what · how long · proof · how to reach — in one screen.
  * Desktop keeps ProfileHub inside the orbital Galaxy.
  */
 const { t } = useI18n()
+const cv = useCv()
 
 /** Same sources as TransitionSection so numbers never drift. */
 const stats = [
@@ -34,21 +36,21 @@ const scrollToStrengths = (): void => {
       </div>
     </div>
 
-    <h1 class="text-display-hero-mobile text-on-surface tracking-tight">{{ t('profile.name') }}</h1>
+    <h1 class="text-display-hero-mobile text-on-surface tracking-tight">{{ cv.profile.name }}</h1>
 
     <div class="mt-space-sm inline-flex items-center gap-1.5 p-1 rounded-full bg-surface-container-high/70 border border-outline-variant/40">
       <button type="button" :class="[pill, 'bg-primary-container/20 border border-primary/30 text-primary-fixed']" @click="scrollToSection('the-builder')">
         <span class="material-symbols-outlined text-[14px] text-primary" aria-hidden="true">terminal</span>
-        {{ t('profile.role') }}
+        {{ cv.profile.role }}
       </button>
       <span class="material-symbols-outlined text-[16px] text-secondary" aria-hidden="true">trending_flat</span>
       <button type="button" :class="[pill, 'bg-secondary-container/40 border border-secondary/60 text-secondary-fixed font-bold']" @click="scrollToSection('the-analyst')">
         <span class="material-symbols-outlined text-[14px] text-secondary" aria-hidden="true">analytics</span>
-        {{ t('profile.targetRole') }}
+        {{ cv.profile.targetRole }}
       </button>
     </div>
 
-    <p class="mt-space-md max-w-xs text-body-md text-on-surface-variant line-clamp-2">{{ t('profile.tagline') }}</p>
+    <p class="mt-space-md max-w-xs text-body-md text-on-surface-variant line-clamp-2">{{ cv.profile.tagline }}</p>
 
     <dl class="mt-space-lg w-full max-w-sm grid grid-cols-3 rounded-xl border border-outline-variant/40 bg-surface-container/60 backdrop-blur-md divide-x divide-outline-variant/40">
       <div v-for="stat in stats" :key="stat.key" class="py-space-sm flex flex-col-reverse">

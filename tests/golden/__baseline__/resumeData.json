@@ -1,0 +1,656 @@
+{
+  "achievements": [
+    {
+      "company": "CMC Global",
+      "icon": "🏆",
+      "id": "best-project-2025",
+      "milestoneId": "analyst-2025",
+      "projectSlug": "ms-word-ai-agent",
+      "track": "analyst"
+    },
+    {
+      "company": "CMC Global",
+      "icon": "🌟",
+      "id": "rising-star-2024",
+      "milestoneId": "builder-2024",
+      "track": "builder"
+    },
+    {
+      "company": "Vccorp",
+      "icon": "🏅",
+      "id": "best-employee-2020",
+      "milestoneId": "builder-2020",
+      "projectSlug": "adserving-3rd-tracking",
+      "track": "builder"
+    }
+  ],
+  "analystTimeline": [
+    {
+      "company": "Vccorp",
+      "id": "analyst-2019",
+      "projectSlugs": [
+        "tagmanager",
+        "adserving-3rd-tracking"
+      ],
+      "year": "2019"
+    },
+    {
+      "company": "CMC Global",
+      "id": "analyst-2022",
+      "projectSlugs": [
+        "cello-supply-chain"
+      ],
+      "year": "2022 – 2024"
+    },
+    {
+      "company": "CMC Global",
+      "id": "analyst-2024",
+      "projectSlugs": [
+        "warehouse-management",
+        "fleet-management"
+      ],
+      "year": "2024"
+    },
+    {
+      "achievementId": "best-project-2025",
+      "company": "CMC Global",
+      "id": "analyst-2025",
+      "projectSlugs": [
+        "ms-word-ai-agent",
+        "transport-management"
+      ],
+      "year": "2025"
+    },
+    {
+      "company": "CMC Global",
+      "id": "analyst-2026",
+      "projectSlugs": [
+        "crm-system",
+        "fleet-digital-twin",
+        "rts-recruitment"
+      ],
+      "year": "2025 – 2026"
+    }
+  ],
+  "baDomains": [
+    "AI",
+    "Logistics",
+    "IoT",
+    "Warehouse",
+    "AdTech",
+    "CRM",
+    "HRTech"
+  ],
+  "builderTimeline": [
+    {
+      "company": "Vccorp",
+      "id": "builder-2018",
+      "projectSlugs": [
+        "ad-template-tool",
+        "tagmanager"
+      ],
+      "year": "2018"
+    },
+    {
+      "company": "Vccorp",
+      "id": "builder-2019",
+      "projectSlugs": [
+        "adserving-3rd-tracking"
+      ],
+      "year": "2019"
+    },
+    {
+      "achievementId": "best-employee-2020",
+      "company": "Vccorp",
+      "id": "builder-2020",
+      "year": "2020"
+    },
+    {
+      "company": "CMC Global",
+      "id": "builder-2022",
+      "projectSlugs": [
+        "cello-tracking",
+        "cello-supply-chain"
+      ],
+      "year": "2022"
+    },
+    {
+      "achievementId": "rising-star-2024",
+      "company": "CMC Global",
+      "id": "builder-2024",
+      "year": "2024"
+    },
+    {
+      "company": "CMC Global",
+      "id": "builder-2025",
+      "projectSlugs": [
+        "fleet-digital-twin"
+      ],
+      "year": "2025 – 2026"
+    }
+  ],
+  "companies": [
+    {
+      "end": "04/2022",
+      "i18nKey": "vccorp",
+      "name": "Vccorp",
+      "since": 2018,
+      "start": "02/2018",
+      "until": 2022
+    },
+    {
+      "i18nKey": "cmc",
+      "name": "CMC Global",
+      "since": 2022,
+      "start": "05/2022"
+    }
+  ],
+  "customers": [
+    {
+      "company": "Vccorp",
+      "id": "vccorp",
+      "name": "Vccorp"
+    },
+    {
+      "company": "CMC Global",
+      "id": "samsung",
+      "keyClient": true,
+      "name": "Samsung"
+    },
+    {
+      "company": "CMC Global",
+      "id": "vinfast",
+      "keyClient": true,
+      "name": "VinFast"
+    },
+    {
+      "company": "CMC Global",
+      "id": "cmcGlobal",
+      "name": "CMC Global"
+    },
+    {
+      "company": "CMC Global",
+      "id": "cmcCustomer",
+      "name": "CMC's Customer"
+    }
+  ],
+  "education": {
+    "gpa": "3.21 / 4",
+    "period": "10/2014 – 05/2018"
+  },
+  "galaxyConnections": [
+    {
+      "from": "backend",
+      "id": "backend-database",
+      "to": "database"
+    },
+    {
+      "from": "frontend",
+      "id": "frontend-analysis",
+      "to": "analysis"
+    },
+    {
+      "from": "backend",
+      "id": "backend-analysis",
+      "to": "analysis"
+    }
+  ],
+  "personalInfo": {
+    "cvUrl": {
+      "en": "cv/LeQuangTu_CV.pdf",
+      "vi": "cv/LeQuangTu_CV.pdf"
+    },
+    "email": "lequangtu28@gmail.com",
+    "phone": "0986685827",
+    "socialLinks": [
+      {
+        "icon": "github",
+        "platform": "GitHub",
+        "url": "https://github.com/TuLeQuang"
+      },
+      {
+        "icon": "linkedin",
+        "platform": "LinkedIn",
+        "url": "https://www.linkedin.com/in/t%C3%BA-l%C3%AA-2167132b4/"
+      },
+      {
+        "icon": "facebook",
+        "platform": "Facebook",
+        "url": "https://www.facebook.com/chido.kedokatoji"
+      }
+    ]
+  },
+  "projects": [
+    {
+      "company": "CMC Global",
+      "customer": "cmcGlobal",
+      "deliverables": [
+        "wbs",
+        "srs",
+        "wireframe"
+      ],
+      "domain": "CRM",
+      "period": "02/2026 – 03/2026",
+      "role": "ba",
+      "slug": "crm-system",
+      "teamSize": 4,
+      "technologies": [
+        "PostgreSQL",
+        "JavaScript",
+        "Vue.js",
+        "Java",
+        "Spring"
+      ],
+      "tracks": [
+        "analyst"
+      ]
+    },
+    {
+      "company": "CMC Global",
+      "customer": "vinfast",
+      "deliverables": [
+        "wbs",
+        "srs",
+        "wireframe",
+        "proposal",
+        "frontendCode"
+      ],
+      "domain": "IoT",
+      "layout": "featured",
+      "period": "12/2025 – 09/2026",
+      "role": "baDev",
+      "slug": "fleet-digital-twin",
+      "teamSize": "6+",
+      "technologies": [
+        "PostgreSQL",
+        "JavaScript",
+        "React",
+        "Java",
+        "Spring"
+      ],
+      "tracks": [
+        "analyst",
+        "builder"
+      ]
+    },
+    {
+      "company": "CMC Global",
+      "customer": "cmcGlobal",
+      "deliverables": [
+        "wbs",
+        "srs",
+        "wireframe"
+      ],
+      "domain": "HRTech",
+      "period": "11/2025 – 12/2025",
+      "role": "ba",
+      "slug": "rts-recruitment",
+      "teamSize": 12,
+      "technologies": [
+        "PostgreSQL",
+        "JavaScript",
+        "Vue.js",
+        "Java",
+        "Spring"
+      ],
+      "tracks": [
+        "analyst"
+      ]
+    },
+    {
+      "achievementId": "best-project-2025",
+      "company": "CMC Global",
+      "customer": "cmcCustomer",
+      "deliverables": [
+        "wbs",
+        "srs",
+        "wireframe",
+        "proposal"
+      ],
+      "domain": "AI",
+      "layout": "featured",
+      "period": "01/2025 – 03/2025",
+      "role": "ba",
+      "slug": "ms-word-ai-agent",
+      "teamSize": 7,
+      "technologies": [
+        "PostgreSQL",
+        "JavaScript",
+        "Vue3",
+        "Java",
+        "Spring"
+      ],
+      "tracks": [
+        "analyst"
+      ]
+    },
+    {
+      "company": "CMC Global",
+      "customer": "cmcCustomer",
+      "deliverables": [
+        "wbs",
+        "srs",
+        "wireframe",
+        "proposal"
+      ],
+      "domain": "Logistics",
+      "period": "01/2025 – 03/2025",
+      "role": "ba",
+      "slug": "transport-management",
+      "teamSize": 4,
+      "technologies": [
+        "PostgreSQL",
+        "JavaScript",
+        "Vue3",
+        "Java",
+        "Spring"
+      ],
+      "tracks": [
+        "analyst"
+      ]
+    },
+    {
+      "company": "CMC Global",
+      "customer": "cmcCustomer",
+      "deliverables": [
+        "wbs",
+        "srs",
+        "wireframe",
+        "frontendCode"
+      ],
+      "domain": "IoT",
+      "period": "10/2024 – 12/2024",
+      "role": "baDev",
+      "slug": "fleet-management",
+      "teamSize": 5,
+      "technologies": [
+        "PostgreSQL",
+        "JavaScript",
+        "Vue3",
+        "Litjs",
+        "Java",
+        "Spring"
+      ],
+      "tracks": [
+        "analyst",
+        "builder"
+      ]
+    },
+    {
+      "company": "CMC Global",
+      "customer": "cmcCustomer",
+      "deliverables": [
+        "wireframe",
+        "proposal"
+      ],
+      "domain": "Warehouse",
+      "layout": "wide",
+      "period": "05/2024 – 09/2024",
+      "role": "ba",
+      "slug": "warehouse-management",
+      "teamSize": 3,
+      "technologies": [
+        "PostgreSQL",
+        "JavaScript",
+        "Vue3",
+        "Java",
+        "Spring"
+      ],
+      "tracks": [
+        "analyst"
+      ]
+    },
+    {
+      "company": "CMC Global",
+      "customer": "samsung",
+      "domain": "SupplyChain",
+      "layout": "featured",
+      "period": "12/2022 – 04/2024",
+      "role": "moduleLeader",
+      "slug": "cello-supply-chain",
+      "teamSize": 70,
+      "technologies": [
+        "DB2",
+        "JavaScript",
+        "jQuery",
+        "Vue.js",
+        "Java",
+        "Spring"
+      ],
+      "tracks": [
+        "builder"
+      ]
+    },
+    {
+      "company": "CMC Global",
+      "customer": "samsung",
+      "domain": "IoT",
+      "period": "05/2022 – 11/2022",
+      "role": "frontendDev",
+      "slug": "cello-tracking",
+      "teamSize": 12,
+      "technologies": [
+        "DB2",
+        "JavaScript",
+        "Vue.js",
+        "Mapbox",
+        "Java",
+        "Spring"
+      ],
+      "tracks": [
+        "builder"
+      ]
+    },
+    {
+      "achievementId": "best-employee-2020",
+      "company": "Vccorp",
+      "customer": "vccorp",
+      "domain": "AdTech",
+      "period": "12/2019 – 04/2022",
+      "role": "leader",
+      "slug": "adserving-3rd-tracking",
+      "teamSize": 3,
+      "technologies": [
+        "PHP",
+        "MySQL",
+        "Redis",
+        "Laravel",
+        "JavaScript",
+        "Vue.js"
+      ],
+      "tracks": [
+        "builder"
+      ]
+    },
+    {
+      "company": "Vccorp",
+      "customer": "vccorp",
+      "domain": "AdTech",
+      "period": "03/2018 – 02/2020",
+      "role": "leader",
+      "slug": "tagmanager",
+      "teamSize": 3,
+      "technologies": [
+        "PHP",
+        "MySQL",
+        "Laravel",
+        "JavaScript",
+        "jQuery"
+      ],
+      "tracks": [
+        "builder"
+      ]
+    },
+    {
+      "company": "Vccorp",
+      "customer": "vccorp",
+      "domain": "AdTech",
+      "layout": "wide",
+      "period": "01/2018 – 02/2018",
+      "role": "backendDev",
+      "slug": "ad-template-tool",
+      "teamSize": 3,
+      "technologies": [
+        "PHP",
+        "MySQL",
+        "Laravel",
+        "JavaScript",
+        "Vue.js",
+        "jQuery"
+      ],
+      "tracks": [
+        "builder"
+      ]
+    }
+  ],
+  "skillClusters": [
+    {
+      "accent": "primary",
+      "icon": "database",
+      "id": "database",
+      "skills": [
+        "PostgreSQL",
+        "MySQL",
+        "Redis",
+        "DB2"
+      ]
+    },
+    {
+      "accent": "iot",
+      "icon": "devices",
+      "id": "frontend",
+      "skills": [
+        "Vue.js",
+        "React",
+        "JavaScript",
+        "HTML/CSS",
+        "jQuery"
+      ]
+    },
+    {
+      "accent": "secondary",
+      "icon": "terminal",
+      "id": "backend",
+      "skills": [
+        "Java / Spring",
+        "PHP / Laravel",
+        "REST API"
+      ]
+    },
+    {
+      "accent": "tertiary",
+      "icon": "schema",
+      "id": "analysis",
+      "skills": [
+        "UML",
+        "Wireframe",
+        "WBS",
+        "SRS",
+        "Use Case"
+      ]
+    }
+  ],
+  "skills": [
+    {
+      "category": "frontend",
+      "name": "HTML / CSS",
+      "since": 2018
+    },
+    {
+      "category": "frontend",
+      "name": "JavaScript",
+      "since": 2018
+    },
+    {
+      "category": "frontend",
+      "name": "Vue.js (2 & 3)",
+      "since": 2018
+    },
+    {
+      "category": "frontend",
+      "name": "React",
+      "since": 2025
+    },
+    {
+      "category": "frontend",
+      "name": "jQuery",
+      "since": 2018,
+      "until": 2024
+    },
+    {
+      "category": "frontend",
+      "name": "Mapbox",
+      "since": 2022,
+      "until": 2023
+    },
+    {
+      "category": "backend",
+      "name": "PHP / Laravel",
+      "since": 2018,
+      "until": 2022
+    },
+    {
+      "category": "backend",
+      "name": "Java / Spring",
+      "since": 2022
+    },
+    {
+      "category": "backend",
+      "name": "RESTful API",
+      "since": 2018
+    },
+    {
+      "category": "database",
+      "name": "MySQL",
+      "since": 2018,
+      "until": 2022
+    },
+    {
+      "category": "database",
+      "name": "Redis",
+      "since": 2019,
+      "until": 2022
+    },
+    {
+      "category": "database",
+      "name": "DB2",
+      "since": 2022,
+      "until": 2024
+    },
+    {
+      "category": "database",
+      "name": "PostgreSQL",
+      "since": 2024
+    },
+    {
+      "category": "analysis",
+      "name": "UML / Database Design",
+      "since": 2018
+    },
+    {
+      "category": "analysis",
+      "name": "WBS",
+      "since": 2022
+    },
+    {
+      "category": "analysis",
+      "name": "SRS",
+      "since": 2022
+    },
+    {
+      "category": "analysis",
+      "name": "Use Case Specification",
+      "since": 2022
+    },
+    {
+      "category": "analysis",
+      "name": "Wireframe / Mockup",
+      "since": 2022
+    },
+    {
+      "category": "analysis",
+      "name": "Solution Proposal",
+      "since": 2022
+    }
+  ]
+}

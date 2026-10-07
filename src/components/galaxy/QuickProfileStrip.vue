@@ -6,12 +6,14 @@ import { useFocus } from '@/composables/useFocus'
 import { keyClientsOf } from '@/utils/customers'
 import { companyYears } from '@/utils/experience'
 import type { FocusState } from '@/types'
+import { useCv } from '@/composables/useCv'
 
 /**
  * Mobile "Quick profile" strip under the hero: education, employers, key client, awards.
  * Same tap behaviour as SatelliteGrid on desktop (Q17: company → Builder filter, award → card).
  */
 const { t } = useI18n()
+const cv = useCv()
 const { focus, focusCompany, focusCustomer, focusAchievement } = useFocus()
 const { education, achievements } = resumeData
 const companies = [...resumeData.companies].reverse()
@@ -30,15 +32,15 @@ const ring = (active: boolean): string => (active ? 'border-secondary ring-1 rin
     <HScroll :label="t('hero.quickProfile')">
       <div :class="[card, ring(false)]">
         <span class="text-label-sm text-primary">🎓 {{ t('galaxy.satellites.education') }}</span>
-        <span class="text-headline-sm text-on-surface line-clamp-2">{{ t('galaxy.education.school') }}</span>
-        <span class="text-label-sm text-on-surface-variant">{{ t('galaxy.education.major') }} · {{ t('galaxy.education.gpa', { gpa: education.gpa }) }}</span>
+        <span class="text-headline-sm text-on-surface line-clamp-2">{{ cv.education.school }}</span>
+        <span class="text-label-sm text-on-surface-variant">{{ cv.education.major }} · {{ t('galaxy.education.gpa', { gpa: education.gpa }) }}</span>
       </div>
 
       <template v-for="company in companies" :key="company.name">
         <button type="button" :class="[card, ring(isActive('company', company.name))]" @click="focusCompany(company.name)">
           <span class="text-label-sm text-secondary">🏢 {{ t('common.yearsApprox', { n: companyYears(company) }) }}</span>
           <span class="text-headline-sm text-on-surface">{{ company.name }}</span>
-          <span class="text-label-sm text-on-surface-variant line-clamp-2">{{ t(`companies.${company.i18nKey}.role`) }}</span>
+          <span class="text-label-sm text-on-surface-variant line-clamp-2">{{ cv.companies[company.i18nKey]?.role }}</span>
         </button>
         <button
           v-for="client in keyClientsOf(company.name)"
@@ -61,7 +63,7 @@ const ring = (active: boolean): string => (active ? 'border-secondary ring-1 rin
         @click="focusAchievement(achievement.id)"
       >
         <span class="text-label-sm text-tertiary">{{ achievement.icon }} {{ achievement.company }}</span>
-        <span class="text-headline-sm text-on-surface">{{ t(`achievements.${achievement.id}`) }}</span>
+        <span class="text-headline-sm text-on-surface">{{ cv.achievements[achievement.id] }}</span>
       </button>
     </HScroll>
   </div>

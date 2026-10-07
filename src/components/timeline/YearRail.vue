@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
-import { useI18n } from 'vue-i18n'
 import AwardBadge from '@/components/common/AwardBadge.vue'
 import HScroll from '@/components/common/HScroll.vue'
 import { useFocus } from '@/composables/useFocus'
 import { milestoneMatchesFocus } from '@/utils/focusMatch'
 import type { ProjectTrack, TimelineMilestone } from '@/types'
+import { useCv } from '@/composables/useCv'
 
 /**
  * Mobile timeline: a horizontal rail of years (newest first). Tapping a year shows that
@@ -18,7 +18,7 @@ const props = defineProps<{
   tone: ProjectTrack
 }>()
 
-const { t } = useI18n()
+const cv = useCv()
 const { focus } = useFocus()
 
 const rows = computed(() => [...props.milestones].reverse())
@@ -68,10 +68,10 @@ const tones = computed(() =>
     >
       <div v-if="selected" :key="selected.id" class="bg-content-bg rounded-lg p-space-sm" aria-live="polite">
         <div class="text-headline-sm text-text-primary flex flex-wrap items-center gap-1">
-          <span>{{ t(`milestones.${selected.id}.title`) }}</span>
+          <span>{{ cv.milestones[selected.id]?.title }}</span>
           <AwardBadge v-if="selected.achievementId" :achievement-id="selected.achievementId" />
         </div>
-        <p class="text-body-md text-text-secondary mt-1">{{ t(`milestones.${selected.id}.desc`) }}</p>
+        <p class="text-body-md text-text-secondary mt-1">{{ cv.milestones[selected.id]?.desc }}</p>
       </div>
     </Transition>
   </div>

@@ -8,9 +8,11 @@ import { useProjectSheet } from '@/composables/useProjectSheet'
 import { resumeData } from '@/data/resume'
 import { customerOf } from '@/utils/customers'
 import { roleStyles } from '@/utils/styleMaps'
+import { useCv } from '@/composables/useCv'
 
 /** Mobile project details. One instance in App.vue, driven by useProjectSheet(). */
-const { t, tm, rt } = useI18n()
+const { t } = useI18n()
+const cv = useCv()
 const { current, closeProject } = useProjectSheet()
 
 const project = computed(() => {
@@ -18,7 +20,7 @@ const project = computed(() => {
   return slug ? resumeData.projects.find(p => p.slug === slug) ?? null : null
 })
 const isAnalyst = computed(() => current.value?.track === 'analyst')
-const title = computed(() => (project.value ? t(`projects.${project.value.slug}.title`) : ''))
+const title = computed(() => (project.value ? cv.value.projects[project.value.slug]?.title ?? '' : ''))
 
 const owner = computed(() => {
   if (!project.value) return ''
@@ -27,7 +29,7 @@ const owner = computed(() => {
 })
 const responsibilities = computed(() =>
   project.value
-    ? (tm(`projects.${project.value.slug}.responsibilities`) as unknown[]).map(item => rt(item as Parameters<typeof rt>[0]))
+    ? cv.value.projects[project.value.slug]?.responsibilities ?? []
     : []
 )
 const heading = 'text-label-sm text-text-muted uppercase tracking-wider block mb-1'
@@ -44,14 +46,14 @@ const heading = 'text-label-sm text-text-muted uppercase tracking-wider block mb
         <h3 class="text-headline-lg text-text-primary">{{ title }}</h3>
         <div class="flex flex-wrap items-center gap-space-xs text-label-sm">
           <span class="px-space-sm py-0.5 rounded-full font-bold" :class="roleStyles[project.role]">
-            {{ t(`roles.${project.role}`) }} · {{ t('common.team', { n: project.teamSize }) }}
+            {{ cv.roles[project.role] }} · {{ t('common.team', { n: project.teamSize }) }}
           </span>
           <span class="text-text-muted">{{ project.period }}</span>
         </div>
         <p class="text-label-md text-text-muted">{{ t('card.client') }}: {{ owner }}</p>
       </header>
 
-      <p class="text-body-lg leading-relaxed">{{ t(`projects.${project.slug}.summary`) }}</p>
+      <p class="text-body-lg leading-relaxed">{{ cv.projects[project.slug]?.summary }}</p>
 
       <section>
         <span :class="heading">{{ t('card.responsibilities') }}</span>
@@ -67,7 +69,7 @@ const heading = 'text-label-sm text-text-muted uppercase tracking-wider block mb
             v-for="code in project.deliverables"
             :key="code"
             class="px-2 py-0.5 rounded-full bg-domain-ai/10 text-domain-ai text-label-sm font-semibold"
-          >✓ {{ t(`deliverables.${code}`) }}</span>
+          >✓ {{ cv.deliverables[code] }}</span>
         </div>
       </section>
 

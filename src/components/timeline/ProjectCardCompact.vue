@@ -6,6 +6,7 @@ import { useProjectSheet } from '@/composables/useProjectSheet'
 import { customerOf } from '@/utils/customers'
 import type { Project, ProjectTrack, SkillCategory } from '@/types'
 import { techMatchesSkill } from '@/utils/styleMaps'
+import { useCv } from '@/composables/useCv'
 
 /**
  * Mobile project card: compact summary, tap → ProjectSheet (full details).
@@ -20,6 +21,7 @@ const props = defineProps<{
 
 const MAX_CHIPS = 4
 const { t } = useI18n()
+const cv = useCv()
 const { openProject } = useProjectSheet()
 
 const isAnalyst = computed(() => props.track === 'analyst')
@@ -28,7 +30,7 @@ const chips = computed(() =>
   isAnalyst.value
     ? (props.project.deliverables ?? []).map(code => ({
         key: code,
-        label: t(`deliverables.${code}`),
+        label: cv.value.deliverables[code],
         matched: props.matchCategory === 'analysis'
       }))
     : props.project.technologies.map(tech => ({
@@ -52,21 +54,21 @@ const ring = computed(() =>
     type="button"
     class="scroll-mt-20 w-full text-left bg-content-bg rounded-xl shadow-md border-l-4 p-space-md flex flex-col gap-space-xs active:scale-[0.99] transition-all duration-300"
     :class="[accent, ring]"
-    :aria-label="`${t(`projects.${project.slug}.title`)} — ${t('card.openDetails')}`"
+    :aria-label="`${cv.projects[project.slug]?.title} — ${t('card.openDetails')}`"
     @click="openProject(project.slug, track)"
   >
     <span class="flex items-start justify-between gap-space-xs">
-      <span class="text-headline-sm text-text-primary">{{ t(`projects.${project.slug}.title`) }}</span>
+      <span class="text-headline-sm text-text-primary">{{ cv.projects[project.slug]?.title }}</span>
       <AwardBadge v-if="project.achievementId" :achievement-id="project.achievementId" />
     </span>
 
     <span class="text-label-sm text-text-muted">
-      {{ t(`domains.${project.domain}`) }} · {{ t(`roles.${project.role}`) }} ·
+      {{ cv.domains[project.domain] }} · {{ cv.roles[project.role] }} ·
       {{ t('common.team', { n: project.teamSize }) }} · {{ project.period }}
     </span>
     <span class="text-label-sm text-text-muted">{{ t('card.client') }}: {{ owner }}</span>
 
-    <span class="text-body-md text-text-secondary line-clamp-2">{{ t(`projects.${project.slug}.summary`) }}</span>
+    <span class="text-body-md text-text-secondary line-clamp-2">{{ cv.projects[project.slug]?.summary }}</span>
 
     <span class="flex flex-wrap items-center gap-1 mt-1">
       <span

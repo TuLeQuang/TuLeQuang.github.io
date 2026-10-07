@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import { computed, onBeforeUnmount, ref, watch } from 'vue'
-import { useI18n } from 'vue-i18n'
 import { useFocus, type HoverTarget } from '@/composables/useFocus'
 import { buildGalaxyPaths, type BoxRect, type NodeId, type RenderPath } from '@/utils/galaxyPaths'
 import type { SkillCategory } from '@/types'
+import { useCv } from '@/composables/useCv'
 
 const props = defineProps<{ container: HTMLElement | null }>()
 
-const { t } = useI18n()
+const cv = useCv()
 const { focus, hovered } = useFocus()
 const boxes = ref<Partial<Record<NodeId, BoxRect>>>({})
 const size = ref({ w: 0, h: 0 })
@@ -65,7 +65,7 @@ const isActive = (item: RenderPath): boolean => {
   return item.from === target || item.to === target
 }
 
-const paths = computed<RenderPath[]>(() => buildGalaxyPaths(boxes.value, isDesktop.value, t))
+const paths = computed<RenderPath[]>(() => buildGalaxyPaths(boxes.value, isDesktop.value, id => cv.value.connections[id] ?? ''))
 </script>
 
 <template>

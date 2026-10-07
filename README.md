@@ -85,30 +85,63 @@ Mở **http://localhost:4173** để xem bản build production trên local.
 
 | Script | Command | Description |
 |--------|---------|-------------|
-| `dev` | `npm run dev` | Khởi động dev server với HMR (Hot Module Replacement) |
-| `build` | `npm run build` | Type-check TypeScript + build production |
+| `dev` | `npm run dev` | Khởi động dev server với HMR (tự động tải lại khi sửa code hoặc `content/cv.md`) |
+| `build` | `npm run build` | Type-check TypeScript (`vue-tsc`) + build production |
 | `preview` | `npm run preview` | Preview bản build production trên local |
+| `cv:check` | `npm run cv:check` | Kiểm tra tính toàn vẹn, schema và rule lint của `content/cv.md` |
+| `cv:json` | `npm run cv:json` | Xuất dữ liệu CV đã resolve (EN + VI) ra định dạng JSON |
+| `test` | `npm test` | Chạy toàn bộ test suite (golden snapshot tests + unit tests pipeline) |
+
+---
+
+## Quản Lý Dữ Liệu CV (CV as Data)
+
+Toàn bộ thông tin CV (song ngữ EN + VI) được tách hoàn toàn khỏi mã nguồn và quản lý tập trung tại thư mục `content/`:
+
+- **`content/cv.md`**: Cơ sở dữ liệu CV duy nhất (Markdown + YAML). Sửa nội dung tại đây để web tự động cập nhật.
+- **`content/cv_transform_rules.md`**: Bảng quy tắc chuyển đổi dữ liệu, Key Registry (chống đổi tên key làm đứt gãy liên kết) và các ngoại lệ đã đóng băng.
+- **`content/CV_TEMPLATE.md`**: Tài liệu hướng dẫn chi tiết về cấu trúc trường, kiểu dữ liệu và ví dụ từng mục trong `cv.md`.
+- **`cv-pipeline/`**: Bộ chuyển đổi 4 tầng (`Parser` → `Migrator` → `Validator` → `Mapper`) đọc dữ liệu lúc build và cung cấp cho website qua module `virtual:cv`.
+- **`src/locales/*.json`**: Chỉ lưu trữ nhãn giao diện tĩnh (nút bấm, bộ lọc, thanh điều hướng), không chứa dữ kiện CV viết cứng.
+
+### Cách cập nhật CV
+
+Mỗi khi muốn thêm hoặc sửa đổi thông tin trong CV:
+
+1. **Sửa nội dung**: Chỉnh sửa file `content/cv.md` (xem hướng dẫn trường tại `content/CV_TEMPLATE.md`).
+2. **Đăng ký key (nếu thêm mới)**: Nếu thêm dự án, công ty, khách hàng hoặc domain mới, khai báo key vào bảng `Registry` tương ứng trong `content/cv_transform_rules.md`.
+3. **Kiểm tra hợp lệ**:
+   ```bash
+   npm run cv:check
+   ```
+4. **Xem trước & kiểm thử**:
+   ```bash
+   npm run dev    # Xem giao diện trực quan tại http://localhost:5173
+   npm test       # Kiểm tra an toàn trước khi push
+   ```
 
 ---
 
 ## Project Structure
 
 ```
-src/
-├── assets/              # Images, fonts, icons
-│   └── images/
-├── components/
-│   ├── common/          # Reusable UI components (Button, Card...)
-│   ├── layout/          # Header, Footer, Navigation
-│   └── sections/        # Page sections (Hero, About, Skills...)
-├── composables/         # Vue composables (custom hooks)
-├── data/                # Static data (CV info, projects)
-│   └── resume.ts        # ← Chỉnh sửa file này để cập nhật nội dung CV
-├── types/               # TypeScript type definitions
-├── utils/               # Utility functions
-├── styles/              # Global styles
-├── App.vue              # Root component
-└── main.ts              # Entry point
+├── content/             # CSDL CV & Tài liệu cấu trúc
+│   ├── cv.md            # ← Chỉnh sửa nội dung CV tại đây
+│   ├── cv_transform_rules.md  # Rule chuyển đổi, Key Registry & Overrides
+│   └── CV_TEMPLATE.md   # Hướng dẫn chi tiết cấu trúc trường
+├── cv-pipeline/         # Pipeline chuyển đổi & xác thực dữ liệu CV (chạy lúc build)
+├── src/
+│   ├── assets/          # Images, fonts, icons
+│   ├── components/      # UI components (common, layout, galaxy, timeline, sections)
+│   ├── composables/     # Vue composables (useCv, useFocus, useLocale, ...)
+│   ├── data/            # Module dữ liệu resume (kết nối virtual:cv)
+│   ├── locales/         # Chuỗi giao diện tĩnh đa ngôn ngữ (en.json, vi.json)
+│   ├── types/           # TypeScript type definitions
+│   ├── utils/           # Utility functions & style maps
+│   ├── styles/          # Tailwind CSS styles
+│   ├── App.vue          # Root component
+│   └── main.ts          # Entry point
+└── tests/               # Test suites (golden render DOM snapshots + pipeline unit tests)
 ```
 
 ---

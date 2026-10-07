@@ -6,8 +6,10 @@ import MobileMenuSheet from './MobileMenuSheet.vue'
 import { useFocus } from '@/composables/useFocus'
 import { useScrollSpy } from '@/composables/useScrollSpy'
 import { navParams, scrollToSection, SECTION_IDS, SECTION_NAV_KEYS, TRACK_SECTION, type SectionId } from '@/utils/sections'
+import { focusLabel, useCv } from '@/composables/useCv'
 
 const { t } = useI18n()
+const cv = useCv()
 const { active } = useScrollSpy()
 const { focus, clear } = useFocus()
 const menuOpen = ref(false)
@@ -30,7 +32,7 @@ const crumbs = computed(() => {
   if (!focus.value) return null
   const track = focus.value.track
   return {
-    label: t(focus.value.labelKey),
+    label: focusLabel(focus.value),
     sectionId: TRACK_SECTION[track],
     sectionLabel: t(track === 'builder' ? 'nav.builderShort' : 'nav.analystShort')
   }
@@ -45,7 +47,7 @@ const crumbs = computed(() => {
     <div class="h-14 md:h-20 w-full px-gutter-mobile sm:px-gutter lg:px-margin flex items-center justify-between gap-space-sm">
       <a class="flex items-center gap-space-sm group min-w-0" href="#all-about-me">
         <span class="text-headline-sm text-on-surface group-hover:text-primary transition-colors tracking-tight truncate">
-          {{ t('profile.name') }}
+          {{ cv.profile.name }}
         </span>
       </a>
 

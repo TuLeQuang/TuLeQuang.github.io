@@ -3,6 +3,7 @@ import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useFocus } from '@/composables/useFocus'
 import { scrollToSection, TRACK_SECTION } from '@/utils/sections'
+import { focusLabel } from '@/composables/useCv'
 
 /**
  * Mobile replacement for the header breadcrumb + "Clear highlight" pill: a chip floating above the
@@ -10,7 +11,7 @@ import { scrollToSection, TRACK_SECTION } from '@/utils/sections'
  */
 const { t } = useI18n()
 const { focus, clear } = useFocus()
-const label = computed(() => (focus.value ? t(focus.value.labelKey) : ''))
+const label = computed(() => focusLabel(focus.value))
 
 let startX: number | null = null
 const onTouchStart = (event: TouchEvent): void => {

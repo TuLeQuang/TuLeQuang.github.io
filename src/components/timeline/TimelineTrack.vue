@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { computed } from 'vue'
-import { useI18n } from 'vue-i18n'
 import AwardBadge from '@/components/common/AwardBadge.vue'
 import { useFocus } from '@/composables/useFocus'
 import { milestoneMatchesFocus } from '@/utils/focusMatch'
 import type { TimelineMilestone } from '@/types'
+import { useCv } from '@/composables/useCv'
 
 const props = defineProps<{
   milestones: TimelineMilestone[]
@@ -17,7 +17,7 @@ const props = defineProps<{
   dotClasses: string[]
 }>()
 
-const { t } = useI18n()
+const cv = useCv()
 const { focus } = useFocus()
 
 /** Newest first */
@@ -60,10 +60,10 @@ const ringTone = computed(() => (isAnalyst.value ? 'ring-domain-ai/50' : 'ring-p
         </span>
         <div class="text-label-sm text-text-muted">{{ milestone.year }}</div>
         <div class="text-headline-sm text-text-primary flex flex-wrap items-center gap-1">
-          <span>{{ t(`milestones.${milestone.id}.title`) }}</span>
+          <span>{{ cv.milestones[milestone.id]?.title }}</span>
           <AwardBadge v-if="milestone.achievementId" :achievement-id="milestone.achievementId" :pulse="isPulsing(milestone)" />
         </div>
-        <p class="text-body-md text-text-secondary mt-1">{{ t(`milestones.${milestone.id}.desc`) }}</p>
+        <p class="text-body-md text-text-secondary mt-1">{{ cv.milestones[milestone.id]?.desc }}</p>
       </div>
     </div>
   </div>

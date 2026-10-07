@@ -1,36 +1,40 @@
-import type { ClusterAccent, Project, ProjectDomain, ProjectRole, SkillCategory, SocialIcon } from '@/types'
+import type { ClusterAccent, DomainColor, Project, ProjectDomain, ProjectRole, RoleStyle, SkillCategory, SocialIcon } from '@/types'
+import { cvMeta } from '@/composables/useCv'
+
+/**
+ * Colour palettes. content/cv.md picks a key (Dictionaries › domains.color / roles.style);
+ * the literal class strings must stay in this file so Tailwind generates them.
+ */
+const DOMAIN_PALETTE: Record<DomainColor, { chip: string; dot: string }> = {
+  ai: { chip: 'bg-domain-ai-bg text-domain-ai-text', dot: 'bg-domain-ai' },
+  logistics: { chip: 'bg-domain-logistics-bg text-domain-logistics-text', dot: 'bg-domain-logistics' },
+  iot: { chip: 'bg-domain-iot-bg text-domain-iot-text', dot: 'bg-domain-iot' },
+  warehouse: { chip: 'bg-domain-warehouse-bg text-domain-warehouse-text', dot: 'bg-domain-warehouse' },
+  adtech: { chip: 'bg-domain-adtech-bg text-domain-adtech-text', dot: 'bg-domain-adtech' },
+  supplychain: { chip: 'bg-domain-supplychain-bg text-domain-supplychain-text', dot: 'bg-domain-supplychain' },
+  crm: { chip: 'bg-domain-crm-bg text-domain-crm-text', dot: 'bg-domain-crm' },
+  hrtech: { chip: 'bg-domain-hrtech-bg text-domain-hrtech-text', dot: 'bg-domain-hrtech' }
+}
+
+const ROLE_PALETTE: Record<RoleStyle, string> = {
+  purple: 'bg-secondary-purple-light text-domain-ai-text',
+  gradient: 'bg-linear-to-r from-primary-container to-domain-ai text-white',
+  green: 'bg-domain-supplychain-bg text-domain-supplychain-text',
+  blue: 'bg-primary-blue-light text-primary-blue-dark'
+}
+
+const mapValues = <T, R>(record: Record<string, T>, fn: (value: T) => R): Record<string, R> =>
+  Object.fromEntries(Object.entries(record).map(([key, value]) => [key, fn(value)]))
 
 /** Tailwind classes per domain badge (tokens defined in style.css @theme). */
-export const domainStyles: Record<ProjectDomain, { chip: string; dot: string }> = {
-  AI: { chip: 'bg-domain-ai-bg text-domain-ai-text', dot: 'bg-domain-ai' },
-  Logistics: { chip: 'bg-domain-logistics-bg text-domain-logistics-text', dot: 'bg-domain-logistics' },
-  IoT: { chip: 'bg-domain-iot-bg text-domain-iot-text', dot: 'bg-domain-iot' },
-  Warehouse: { chip: 'bg-domain-warehouse-bg text-domain-warehouse-text', dot: 'bg-domain-warehouse' },
-  AdTech: { chip: 'bg-domain-adtech-bg text-domain-adtech-text', dot: 'bg-domain-adtech' },
-  SupplyChain: { chip: 'bg-domain-supplychain-bg text-domain-supplychain-text', dot: 'bg-domain-supplychain' },
-  CRM: { chip: 'bg-domain-crm-bg text-domain-crm-text', dot: 'bg-domain-crm' },
-  HRTech: { chip: 'bg-domain-hrtech-bg text-domain-hrtech-text', dot: 'bg-domain-hrtech' }
-}
+export const domainStyles: Record<ProjectDomain, { chip: string; dot: string }> = mapValues(cvMeta.domains, d => DOMAIN_PALETTE[d.color])
 
-export const domainIcons: Record<ProjectDomain, string> = {
-  AI: '🤖',
-  Logistics: '🚚',
-  IoT: '📡',
-  Warehouse: '🏭',
-  AdTech: '📢',
-  SupplyChain: '🌐',
-  CRM: '💼',
-  HRTech: '👥'
-}
+export const domainIcons: Record<ProjectDomain, string> = mapValues(cvMeta.domains, d => d.icon)
 
-export const roleStyles: Record<ProjectRole, string> = {
-  ba: 'bg-secondary-purple-light text-domain-ai-text',
-  baDev: 'bg-linear-to-r from-primary-container to-domain-ai text-white',
-  leader: 'bg-domain-supplychain-bg text-domain-supplychain-text',
-  moduleLeader: 'bg-secondary-purple-light text-domain-ai-text',
-  frontendDev: 'bg-primary-blue-light text-primary-blue-dark',
-  backendDev: 'bg-primary-blue-light text-primary-blue-dark'
-}
+export const roleStyles: Record<ProjectRole, string> = mapValues(cvMeta.roles, r => ROLE_PALETTE[r.style])
+
+/** Dual role (BA + Dev) = role styled `gradient` in content/cv.md › Dictionaries › roles. */
+export const isDualRole = (role: ProjectRole): boolean => cvMeta.roles[role]?.style === 'gradient'
 
 /**
  * Galaxy node accent → classes. `text / chip / stroke / border` are for the dark hero;
@@ -63,13 +67,8 @@ export const accentStyles: Record<
   }
 }
 
-/** Technology keywords that belong to each Galaxy skill category (used for skill focus). */
-export const skillKeywords: Record<SkillCategory, string[]> = {
-  frontend: ['JavaScript', 'Vue.js', 'Vue3', 'React', 'jQuery', 'Mapbox', 'Litjs', 'HTML', 'CSS'],
-  backend: ['Java', 'Spring', 'PHP', 'Laravel'],
-  database: ['PostgreSQL', 'MySQL', 'Redis', 'DB2'],
-  analysis: []
-}
+/** Technology keywords that belong to each Galaxy skill category (content/cv.md › Skills › clusters.<id>.keywords). */
+export const skillKeywords: Record<SkillCategory, string[]> = cvMeta.skillKeywords
 
 export const techMatchesSkill = (tech: string, category: SkillCategory): boolean =>
   skillKeywords[category].includes(tech)

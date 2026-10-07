@@ -37,7 +37,8 @@ export interface RenderPath {
 export function buildGalaxyPaths(
   b: Partial<Record<NodeId, BoxRect>>,
   isDesktop: boolean,
-  t: (key: string) => string
+  /** Tooltip of a skill connection (CV content: connections.<id>) */
+  connectionLabel: (id: string) => string
 ): RenderPath[] {
   const db = b.database
   const fe = b.frontend
@@ -121,7 +122,7 @@ export function buildGalaxyPaths(
         startY: db.centerY,
         endX: be.centerX - 15,
         endY: be.top,
-        title: t('galaxy.connections.backend-database')
+        title: connectionLabel('backend-database')
       },
       {
         id: 'frontend-analysis',
@@ -136,7 +137,7 @@ export function buildGalaxyPaths(
         startY: an.centerY,
         endX: fe.centerX + 15,
         endY: fe.bottom,
-        title: t('galaxy.connections.frontend-analysis')
+        title: connectionLabel('frontend-analysis')
       },
       {
         id: 'backend-analysis',
@@ -151,7 +152,7 @@ export function buildGalaxyPaths(
         startY: an.centerY,
         endX: be.centerX - 15,
         endY: be.bottom,
-        title: t('galaxy.connections.backend-analysis')
+        title: connectionLabel('backend-analysis')
       }
     ]
   }
@@ -227,7 +228,7 @@ export function buildGalaxyPaths(
       startY: db.centerY,
       endX: be.right,
       endY: be.top,
-      title: t('galaxy.connections.backend-database')
+      title: connectionLabel('backend-database')
     },
     {
       id: 'frontend-analysis',
@@ -242,7 +243,7 @@ export function buildGalaxyPaths(
       startY: fe.bottom,
       endX: an.left,
       endY: an.top,
-      title: t('galaxy.connections.frontend-analysis')
+      title: connectionLabel('frontend-analysis')
     },
     {
       id: 'backend-analysis',
@@ -257,7 +258,7 @@ export function buildGalaxyPaths(
       startY: be.bottom,
       endX: an.centerX,
       endY: an.top,
-      title: t('galaxy.connections.backend-analysis')
+      title: connectionLabel('backend-analysis')
     }
   ]
 }

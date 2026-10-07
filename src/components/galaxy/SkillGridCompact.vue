@@ -7,12 +7,14 @@ import { skillYears } from '@/utils/experience'
 import { accentStyles } from '@/utils/styleMaps'
 import { scrollToSection, TRACK_SECTION } from '@/utils/sections'
 import type { SkillCategory } from '@/types'
+import { useCv } from '@/composables/useCv'
 
 /**
  * Mobile skill map (section ③): 2×2 tiles + small hub, static SVG links instead of GalaxyConnections.
  * Tap 1 → select (tile + related links light up, details below). Tap 2 / button → focus + scroll.
  */
 const { t } = useI18n()
+const cv = useCv()
 const { focus, focusSkill } = useFocus()
 
 /** BA-first: Analysis is the first tile. Position = SVG anchor (tile centre, in % of the grid). */
@@ -87,7 +89,7 @@ const details = computed(() =>
         @click="tap(node.id)"
       >
         <span class="material-symbols-outlined text-[22px]" :class="accentStyles[clusterOf(node.id).accent].text">{{ clusterOf(node.id).icon }}</span>
-        <span class="text-headline-sm text-on-surface leading-tight">{{ t(`galaxy.clusters.${node.id}.label`) }}</span>
+        <span class="text-headline-sm text-on-surface leading-tight">{{ cv.clusters[node.id].label }}</span>
         <span class="text-label-sm text-on-surface-variant line-clamp-2">{{ clusterOf(node.id).skills.slice(0, 3).join(' · ') }}</span>
       </button>
 
@@ -107,7 +109,7 @@ const details = computed(() =>
     </p>
 
     <div v-else class="mt-space-md rounded-xl border border-outline-variant/40 bg-surface-container/70 backdrop-blur-md p-space-md">
-      <p class="text-body-md text-on-surface-variant">{{ t(`galaxy.clusters.${selected}.desc`) }}</p>
+      <p class="text-body-md text-on-surface-variant">{{ cv.clusters[selected].desc }}</p>
       <ul class="mt-space-sm flex flex-wrap gap-1">
         <li v-for="skill in details" :key="skill.name" class="px-2 py-0.5 rounded-full bg-surface-container-high text-label-sm text-on-surface">
           {{ skill.name }} · {{ t('common.years', { n: skillYears(skill) }) }}

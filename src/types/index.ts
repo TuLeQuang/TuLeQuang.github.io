@@ -2,6 +2,7 @@
 export type Locale = 'vi' | 'en'
 
 // ===== Skills =====
+/** Fixed set: the Galaxy layout (galaxyPaths.ts) has exactly these four nodes. */
 export type SkillCategory = 'frontend' | 'backend' | 'database' | 'analysis'
 
 /** Experience is derived from `since` / `until` (see utils/experience.ts). */
@@ -14,7 +15,7 @@ export interface Skill {
 
 export type ClusterAccent = 'primary' | 'secondary' | 'tertiary' | 'iot'
 
-/** Galaxy skill node. Texts live in i18n: galaxy.clusters.<id>.* */
+/** Galaxy skill node. Texts live in CV content: clusters.<id>.* */
 export interface SkillCluster {
   id: SkillCategory
   icon: string
@@ -44,19 +45,25 @@ export interface Education {
   gpa: string
 }
 
-export type CompanyId = 'Vccorp' | 'CMC Global'
+/**
+ * Ids below are data-driven (content/cv.md). They are plain strings so a new company / customer /
+ * domain / role / deliverable needs no code change; the CV validator guarantees every reference exists.
+ */
+/** Employer display name, e.g. 'Vccorp' | 'CMC Global' */
+export type CompanyId = string
 
-/** Texts live in i18n: companies.<i18nKey>.* — `end` omitted means "present" */
+/** Texts live in CV content: companies.<i18nKey>.* — `end` omitted means "present" */
 export interface Company {
   name: CompanyId
-  i18nKey: 'vccorp' | 'cmc'
+  /** Company key in content/cv.md (e.g. 'vccorp' | 'cmc') */
+  i18nKey: string
   start: string
   end?: string
   since: number
   until?: number
 }
 
-export type CustomerId = 'vccorp' | 'samsung' | 'cmcCustomer' | 'vinfast' | 'cmcGlobal'
+export type CustomerId = string
 
 /**
  * End customer of a project. Every customer belongs to an employer (`company`):
@@ -73,7 +80,7 @@ export interface Customer {
 // ===== Achievements =====
 export type ProjectTrack = 'builder' | 'analyst'
 
-/** Title lives in i18n: achievements.<id> */
+/** Title lives in CV content: achievements.<id> */
 export interface Achievement {
   id: string
   icon: string
@@ -84,11 +91,11 @@ export interface Achievement {
 }
 
 // ===== Projects =====
-export type ProjectRole = 'ba' | 'baDev' | 'leader' | 'moduleLeader' | 'frontendDev' | 'backendDev'
-export type ProjectDomain = 'AI' | 'Logistics' | 'IoT' | 'Warehouse' | 'AdTech' | 'SupplyChain' | 'CRM' | 'HRTech'
-export type DeliverableCode = 'wbs' | 'srs' | 'wireframe' | 'proposal' | 'useCase' | 'mockup' | 'frontendCode'
+export type ProjectRole = string
+export type ProjectDomain = string
+export type DeliverableCode = string
 
-/** Title / summary / responsibilities live in i18n: projects.<slug>.* */
+/** Title / summary / responsibilities live in CV content: projects.<slug>.* */
 export interface Project {
   slug: string
   period: string
@@ -106,7 +113,7 @@ export interface Project {
 }
 
 // ===== Timeline =====
-/** Title / description live in i18n: milestones.<id>.* */
+/** Title / description live in CV content: milestones.<id>.* */
 export interface TimelineMilestone {
   id: string
   year: string
@@ -116,7 +123,7 @@ export interface TimelineMilestone {
 }
 
 // ===== Galaxy connections =====
-/** Tooltip lives in i18n: galaxy.connections.<id> */
+/** Tooltip lives in CV content: connections.<id> */
 export interface GalaxyConnection {
   id: string
   from: SkillCategory
@@ -142,8 +149,8 @@ export interface FocusState {
   kind: FocusKind
   value: string
   track: ProjectTrack
-  /** i18n key used by the header breadcrumb */
-  labelKey: string
+  /** Dot path inside the localized CV content (CvContent) used by the header breadcrumb, e.g. 'domains.AI' */
+  labelPath: string
 }
 
 export interface ResumeData {
@@ -159,4 +166,68 @@ export interface ResumeData {
   analystTimeline: TimelineMilestone[]
   galaxyConnections: GalaxyConnection[]
   baDomains: ProjectDomain[]
+}
+
+// ===== CV data (generated from content/cv.md by cv-pipeline) =====
+/** Palette keys of styleMaps.ts — content/cv.md picks one, so new domains / roles need no CSS. */
+export type DomainColor = 'ai' | 'logistics' | 'iot' | 'warehouse' | 'adtech' | 'supplychain' | 'crm' | 'hrtech'
+export type RoleStyle = 'purple' | 'gradient' | 'green' | 'blue'
+
+/** Language-neutral presentation data that used to be hard-coded in utils. */
+export interface CvMeta {
+  /** Year the career started (first employer) */
+  careerStart: number
+  /** Year BA / Pre-sale responsibilities started */
+  baStart: number
+  domains: Record<ProjectDomain, { icon: string; color: DomainColor }>
+  roles: Record<ProjectRole, { style: RoleStyle }>
+  /** Technology keywords per Galaxy node (skill focus / Smart Tag) */
+  skillKeywords: Record<SkillCategory, string[]>
+  /** Standard deliverable kit (Analyst section) */
+  deliverableKit: DeliverableCode[]
+  /** Deliverable chips of the "deliverables" BA strength (mobile) */
+  strengthsKit: DeliverableCode[]
+  /** BA strength key → project slug opened on click (Narrative › strengths.<key>.project) */
+  strengthProjects: Record<string, string>
+}
+
+export interface ProjectContent {
+  title: string
+  summary: string
+  responsibilities: string[]
+}
+
+export interface StrengthContent {
+  title: string
+  proof: string
+}
+
+/** Every CV text of ONE locale (already resolved, fallback to `en`). UI labels stay in src/locales. */
+export interface CvContent {
+  profile: { name: string; role: string; targetRole: string; tagline: string; location: string; objective: string }
+  education: { school: string; major: string }
+  companies: Record<string, { name: string; role: string }>
+  customers: Record<CustomerId, string>
+  domains: Record<ProjectDomain, string>
+  roles: Record<ProjectRole, string>
+  deliverables: Record<DeliverableCode, string>
+  achievements: Record<string, string>
+  projects: Record<string, ProjectContent>
+  milestones: Record<string, { title: string; desc: string }>
+  clusters: Record<SkillCategory, { label: string; tier: string; desc: string }>
+  connections: Record<string, string>
+  narrative: {
+    builder: { subtitle: string; meta: string }
+    analyst: { subtitle: string; meta: string; domainDesc: string }
+    transition: { quote: string; body: string; bodyShort: string; journey: Record<'dev' | 'hybrid' | 'ba', string> }
+    strengths: Record<string, StrengthContent>
+    contact: { subtitle: string; identity: string }
+  }
+}
+
+export interface CvData {
+  schemaVersion: number
+  resume: ResumeData
+  meta: CvMeta
+  content: Record<Locale, CvContent>
 }

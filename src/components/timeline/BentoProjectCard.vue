@@ -7,8 +7,9 @@ import TechChip from '@/components/common/TechChip.vue'
 import ProjectDrawer from './ProjectDrawer.vue'
 import { useFocus } from '@/composables/useFocus'
 import { customerOf } from '@/utils/customers'
-import { roleStyles, techMatchesSkill } from '@/utils/styleMaps'
+import { isDualRole, roleStyles, techMatchesSkill } from '@/utils/styleMaps'
 import type { Project, ProjectTrack, SkillCategory } from '@/types'
+import { useCv } from '@/composables/useCv'
 
 const props = defineProps<{
   project: Project
@@ -20,6 +21,7 @@ const props = defineProps<{
 }>()
 
 const { t } = useI18n()
+const cv = useCv()
 const { focusTech } = useFocus()
 const open = ref(false)
 
@@ -34,7 +36,7 @@ const owner = computed(() =>
 )
 const chips = computed(() =>
   isAnalyst.value
-    ? (props.project.deliverables ?? []).map(code => ({ key: code, label: t(`deliverables.${code}`), matched: props.matchCategory === 'analysis' }))
+    ? (props.project.deliverables ?? []).map(code => ({ key: code, label: cv.value.deliverables[code], matched: props.matchCategory === 'analysis' }))
     : props.project.technologies.map(tech => ({
         key: tech,
         label: tech,
@@ -67,7 +69,7 @@ const titleHover = computed(() => (isAnalyst.value ? 'group-hover:text-domain-ai
           <AwardBadge v-if="project.achievementId" :achievement-id="project.achievementId" />
           <span class="px-space-sm py-0.5 rounded-full bg-slate-100 text-text-secondary text-label-sm font-medium">{{ owner }}</span>
           <span class="px-space-sm py-0.5 rounded-full text-label-sm font-bold" :class="roleStyles[project.role]">
-            {{ t(`roles.${project.role}`) }} · {{ t('common.team', { n: project.teamSize }) }}
+            {{ cv.roles[project.role] }} · {{ t('common.team', { n: project.teamSize }) }}
           </span>
         </div>
         <span class="text-label-sm text-text-muted whitespace-nowrap">{{ project.period }}</span>
@@ -76,7 +78,7 @@ const titleHover = computed(() => (isAnalyst.value ? 'group-hover:text-domain-ai
       <div v-else class="flex items-center justify-between gap-space-xs mb-space-xs">
         <DomainBadge :domain="project.domain" />
         <AwardBadge v-if="project.achievementId" :achievement-id="project.achievementId" />
-        <span v-else-if="project.role === 'baDev'" class="px-2 py-0.5 rounded-full text-label-sm font-bold" :class="roleStyles.baDev">
+        <span v-else-if="isDualRole(project.role)" class="px-2 py-0.5 rounded-full text-label-sm font-bold" :class="roleStyles[project.role]">
           {{ t('card.dualRole') }}
         </span>
         <span v-else class="text-label-sm text-text-muted">{{ owner }}</span>
@@ -87,10 +89,10 @@ const titleHover = computed(() => (isAnalyst.value ? 'group-hover:text-domain-ai
         class="text-text-primary transition-colors"
         :class="[isFeatured ? 'text-headline-lg' : 'text-headline-md', titleHover]"
       >
-        {{ t(`projects.${project.slug}.title`) }}
+        {{ cv.projects[project.slug]?.title }}
       </component>
       <p class="text-text-secondary mt-space-xs" :class="isFeatured ? 'text-body-lg leading-relaxed' : 'text-body-md'">
-        {{ t(`projects.${project.slug}.summary`) }}
+        {{ cv.projects[project.slug]?.summary }}
       </p>
 
       <div class="flex flex-wrap" :class="isFeatured ? 'gap-space-xs mt-space-md' : 'gap-1 mt-space-sm'">
@@ -109,7 +111,7 @@ const titleHover = computed(() => (isAnalyst.value ? 'group-hover:text-domain-ai
 
     <div>
       <div v-if="!isFeatured" class="mt-space-md pt-space-xs flex flex-wrap items-center justify-between gap-x-space-sm text-text-muted text-label-sm">
-        <span>{{ t('card.roleLine', { role: t(`roles.${project.role}`) }) }}</span>
+        <span>{{ t('card.roleLine', { role: cv.roles[project.role] }) }}</span>
         <span>{{ t('card.teamSize', { n: project.teamSize }) }} · {{ project.period }}</span>
       </div>
       <ProjectDrawer

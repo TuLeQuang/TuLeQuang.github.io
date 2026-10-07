@@ -1,11 +1,12 @@
 import { computed } from 'vue'
 import { i18n, LOCALE_STORAGE_KEY, SUPPORTED_LOCALES } from '@/i18n'
+import { cvContentOf } from '@/composables/useCv'
 import type { Locale } from '@/types'
 
 /** Sync <html lang> and <title> with the active locale. */
 export const applyLocaleSideEffects = (locale: Locale): void => {
   document.documentElement.lang = locale
-  document.title = i18n.global.t('meta.title')
+  document.title = i18n.global.t('meta.title', { name: cvContentOf(locale).profile.name })
 }
 
 /**

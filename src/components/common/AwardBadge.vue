@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed } from 'vue'
-import { useI18n } from 'vue-i18n'
 import { resumeData } from '@/data/resume'
+import { useCv } from '@/composables/useCv'
 
 const props = defineProps<{
   achievementId: string
@@ -9,7 +9,7 @@ const props = defineProps<{
   pulse?: boolean
 }>()
 
-const { t } = useI18n()
+const cv = useCv()
 const icon = computed(() => resumeData.achievements.find(a => a.id === props.achievementId)?.icon ?? '🏆')
 </script>
 
@@ -18,6 +18,6 @@ const icon = computed(() => resumeData.achievements.find(a => a.id === props.ach
     class="px-space-sm py-0.5 rounded-full bg-gold-light text-domain-warehouse-text text-label-sm font-bold whitespace-nowrap"
     :class="{ 'animate-pulse-glow': pulse }"
   >
-    {{ icon }} {{ t(`achievements.${achievementId}`) }}
+    {{ icon }} {{ cv.achievements[achievementId] }}
   </span>
 </template>

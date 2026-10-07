@@ -3,6 +3,7 @@ import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 import TechChip from '@/components/common/TechChip.vue'
 import type { DeliverableCode } from '@/types'
+import { useCv } from '@/composables/useCv'
 
 const props = defineProps<{
   slug: string
@@ -14,10 +15,11 @@ const props = defineProps<{
 }>()
 
 const emit = defineEmits<{ toggle: [] }>()
-const { t, tm, rt } = useI18n()
+const { t } = useI18n()
+const cv = useCv()
 
 const responsibilities = computed(() =>
-  (tm(`projects.${props.slug}.responsibilities`) as unknown[]).map(item => rt(item as Parameters<typeof rt>[0]))
+  cv.value.projects[props.slug]?.responsibilities ?? []
 )
 const panelId = computed(() => `drawer-${props.slug}-${props.tone}`)
 const accent = computed(() => (props.tone === 'analyst' ? 'text-domain-ai' : 'text-primary-container'))
@@ -59,7 +61,7 @@ const accent = computed(() => (props.tone === 'analyst' ? 'text-domain-ai' : 'te
               <TechChip
                 v-for="code in deliverables"
                 :key="code"
-                :label="`✓ ${t(`deliverables.${code}`)}`"
+                :label="`✓ ${cv.deliverables[code]}`"
                 tone="deliverable"
                 :matched="matched"
               />

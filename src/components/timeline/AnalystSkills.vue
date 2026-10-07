@@ -7,13 +7,14 @@ import { resumeData } from '@/data/resume'
 import { useBreakpoint } from '@/composables/useBreakpoint'
 import { useFocus } from '@/composables/useFocus'
 import { skillRatio, skillYears } from '@/utils/experience'
-import type { DeliverableCode } from '@/types'
+import { cvMeta, useCv } from '@/composables/useCv'
 
 const { t } = useI18n()
+const cv = useCv()
 const { focus, focusSkill } = useFocus()
 
 const skills = resumeData.skills.filter(s => s.category === 'analysis')
-const kit: DeliverableCode[] = ['wbs', 'srs', 'wireframe', 'proposal', 'useCase', 'mockup']
+const kit = cvMeta.deliverableKit
 const isFocused = computed(() => focus.value?.kind === 'skill' && focus.value.value === 'analysis')
 const toggle = (): void => focusSkill('analysis', 'none')
 
@@ -68,7 +69,7 @@ const showBars = computed(() => !isMobile.value || expanded.value)
         <TechChip
           v-for="code in kit"
           :key="code"
-          :label="`✓ ${t(`deliverables.${code}`)}`"
+          :label="`✓ ${cv.deliverables[code]}`"
           tone="deliverable"
           :matched="isFocused"
         />

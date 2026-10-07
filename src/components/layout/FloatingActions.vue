@@ -2,6 +2,7 @@
 import { computed, onBeforeUnmount, onMounted, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useFocus } from '@/composables/useFocus'
+import { focusLabel } from '@/composables/useCv'
 
 /**
  * Floating actions, bottom-right:
@@ -12,7 +13,7 @@ const { t } = useI18n()
 const { focus, clear } = useFocus()
 const scrolled = ref(false)
 
-const focusLabel = computed(() => (focus.value ? t(focus.value.labelKey) : ''))
+const label = computed(() => focusLabel(focus.value))
 
 const onScroll = (): void => {
   // Mobile: only after ~2 screens, so it does not compete with the bottom nav
@@ -51,11 +52,11 @@ const fade = {
         v-if="focus"
         type="button"
         class="pointer-events-auto hidden md:inline-flex items-center gap-1 max-w-[calc(100vw-2rem)] pl-space-sm pr-space-md py-1.5 rounded-full bg-primary-container/90 text-on-primary-container text-label-md font-semibold shadow-lg backdrop-blur-md hover:bg-primary-blue-dark transition-colors"
-        :aria-label="t('nav.clearHighlight', { label: focusLabel })"
+        :aria-label="t('nav.clearHighlight', { label })"
         @click="clear"
       >
         <span class="material-symbols-outlined text-[16px]">close</span>
-        <span class="truncate">{{ t('nav.clearHighlight', { label: focusLabel }) }}</span>
+        <span class="truncate">{{ t('nav.clearHighlight', { label }) }}</span>
       </button>
     </Transition>
 

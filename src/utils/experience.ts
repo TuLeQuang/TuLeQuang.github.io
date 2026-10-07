@@ -1,9 +1,10 @@
 import type { Skill, Company } from '@/types'
+import { cvMeta } from '@/composables/useCv'
 
-/** Year the career started (joined Vccorp 02/2018). */
-export const CAREER_START = 2018
-/** Year BA / Pre-sale responsibilities started (joined CMC Global 05/2022). */
-export const BA_START = 2022
+/** Year the career started (content/cv.md › Profile › careerStart). */
+export const CAREER_START = cvMeta.careerStart
+/** Year BA / Pre-sale responsibilities started (content/cv.md › Profile › baStart). */
+export const BA_START = cvMeta.baStart
 
 export const currentYear = (): number => new Date().getFullYear()
 

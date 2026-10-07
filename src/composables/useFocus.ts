@@ -41,36 +41,35 @@ const apply = (next: FocusState, scroll: 'track' | 'galaxy' | 'none' = 'track'):
 const trackOfSkill = (category: SkillCategory): ProjectTrack => (category === 'analysis' ? 'analyst' : 'builder')
 
 /** A domain belongs to the Analyst track only if an analyst project has it (AdTech → Builder). */
-const trackOfDomain = (domain: ProjectDomain): ProjectTrack =>
+export const trackOfDomain = (domain: ProjectDomain): ProjectTrack =>
   resumeData.projects.some(p => p.domain === domain && p.tracks.includes('analyst')) ? 'analyst' : 'builder'
 
 export function useFocus() {
   /** `scroll: 'none'` lets in-section controls (Builder skill columns) toggle without jumping. */
   const focusSkill = (category: SkillCategory, scroll: 'track' | 'none' = 'track'): void =>
-    apply({ kind: 'skill', value: category, track: trackOfSkill(category), labelKey: `galaxy.clusters.${category}.label` }, scroll)
+    apply({ kind: 'skill', value: category, track: trackOfSkill(category), labelPath: `clusters.${category}.label` }, scroll)
 
   const focusCompany = (
     company: CompanyId,
     scroll: 'track' | 'none' = 'track',
     track: ProjectTrack = 'builder'
   ): void => {
-    const key = resumeData.companies.find(c => c.name === company)?.i18nKey ?? 'cmc'
-    apply({ kind: 'company', value: company, track, labelKey: `companies.${key}.name` }, scroll)
+    const key = resumeData.companies.find(c => c.name === company)?.i18nKey ?? company
+    apply({ kind: 'company', value: company, track, labelPath: `companies.${key}.name` }, scroll)
   }
 
   const focusCustomer = (customer: string, scroll: 'track' | 'none' = 'track'): void => {
-    const key = customer === 'samsung' ? 'samsung' : customer
-    apply({ kind: 'customer', value: customer, track: 'builder', labelKey: `customers.${key}` }, scroll)
+    apply({ kind: 'customer', value: customer, track: 'builder', labelPath: `customers.${customer}` }, scroll)
   }
 
   const focusDomain = (domain: ProjectDomain, scroll: 'track' | 'none' = 'track'): void => {
-    apply({ kind: 'domain', value: domain, track: trackOfDomain(domain), labelKey: `domains.${domain}` }, scroll)
+    apply({ kind: 'domain', value: domain, track: trackOfDomain(domain), labelPath: `domains.${domain}` }, scroll)
   }
 
   const focusAchievement = (id: string): void => {
     const achievement = resumeData.achievements.find(a => a.id === id)
     if (!achievement) return
-    apply({ kind: 'achievement', value: id, track: achievement.track, labelKey: `achievements.${id}` })
+    apply({ kind: 'achievement', value: id, track: achievement.track, labelPath: `achievements.${id}` })
   }
 
   /** Smart Tag: a tech chip in a card highlights related skill and keeps current position (Requirement 2.2). */
@@ -78,7 +77,7 @@ export function useFocus() {
     const category = categoryOfTech(tech)
     if (!category) return
     apply(
-      { kind: 'skill', value: category, track: trackOfSkill(category), labelKey: `galaxy.clusters.${category}.label` },
+      { kind: 'skill', value: category, track: trackOfSkill(category), labelPath: `clusters.${category}.label` },
       'none'
     )
   }

@@ -4,8 +4,10 @@ import { resumeData } from '@/data/resume'
 import { useFocus } from '@/composables/useFocus'
 import { scrollToSection } from '@/utils/sections'
 import { formatPhone, socialIcons } from '@/utils/styleMaps'
+import { useCv } from '@/composables/useCv'
 
 const { t } = useI18n()
+const cv = useCv()
 const { setHovered } = useFocus()
 const { email, phone, socialLinks } = resumeData.personalInfo
 const socials = socialLinks.filter(link => link.url)
@@ -29,14 +31,14 @@ const socials = socialLinks.filter(link => link.url)
         <span class="absolute -bottom-0.5 -right-0.5 w-4 h-4 rounded-full bg-domain-supplychain flex items-center justify-center text-surface-container-lowest text-[9px] font-bold">✓</span>
       </div>
       <h1 class="text-headline-md sm:text-headline-lg text-on-surface tracking-tight font-bold">
-        {{ t('profile.name') }}
+        {{ cv.profile.name }}
       </h1>
     </div>
 
     <!-- Mô tả nhanh tích hợp hành trình chuyển đổi (gọn gàng) -->
     <div class="relative flex flex-col items-center gap-space-xs px-space-xs mb-space-sm text-center max-w-full">
       <p class="text-body-sm sm:text-body-md text-on-surface-variant leading-relaxed">
-        “{{ t('profile.tagline') }}”
+        “{{ cv.profile.tagline }}”
       </p>
 
       <!-- Hành trình chuyển dịch trên 1 dòng duy nhất -->
@@ -49,7 +51,7 @@ const socials = socialLinks.filter(link => link.url)
           @click="scrollToSection('the-builder')"
         >
           <span class="material-symbols-outlined text-[14px] text-primary" aria-hidden="true">terminal</span>
-          <span>{{ t('profile.role') }}</span>
+          <span>{{ cv.profile.role }}</span>
         </button>
 
         <!-- Mũi tên chuyển dịch phát sáng -->
@@ -65,7 +67,7 @@ const socials = socialLinks.filter(link => link.url)
           @click="scrollToSection('the-analyst')"
         >
           <span class="material-symbols-outlined text-[14px] text-secondary" aria-hidden="true">analytics</span>
-          <span>{{ t('profile.targetRole') }}</span>
+          <span>{{ cv.profile.targetRole }}</span>
         </button>
       </div>
     </div>
@@ -76,7 +78,7 @@ const socials = socialLinks.filter(link => link.url)
       <div class="flex-1 flex flex-col justify-center gap-1.5 min-w-0 pr-space-xs">
         <div class="flex items-center gap-1.5 text-label-md text-on-surface-variant truncate">
           <span class="material-symbols-outlined text-[16px] text-primary shrink-0">location_on</span>
-          <span class="truncate">{{ t('profile.location') }}</span>
+          <span class="truncate">{{ cv.profile.location }}</span>
         </div>
         <a class="flex items-center gap-1.5 text-label-md text-on-surface-variant hover:text-on-surface transition-colors truncate" :href="`mailto:${email}`">
           <span class="material-symbols-outlined text-[16px] text-secondary shrink-0">mail</span>

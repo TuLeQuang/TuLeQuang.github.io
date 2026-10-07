@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { useI18n } from 'vue-i18n'
 import { domainStyles } from '@/utils/styleMaps'
 import type { ProjectDomain } from '@/types'
+import { useCv } from '@/composables/useCv'
 
 defineProps<{ domain: ProjectDomain }>()
 
-const { t } = useI18n()
+const cv = useCv()
 </script>
 
 <template>
@@ -14,6 +14,6 @@ const { t } = useI18n()
     :class="domainStyles[domain].chip"
   >
     <span class="w-1.5 h-1.5 rounded-full" :class="domainStyles[domain].dot" />
-    {{ t(`domains.${domain}`) }}
+    {{ cv.domains[domain] }}
   </span>
 </template>

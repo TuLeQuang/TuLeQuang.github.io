@@ -10,10 +10,12 @@ import { useFocus } from '@/composables/useFocus'
 import { keyClientsOf } from '@/utils/customers'
 import { projectMatchesFocus } from '@/utils/focusMatch'
 import type { CompanyId, FilterOption, Project, ProjectDomain, ProjectTrack, SkillCategory } from '@/types'
+import { useCv } from '@/composables/useCv'
 
 const props = defineProps<{ track: ProjectTrack }>()
 
 const { t } = useI18n()
+const cv = useCv()
 const { isMobile } = useBreakpoint()
 const { focus, focusCompany, focusCustomer, focusDomain, clear } = useFocus()
 const active = ref('all')
@@ -64,7 +66,7 @@ const options = computed<FilterOption[]>(() => {
     return [{ id: parentId, label: company.name }, ...clients]
   })
   const domains =
-    props.track === 'analyst' ? resumeData.baDomains.map(d => ({ id: `domain:${d}`, label: t(`domains.${d}`) })) : []
+    props.track === 'analyst' ? resumeData.baDomains.map(d => ({ id: `domain:${d}`, label: cv.value.domains[d] ?? d })) : []
   const counted = [...byCompany, ...domains].map(o => ({
     ...o,
     count: projects.value.filter(p => matchesFilter(p, o.id)).length

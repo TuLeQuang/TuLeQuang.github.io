@@ -8,8 +8,10 @@ import YearRail from '@/components/timeline/YearRail.vue'
 import { useBreakpoint } from '@/composables/useBreakpoint'
 import { resumeData } from '@/data/resume'
 import { careerYears } from '@/utils/experience'
+import { fill, useCv } from '@/composables/useCv'
 
 const { t } = useI18n()
+const cv = useCv()
 const { isMobile } = useBreakpoint()
 </script>
 
@@ -20,9 +22,9 @@ const { isMobile } = useBreakpoint()
         tone="builder"
         :eyebrow="t('builder.eyebrow')"
         :title="t('builder.title')"
-        :subtitle="t('builder.subtitle', { n: careerYears() })"
+        :subtitle="fill(cv.narrative.builder.subtitle, { n: careerYears() })"
         :meta-label="t('builder.metaLabel')"
-        :meta-value="t('builder.metaValue')"
+        :meta-value="cv.narrative.builder.meta"
       />
 
       <BuilderSkills />
